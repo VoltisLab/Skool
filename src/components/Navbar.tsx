@@ -21,7 +21,15 @@ export default function Navbar() {
       <div className="max-w-[1139px] mx-auto flex items-center justify-between">
         {/* Skool Logo */}
         <div className="flex items-center gap-2">
-          <div className="text-2xl font-bold text-blue-600">skool</div>
+        <div className="text-center">
+            <h1 className="text-2xl font-bold">
+              <span className="text-blue-600">s</span>
+              <span className="text-red-500">k</span>
+              <span className="text-yellow-500">o</span>
+              <span className="text-green-500">o</span>
+              <span className="text-blue-600">l</span>
+            </h1>
+          </div>
           <div className="flex flex-col">
             <ChevronUp className="h-3 w-3 text-gray-400" />
             <ChevronDown className="h-3 w-3 text-gray-400" />
