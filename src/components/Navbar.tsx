@@ -1,6 +1,7 @@
 "use client"
 
 import { ChevronUp, ChevronDown, Search } from "lucide-react"
+import Link from "next/link"
 import { useState, useEffect } from "react"
 
 export default function Navbar() {
@@ -42,9 +43,11 @@ export default function Navbar() {
         )}
 
         {/* Login Button */}
+        <Link href="/login">
         <button className="px-5 font-bold py-2 text-sm text-[#909090] cursor-pointer bg-white border border-gray-300 rounded-md hover:text-gray-900 transition-colors">
           LOG IN
         </button>
+        </Link>
       </div>
     </header>
   )
