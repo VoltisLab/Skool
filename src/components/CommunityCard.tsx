@@ -12,15 +12,19 @@ interface Community {
 
 interface CommunityCardProps {
   community: Community
+  onClick?: () => void
 }
 
-export default function CommunityCard({ community }: CommunityCardProps) {
+export default function CommunityCard({ community, onClick }: CommunityCardProps) {
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-lg transition-shadow cursor-pointer group">
+    <div 
+      className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-lg transition-shadow cursor-pointer group"
+      onClick={onClick}
+    >
       <div className="relative">
         {/* Rank Badge */}
         <div className="absolute top-3 left-3 z-10">
-          <div className="bg-gray-800 text-white text-sm font-semibold px-2 py-1 rounded">
+          <div className="bg-black/50 text-white text-sm font-semibold px-3 py-2 rounded-full">
             #{community.rank}
           </div>
         </div>
@@ -56,12 +60,12 @@ export default function CommunityCard({ community }: CommunityCardProps) {
         </p>
 
         {/* Stats */}
-        <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center text-sm">
           <span className="text-gray-600">{community.members}</span>
           <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-md ${
             community.price === "Free" 
-              ? "bg-gray-100 text-gray-700" 
-              : "bg-gray-900 text-white"
+              ? " text-gray-700" 
+              : " text-gray-700"
           }`}>
             {community.price}
           </span>
