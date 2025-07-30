@@ -135,7 +135,7 @@ export default function CommunityDetailPage() {
     <div className="min-h-screen bg-gray-50">
 
       {/* Main Content */}
-      <main className="max-w-[1139px] mx-auto px-6 py-8">
+      <main className="max-w-[1085px] mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Side - Video Preview and Description */}
           <div className="lg:col-span-2 ">

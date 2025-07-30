@@ -147,7 +147,7 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Main Content */}
-      <main className="max-w-[1139px] mx-auto py-8">
+      <main className="max-w-[1085px] mx-auto py-8">
         {/* Hero Section */}
         <div className="text-center mb-8">
           <h1 className="text-5xl font-bold text-gray-900 mb-2">
@@ -208,7 +208,7 @@ export default function HomePage() {
       {/* Footer Section - Only show if we have results */}
       {filteredCommunities.length > 0 && (
         <div className="bg-gray-50 border-t border-gray-200 mt-16">
-          <div className="max-w-[1139px] mx-auto px-6 py-8">
+          <div className="max-w-[1085px] mx-auto px-6 py-8">
             <div className="flex items-center justify-between">
               {/* Left Side - Pagination */}
               <div className="flex items-center gap-2">
