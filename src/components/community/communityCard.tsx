@@ -99,12 +99,12 @@ export default function AISCommunityCard() {
         </button>
         
         {/* Footer */}
-      </div>
-    </div>
         <div className="text-center mt-6">
           <span className="text-gray-400 text-sm">Powered by </span>
           <span className="text-gray-600 font-semibold text-sm">skool</span>
         </div>
+      </div>
+    </div>
     </>
   );
 }
