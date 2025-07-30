@@ -3,8 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ClientBody from "./ClientBody";
 import Script from "next/script";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
+import ConditionalNavbar from "./conditionNavbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,6 +15,7 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -36,7 +37,8 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning className="antialiased">
         <ClientBody>
-          <Navbar />
+          <ConditionalNavbar/>
+          {/* <Navbar /> */}
           {children}
           {/* <Footer /> */}
         </ClientBody>

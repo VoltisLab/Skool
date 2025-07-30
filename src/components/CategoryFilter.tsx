@@ -1,6 +1,6 @@
 "use client"
 
-import { Globe, Search, ChevronDown } from "lucide-react"
+import { Globe, Search } from "lucide-react"
 import { useState } from "react"
 
 interface Category {
