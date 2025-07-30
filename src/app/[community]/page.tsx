@@ -1,13 +1,10 @@
-// src/app/[community]/page.tsx
+import CommunityTestPage from "@/components/community/page";
 import React from "react";
-
-
-
 
 export default function CommunityPage() {
   return (
     <div>
-      <p>This is the main page for the community.</p>
+      <CommunityTestPage />
     </div>
   );
 }
