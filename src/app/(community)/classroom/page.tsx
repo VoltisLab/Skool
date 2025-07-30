@@ -64,8 +64,6 @@ export default function ClassroomPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-    
-
       {/* Main Content */}
       <main className="max-w-[1139px] mx-auto px-6 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

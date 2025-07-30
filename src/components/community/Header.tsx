@@ -15,14 +15,12 @@ export default function Header() {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
-  const params = useParams();
   const pathname = usePathname();
-  const community = params.community;
   const segments = pathname.split("/").filter(Boolean);
-  const currentTab = segments[segments.length - 1] ?? "";
+  const currentTab = segments[segments.length - 1] ?? "community";
 
   const tabs = [
-    { name: 'Community', link: '/' },
+    { name: 'Community', link: '/community' },
     { name: 'Classroom', link: '/classroom' },
     { name: 'Members', link: '/members' },
     { name: 'Map', link: '/map' },
@@ -162,12 +160,10 @@ export default function Header() {
       {/* Navigation Tabs */}
       <nav className="flex gap-6 mt-1 w-[60%]">
         {tabs.map((tab) => {
-          const isActive =
-            (tab.link === '/' && pathname === `/${community}`) ||
-            tab.link.slice(1) === currentTab;
+          const isActive = currentTab === tab.link.slice(1);
 
           return (
-            <Link href={`/${community}${tab.link}`} prefetch key={tab.name}>
+            <Link href={tab.link} prefetch key={tab.name}>
               <span
                 className={`text-base cursor-pointer ${
                   isActive

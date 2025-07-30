@@ -41,12 +41,12 @@ export default function WelcomeChecklist({
       </div>
       
       {/* Checklist Items */}
-      <div className="space-y-1">
+      <div className="space-y-1 pb-2">
         {items.map((item) => (
           <button
             key={item.id}
             onClick={() => onItemToggle?.(item.id)}
-            className="flex items-center gap-3 w-full text-left p-2 rounded-lg hover:underline transition-colors"
+            className="flex items-center gap-2 px-4 pb-1 w-full text-left rounded-lg hover:underline transition-colors"
           >
             {item.completed ? (
               <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
