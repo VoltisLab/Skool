@@ -17,11 +17,11 @@ interface CommunityLayoutProps {
 
 export default function CommunityLayout({ children }: CommunityLayoutProps) {
   return (
-    <div>
+    <div className="h-full">
     
       <Header/>
 
-      <main className="p-6">{children}</main>
+      <main className="p-6 bg-[rgb(248,247,245)] h-full">{children}</main>
     </div>
   );
 }
