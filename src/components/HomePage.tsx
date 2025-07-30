@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation"
 import SearchBar from "@/components/SearchBar"
 import CategoryFilter from "@/components/CategoryFilter"
 import CommunityCard from "@/components/CommunityCard"
-import Pagination from "@/components/Pagination"
 
 // Sample community data based on the original site
 const communities = [
