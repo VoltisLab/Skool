@@ -1,7 +1,7 @@
 "use client"
 
 import { useParams, useRouter } from "next/navigation"
-import { ChevronDown, Play, Lock, Users, Tag, Star } from "lucide-react"
+import { ChevronDown, Play, Lock, Users, Tag, Star, Volume2, SkipBack, SkipForward } from "lucide-react"
 
 // Sample community data - in a real app this would come from an API
 const communities = [
@@ -142,7 +142,7 @@ export default function CommunityDetailPage() {
             {/* Video Preview Area */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6 p-6">
             <h1 className="text-2xl font-bold text-gray-900 mb-6">{community.name}</h1>
-              <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden ">
+              <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden mb-4">
                 <img 
                   src={community.image} 
                   alt={community.name}
@@ -154,10 +154,72 @@ export default function CommunityDetailPage() {
                   </div>
                 </div>
                 <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
-                  3 min 2 min 49 sec
+                  20:45
                 </div>
                 <div className="absolute bottom-4 right-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
                   1.2x
+                </div>
+              </div>
+
+              {/* Video Thumbnails Section */}
+              <div className="grid grid-cols-6 gap-4 mb-4">
+                {/* Video Thumbnail 1 */}
+                <div className="relative rounded-lg overflow-hidden cursor-pointer group">
+                  <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
+                    <img 
+                      src={community.image} 
+                      alt="Video thumbnail"
+                      className="w-full h-full object-cover opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                      <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                        <Play className="w-4 h-4 text-gray-800 ml-0.5" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative rounded-lg overflow-hidden cursor-pointer group">
+                  <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
+                    <img 
+                      src={community.image} 
+                      alt="Video thumbnail"
+                      className="w-full h-full object-cover opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                      <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                        <Play className="w-4 h-4 text-gray-800 ml-0.5" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative rounded-lg overflow-hidden cursor-pointer group">
+                  <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
+                    <img 
+                      src={community.image} 
+                      alt="Video thumbnail"
+                      className="w-full h-full object-cover opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                      <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                        <Play className="w-4 h-4 text-gray-800 ml-0.5" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="relative rounded-lg overflow-hidden cursor-pointer group">
+                  <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
+                    <img 
+                      src={community.image} 
+                      alt="Video thumbnail"
+                      className="w-full h-full object-cover opacity-80"
+                    />
+                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+                      <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                        <Play className="w-4 h-4 text-gray-800 ml-0.5" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               
