@@ -1,4 +1,3 @@
-// src/app/[community]/layout.tsx
 import React from "react";
 import type { Metadata } from "next";
 import Header from "@/components/community/Header";
@@ -10,9 +9,6 @@ export const metadata: Metadata = {
 
 interface CommunityLayoutProps {
   children: React.ReactNode;
-  params: {
-    community: string;
-  };
 }
 
 export default function CommunityLayout({ children }: CommunityLayoutProps) {
