@@ -169,12 +169,18 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
 
             {/* Forgot link */}
             {mode === 'login' && (
-              <div className="text-right">
+              <div className="flex items-center justify-between w-full">
                 <button
-                  onClick={() => openModal("forgot", "john@gmail.com")}
+                  onClick={() => openModal("forgot")}
                   className="text-sm cursor-pointer text-blue-600 hover:underline"
                 >
                   Forgot password?
+                </button>
+                 <button
+                  onClick={() => openModal("verify", "john@gmail.com")}
+                  className="text-sm cursor-pointer text-blue-600 hover:underline"
+                >
+                  login with code
                 </button>
               </div>
             )}

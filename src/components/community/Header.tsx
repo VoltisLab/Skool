@@ -7,7 +7,7 @@ import { BiMessageRounded } from 'react-icons/bi';
 import { IoNotificationsOutline } from 'react-icons/io5';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import DropdownPanel from '../DropdownPanel';
 
 export default function Header() {
@@ -16,8 +16,9 @@ export default function Header() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const params = useParams();
   const pathname = usePathname();
-  const segments = pathname.split("/").filter(Boolean);
+  const community = params.community;  const segments = pathname.split("/").filter(Boolean);
   const currentTab = segments[segments.length - 1] ?? "";
 
   const tabs = [
