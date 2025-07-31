@@ -21,7 +21,7 @@ export default function CommunityLayout({ children }: CommunityLayoutProps) {
     
       <Header/>
 
-      <main className="p-6 bg-[rgb(248,247,245)] h-full">{children}</main>
+      <main className=" bg-[rgb(248,247,245)] h-full">{children}</main>
     </div>
   );
 }

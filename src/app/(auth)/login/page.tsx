@@ -29,11 +29,13 @@ const AuthPage: React.FC = () => {
   };
 
   return (
-    <AuthForm
-      mode={mode}
-      onSubmit={handleFormSubmit}
-      // onModeChange={setMode}
-    />
+    <div className="w-full h-screen fixed top-0 left-0 z-[1000] bg-[rgb(248,247,245)] flex items-center justify-center ">
+      <AuthForm
+        mode={mode}
+        onSubmit={(data) => console.log("Signup", data)}      // onModeChange={setMode}
+      />
+
+    </div>
   );
 };
 
