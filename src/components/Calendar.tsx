@@ -257,7 +257,7 @@ export default function Calendar() {
           <div className="flex items-center gap-4">
             <button
               onClick={goToToday}
-              className="px-4 py-2 rounded-full text-gray-400 border border-gray-200 hover:bg-gray-200 transition-colors "
+              className="px-4 py-2 text-xs rounded-full text-gray-400 border border-gray-200 hover:bg-[#909090] hover:text-white transition-colors "
             >
               Today
             </button>
@@ -267,7 +267,7 @@ export default function Calendar() {
           <div className="flex items-center gap-4">
             <button
               onClick={goToPreviousMonth}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-200 rounded-full transition-colors"
             >
               <ChevronLeft className="w-5 h-5 text-gray-400" />
             </button>
@@ -287,26 +287,26 @@ export default function Calendar() {
 
             <button
               onClick={goToNextMonth}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-gray-200 rounded-full transition-colors"
             >
               <ChevronRight className="w-5 h-5 text-gray-400" />
             </button>
           </div>
 
           {/* Right side - View toggles */}
-          <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
+          <div className="flex items-center bg-gray-100 rounded-lg border border-gray-200">
             <button
               onClick={() => setViewMode('list')}
-              className={`p-2 rounded-md transition-colors ${
-                viewMode === 'list' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
+              className={`p-2 rounded-l-md transition-colors ${
+                viewMode !== 'list' ? 'bg-white text-gray-900 ' : 'shadow text-gray-600 hover:text-gray-900'
               }`}
             >
               <List className="w-4 h-4" />
             </button>
             <button
               onClick={() => setViewMode('calendar')}
-              className={`p-2 rounded-md transition-colors ${
-                viewMode === 'calendar' ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-600 hover:text-gray-900'
+              className={`p-2 rounded-r-md transition-colors ${
+                viewMode !== 'calendar' ? 'bg-white text-gray-900 ' : 'shadow text-gray-600 hover:text-gray-900'
               }`}
             >
               <CalendarIcon className="w-4 h-4" />
