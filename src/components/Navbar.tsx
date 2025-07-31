@@ -1,5 +1,6 @@
 "use client"
 
+import { useAuthModal } from "@/lib/AuthModalContext"
 import { ChevronUp, ChevronDown, Search, Settings, Plus, Compass } from "lucide-react"
 import Link from "next/link"
 import { useState, useEffect } from "react"
@@ -7,6 +8,7 @@ import { useState, useEffect } from "react"
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const { openModal } = useAuthModal();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -104,11 +106,11 @@ export default function Navbar() {
           )}
 
           {/* Login Button */}
-          <Link href="/login">
-            <button className="px-5 font-bold py-2 text-sm text-[#909090] cursor-pointer bg-white border border-gray-300 rounded-md hover:text-gray-900 transition-colors">
+
+            <button onClick={() => openModal('login')} className="px-5 font-bold py-2 text-sm text-[#909090] cursor-pointer bg-white border border-gray-300 rounded-md hover:text-gray-900 transition-colors">
               LOG IN
             </button>
-          </Link>
+
         </div>
       </header>
 
