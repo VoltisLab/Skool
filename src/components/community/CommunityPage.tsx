@@ -245,7 +245,7 @@ export default function CommunityPage() {
           </div>
 
           {/* Right Side - Sidebar */}
-          <div className="lg:col-span-1">
+          <div className="col-span-1 flex flex-col gap-5 sticky top-8">
             {/* Community Info */}
             <CommunityInfo
               name="AI Automation Agency Hub"
@@ -275,7 +275,16 @@ export default function CommunityPage() {
 
             {/* Powered By */}
             <div className="text-center text-sm text-gray-500">
-              Powered by <span className="text-blue-600 font-medium">skool</span>
+              Powered by 
+              <span className="text-center">
+            <h1 className="text-2xl font-bold">
+              <span className="text-blue-600">s</span>
+              <span className="text-red-500">k</span>
+              <span className="text-yellow-500">o</span>
+              <span className="text-green-500">o</span>
+              <span className="text-blue-600">l</span>
+            </h1>
+          </span>
             </div>
           </div>
         </div>
