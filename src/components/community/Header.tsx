@@ -17,7 +17,6 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const params = useParams();
-  const params = useParams();
   const pathname = usePathname();
   const community = params.community;  const segments = pathname.split("/").filter(Boolean);
   const currentTab = segments[segments.length - 1] ?? "";
