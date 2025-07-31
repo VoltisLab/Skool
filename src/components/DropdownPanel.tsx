@@ -1,4 +1,3 @@
-// components/ui/DropdownPanel.tsx
 'use client';
 
 import { useEffect, useRef } from 'react';
@@ -9,7 +8,7 @@ interface DropdownPanelProps {
   children: React.ReactNode;
   className?: string;
   align?: 'left' | 'right';
-  type?: string
+  type?: string;
 }
 
 export default function DropdownPanel({
@@ -37,7 +36,11 @@ export default function DropdownPanel({
   return (
     <div
       ref={ref}
-      className={`absolute top-10 ${align === 'right' ? 'right-0' : 'left-0'} z-50 ${type=== "profile" ? "w-[200px] h-fit py-2" : "w-[400px] h-[500px]" }  rounded-md border border-gray-200 shadow-lg bg-white ${className}`}
+      className={`absolute top-10 ${align === 'right' ? 'right-0' : 'left-0'} z-50 
+        ${type === 'profile'
+          ? 'w-[200px] h-fit py-2'
+          : 'w-[90vw] sm:w-[400px] max-h-[80vh]'} 
+        overflow-y-auto rounded-md border border-gray-200 shadow-lg bg-white ${className}`}
     >
       {children}
     </div>

@@ -24,3 +24,51 @@ body {
   color: black;
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.custom-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Ensure Leaflet container takes full height */
+.leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
+}
+
+/* Leaflet popup customization */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  min-width: 150px;
+}
+
+/* Ensure map controls are properly styled */
+.leaflet-control-zoom a {
+  @apply bg-white text-gray-700 border border-gray-300;
+}
+
+.leaflet-control-zoom a:hover {
+  @apply bg-gray-50;
+}
+
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}

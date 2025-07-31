@@ -5,6 +5,8 @@ import ClientBody from "./ClientBody";
 import Script from "next/script";
 
 import ConditionalNavbar from "./conditionNavbar";
+import { AuthModalProvider } from "@/lib/AuthModalContext";
+import GlobalAuthModal from "./(auth)/GlobalAuthModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,10 +39,14 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning className="antialiased">
         <ClientBody>
-          <ConditionalNavbar/>
-          {/* <Navbar /> */}
-          {children}
-          {/* <Footer /> */}
+          <AuthModalProvider>
+            <GlobalAuthModal/>
+            <ConditionalNavbar/>
+            {/* <Navbar /> */}
+            {children}
+            {/* <Footer /> */}
+
+          </AuthModalProvider>
         </ClientBody>
       </body>
     </html>

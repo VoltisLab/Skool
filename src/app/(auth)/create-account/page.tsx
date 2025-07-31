@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
 import Link from "next/link";
+import { useAuthModal } from "@/lib/AuthModalContext";
 
 interface Slide {
   img: string;
@@ -32,6 +33,8 @@ const slides: Slide[] = [
 export default function Page() {
   const [current, setCurrent] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+    const { openModal } = useAuthModal();
+
 
   const prev = () => {
     if (isAnimating) return;
@@ -165,11 +168,11 @@ export default function Page() {
       </div>
 
       {/* CTA */}
-      <Link prefetch href={"/signup"}>
+      <button onClick={() => openModal("signup")}>
         <button className="mt-8 cursor-pointer bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-3 px-6 rounded shadow-md transition-colors duration-200">
           CREATE YOUR COMMUNITY
         </button>
-      </Link>
+      </button>
     </main>
   );
 }

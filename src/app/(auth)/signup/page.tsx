@@ -29,11 +29,8 @@ const AuthPage: React.FC = () => {
   };
 
   return (
-    <AuthForm
-      mode={mode}
-      onSubmit={handleFormSubmit}
-      // onModeChange={setMode}
-    />
+    <AuthForm mode="verify" onSubmit={(data) => console.log("Signup", data)} />
+
   );
 };
 
