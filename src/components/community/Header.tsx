@@ -17,12 +17,13 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const params = useParams();
+  const params = useParams();
   const pathname = usePathname();
-  const community = params.community;  const segments = pathname.split("/").filter(Boolean);
+  const segments = pathname.split("/").filter(Boolean);
   const currentTab = segments[segments.length - 1] ?? "";
 
   const tabs = [
-    { name: 'Community', link: '/community' },
+    { name: 'Community', link: '/' },
     { name: 'Classroom', link: '/classroom' },
     { name: 'Calendar', link: '/calendar' },
     { name: 'Members', link: '/members' },
@@ -161,7 +162,9 @@ export default function Header() {
       {/* Desktop Nav Tabs */}
       <nav className="hidden lg:flex gap-6 mt-2 w-full lg:w-[90%] xl:w-[60%] px-4">
         {tabs.map((tab) => {
-          const isActive = pathname === tab.link;
+          const isActive =
+            (tab.link === '/' && pathname === `/${community}`) ||
+            tab.link.slice(1) === currentTab;
 
           return (
             <Link href={`/${community}${tab.link}`} key={tab.name}>
