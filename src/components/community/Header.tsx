@@ -31,7 +31,7 @@ export default function Header() {
   return (
     <header className="w-full bg-white border-b border-b-gray-200 py-3 flex flex-col items-center relative z-50">
       {/* Top Bar */}
-      <div className="flex w-[60%] items-center justify-center gap-3 py-2 relative">
+      <div className="flex w-[78%] items-center justify-center gap-3 py-2 relative">
         {/* Logo and Title */}
         <div className="flex items-center gap-2">
           <div className="bg-black w-8 h-8 rounded-md flex items-center justify-center">

@@ -79,35 +79,35 @@ export const defaultLeaderboardEntries: LeaderboardEntry[] = [
     rank: 1,
     name: "Ivonne Teoh",
     avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=32&h=32&fit=crop&crop=face",
-    score: 954,
+    score: 939,
     isTopPerformer: true
   },
   {
     id: "2",
     rank: 2,
-    name: "Mihai Roun",
+    name: "Mihai Paun",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face",
-    score: 577
+    score: 584
   },
   {
     id: "3",
     rank: 3,
-    name: "Sarah Chen",
+    name: "Sayyed Ali",
     avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop&crop=face",
-    score: 432
+    score: 394
   },
   {
     id: "4",
     rank: 4,
-    name: "Alex Johnson",
+    name: "Andrea Choonoo",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face",
-    score: 389
+    score: 190
   },
   {
     id: "5",
     rank: 5,
-    name: "Maria Garcia",
+    name: "Ilya Emeliyanov",
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=32&h=32&fit=crop&crop=face",
-    score: 321
+    score: 183
   }
 ] 
