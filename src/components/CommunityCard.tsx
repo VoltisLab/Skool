@@ -41,14 +41,14 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
 
       <div className="p-4">
         {/* Community Info */}
-        <div className="flex items-start gap-3 mb-3">
+        <div className="flex gap-3 mb-3 items-center">
           <img
             src={community.avatar}
             alt={`${community.name} avatar`}
-            className="w-12 h-12 rounded-full object-cover"
+            className="w-8 h-8 rounded-lg object-cover"
           />
           <div className="flex-1">
-            <h3 className="font-semibold text-gray-900 text-lg leading-tight">
+            <h3 className="font-semibold text-gray-900 leading-tight">
               {community.name}
             </h3>
           </div>
