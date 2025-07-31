@@ -19,7 +19,7 @@ export default function Header() {
   const params = useParams();
   const params = useParams();
   const pathname = usePathname();
-  const segments = pathname.split("/").filter(Boolean);
+  const community = params.community;  const segments = pathname.split("/").filter(Boolean);
   const currentTab = segments[segments.length - 1] ?? "";
 
   const tabs = [
