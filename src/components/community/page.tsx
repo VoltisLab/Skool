@@ -60,7 +60,7 @@ const samplePosts = [
       likes: 836,
       comments: 765,
       recentCommenters: [
-        { id: "1", name: "Sarah M.", avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=24&h=24&fit=crop&crop=face" },
+        { id: "1", name: "Sarah M.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" },
         { id: "2", name: "Mike R.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=24&h=24&fit=crop&crop=face" },
         { id: "3", name: "Lisa K.", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=24&h=24&fit=crop&crop=face" }
       ],
