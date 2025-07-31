@@ -9,14 +9,14 @@ interface EventBannerProps {
 export default function EventBanner({ title, timeLeft, onClick }: EventBannerProps) {
   return (
     <div 
-      className="p-4 text-center w-full"
+      className="my-4 mb-4 cursor-pointer hover:bg-gray-100 transition-colors text-center"
       onClick={onClick}
     >
-      <div className="flex items-center text-center gap-3 w-full">
+      <div className="flex items-center justify-center gap-3">
         <Calendar className="w-5 h-5 text-gray-600" />
-        <p className="text-sm text-gray-900 text-center font-semibold">
+        <span className="text-sm text-gray-900 font-semibold">
           {title} is happening in {timeLeft}
-        </p>
+        </span>
       </div>
     </div>
   )

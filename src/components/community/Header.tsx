@@ -7,7 +7,7 @@ import { BiMessageRounded } from 'react-icons/bi';
 import { IoNotificationsOutline } from 'react-icons/io5';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import DropdownPanel from '../DropdownPanel';
 
 export default function Header() {
@@ -16,15 +16,14 @@ export default function Header() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const params = useParams();
   const pathname = usePathname();
-  const community = params.community;
   const segments = pathname.split("/").filter(Boolean);
   const currentTab = segments[segments.length - 1] ?? "";
 
   const tabs = [
-    { name: 'Community', link: '/' },
+    { name: 'Community', link: '/community' },
     { name: 'Classroom', link: '/classroom' },
+    { name: 'Calendar', link: '/calendar' },
     { name: 'Members', link: '/members' },
     { name: 'Map', link: '/map' },
     { name: 'Leaderboards', link: '/leaderboards' },
@@ -161,9 +160,7 @@ export default function Header() {
       {/* Desktop Nav Tabs */}
       <nav className="hidden lg:flex gap-6 mt-2 w-full lg:w-[90%] xl:w-[60%] px-4">
         {tabs.map((tab) => {
-          const isActive =
-            (tab.link === '/' && pathname === `/${community}`) ||
-            tab.link.slice(1) === currentTab;
+          const isActive = pathname === tab.link;
 
           return (
             <Link href={`/${community}${tab.link}`} key={tab.name}>

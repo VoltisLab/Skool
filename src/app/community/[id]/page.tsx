@@ -1,7 +1,8 @@
 "use client"
 
 import { useParams, useRouter } from "next/navigation"
-import { ChevronDown, Play, Lock, Users, Tag, Star, Volume2, SkipBack, SkipForward } from "lucide-react"
+import { ChevronDown, Play, Lock, Users, Tag, Star, Volume2, SkipBack, SkipForward, Pause } from "lucide-react"
+import { useState } from "react"
 
 // Sample community data - in a real app this would come from an API
 const communities = [
@@ -106,10 +107,45 @@ const communities = [
   }
 ]
 
+// Video data with YouTube embeds
+const videos = [
+  {
+    id: 1,
+    title: "Introduction to Fragrance",
+    thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+    videoId: "dQw4w9WgXcQ",
+    duration: "15:30"
+  },
+  {
+    id: 2,
+    title: "How to Choose Your Signature Scent",
+    thumbnail: "https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg",
+    videoId: "9bZkp7q19f0",
+    duration: "12:45"
+  },
+  {
+    id: 3,
+    title: "Top 10 Fragrances for Men",
+    thumbnail: "https://img.youtube.com/vi/jNQXAC9IVRw/maxresdefault.jpg",
+    videoId: "jNQXAC9IVRw",
+    duration: "18:20"
+  },
+  {
+    id: 4,
+    title: "Fragrance Application Techniques",
+    thumbnail: "https://img.youtube.com/vi/kJQP7kiw5Fk/maxresdefault.jpg",
+    videoId: "kJQP7kiw5Fk",
+    duration: "8:15"
+  }
+]
+
 export default function CommunityDetailPage() {
   const params = useParams()
   const router = useRouter()
   const communityId = parseInt(params.id as string)
+  
+  const [currentVideo, setCurrentVideo] = useState(videos[0])
+  const [isPlaying, setIsPlaying] = useState(false)
   
   // Find the community by ID
   const community = communities.find(c => c.id === communityId)
@@ -131,6 +167,15 @@ export default function CommunityDetailPage() {
     )
   }
 
+  const handleVideoSelect = (video: typeof videos[0]) => {
+    setCurrentVideo(video)
+    setIsPlaying(false)
+  }
+
+  const togglePlay = () => {
+    setIsPlaying(!isPlaying)
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
 
@@ -143,84 +188,70 @@ export default function CommunityDetailPage() {
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6 p-6">
             <h1 className="text-2xl font-bold text-gray-900 mb-6">{community.name}</h1>
               <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden mb-4">
-                <img 
-                  src={community.image} 
-                  alt={community.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
-                  <div className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-                    <Play className="w-8 h-8 text-gray-800 ml-1" />
-                  </div>
-                </div>
-                <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
-                  20:45
-                </div>
-                <div className="absolute bottom-4 right-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
-                  1.2x
-                </div>
+                {isPlaying ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${currentVideo.videoId}?autoplay=1&rel=0`}
+                    title={currentVideo.title}
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                ) : (
+                  <>
+                    <img 
+                      src={`https://img.youtube.com/vi/${currentVideo.videoId}/maxresdefault.jpg`}
+                      alt={currentVideo.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-opacity-20 flex items-center justify-center">
+                      <button
+                        onClick={togglePlay}
+                        className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center hover:bg-opacity-100 transition-all"
+                      >
+                        <Play className="w-8 h-8 text-gray-800 ml-1" />
+                      </button>
+                    </div>
+                    <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
+                      {currentVideo.duration}
+                    </div>
+                    <div className="absolute bottom-4 right-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
+                      1.2x
+                    </div>
+                  </>
+                )}
               </div>
 
-              {/* Video Thumbnails Section */}
-              <div className="grid grid-cols-6 gap-4 mb-4">
-                {/* Video Thumbnail 1 */}
-                <div className="relative rounded-lg overflow-hidden cursor-pointer group">
-                  <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
-                    <img 
-                      src={community.image} 
-                      alt="Video thumbnail"
-                      className="w-full h-full object-cover opacity-80"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-                        <Play className="w-4 h-4 text-gray-800 ml-0.5" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    
 
-                <div className="relative rounded-lg overflow-hidden cursor-pointer group">
-                  <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
-                    <img 
-                      src={community.image} 
-                      alt="Video thumbnail"
-                      className="w-full h-full object-cover opacity-80"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-                        <Play className="w-4 h-4 text-gray-800 ml-0.5" />
+              {/* Video Thumbnails Section */}
+              <div className="grid grid-cols-4 gap-4 mb-4">
+                {videos.map((video) => (
+                  <div 
+                    key={video.id}
+                    className={`relative rounded-lg overflow-hidden cursor-pointer group transition-all ${
+                      currentVideo.id === video.id ? 'ring-2 ring-blue-500' : ''
+                    }`}
+                    onClick={() => handleVideoSelect(video)}
+                  >
+                    <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
+                      <img 
+                        src={video.thumbnail}
+                        alt={video.title}
+                        className="w-full h-full object-cover opacity-80"
+                      />
+                      <div className="absolute inset-0  bg-opacity-30 flex items-center justify-center">
+                        <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
+                          <Play className="w-4 h-4 text-gray-800 ml-0.5" />
+                        </div>
+                      </div>
+                      <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-1 py-0.5 rounded">
+                        {video.duration}
                       </div>
                     </div>
+                   
                   </div>
-                </div>
-                <div className="relative rounded-lg overflow-hidden cursor-pointer group">
-                  <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
-                    <img 
-                      src={community.image} 
-                      alt="Video thumbnail"
-                      className="w-full h-full object-cover opacity-80"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-                        <Play className="w-4 h-4 text-gray-800 ml-0.5" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="relative rounded-lg overflow-hidden cursor-pointer group">
-                  <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
-                    <img 
-                      src={community.image} 
-                      alt="Video thumbnail"
-                      className="w-full h-full object-cover opacity-80"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center">
-                      <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
-                        <Play className="w-4 h-4 text-gray-800 ml-0.5" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
               
               {/* Community Info */}

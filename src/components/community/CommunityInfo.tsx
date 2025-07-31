@@ -37,7 +37,7 @@ export default function CommunityInfo({
   onInvite
 }: CommunityInfoProps) {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 sticky top-8">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200">
       {/* Banner */}
       <div className="relative w-full overflow-hidden rounded-t-lg">
         <div className="aspect-video bg-gradient-to-r from-blue-600 to-purple-600 relative">
@@ -108,7 +108,7 @@ export default function CommunityInfo({
                 src={member.avatar}
                 alt={member.name}
                 className="w-8 h-8 rounded-full border-2 border-white object-cover"
-                style={{ zIndex: recentMembers.length - index }}
+                // style={{ zIndex: recentMembers.length - index }}
                 title={member.name}
               />
             ))}

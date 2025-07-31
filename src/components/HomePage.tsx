@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import SearchBar from "@/components/SearchBar"
 import CategoryFilter from "@/components/CategoryFilter"
 import CommunityCard from "@/components/CommunityCard"
+import Link from "next/link"
 
 // Sample community data based on the original site
 const communities = [
@@ -153,9 +154,11 @@ export default function HomePage() {
           <h1 className="text-5xl font-bold text-gray-900 mb-2">
             Discover communities
           </h1>
+          <Link href="/create-account">
           <p className="text-[#909090] mb-8">
             or <a href="#" className="text-[#2E6EF5] font-semibold hover:underline">create your own</a>
           </p>
+          </Link>
 
           {/* Search Bar */}
           <SearchBar
