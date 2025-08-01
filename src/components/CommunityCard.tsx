@@ -1,4 +1,4 @@
-import Image from "next/image"
+import Image from 'next/image'
 
 interface Community {
   id: number
@@ -19,62 +19,61 @@ interface CommunityCardProps {
 
 export default function CommunityCard({ community, onClick }: CommunityCardProps) {
   return (
-    <div 
-      className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-lg transition-shadow cursor-pointer group"
+    <div
+      className="md:w-[380px] w-full max-w-full rounded-2xl shadow-2xl bg-gradient-to-br from-[#f5f7fa] to-[#c3cfe2] overflow-hidden group transition-transform hover:-translate-y-2 hover:shadow-3xl duration-300 relative cursor-pointer"
       onClick={onClick}
     >
-      <div className="relative">
-        {/* Rank Badge */}
-        <div className="absolute top-3 left-3 z-10">
-          <div className="bg-black/50 text-white text-sm font-semibold px-3 py-2 rounded-full">
-            #{community.rank}
-          </div>
-        </div>
+      {/* Image Section */}
+      <div className="relative w-full aspect-video">
+        <Image
+          src={community.image}
+          alt={community.name}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          priority
+        />
 
-        {/* Community Image */}
-        <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-          <Image
-            src={community.image}
-            alt={community.name}
-            fill
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
-          />
-        </div>
+        {/* Rank Badge */}
+        <span className="absolute top-3 left-3 px-3 py-1 text-xs font-bold rounded-full shadow-lg backdrop-blur-sm bg-black/60 text-white">
+          #{community.rank}
+        </span>
+
+        {/* Bottom Gradient Overlay */}
+        <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-[#23253a88] to-transparent pointer-events-none" />
       </div>
 
-      <div className="p-4">
-        {/* Community Info */}
-        <div className="flex gap-3 mb-3 items-center">
-          <Image
-            src={community.avatar}
-            fill
-            alt={`${community.name} avatar`}
-            className="w-8 h-8 rounded-lg object-cover"
-          />
-          <div className="flex-1">
-            <h3 className="font-semibold text-gray-900 leading-tight">
-              {community.name}
-            </h3>
-          </div>
+      {/* Content Section */}
+      <div className="px-6 py-5 flex flex-col gap-3 bg-white/80 backdrop-blur-xl">
+        {/* Top Row: Category & Price */}
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-bold uppercase tracking-widest bg-[#eceaff] text-[#786AED] px-3 py-1 rounded-full shadow-sm">
+            {community.category}
+          </span>
+          <span className="text-xs font-semibold px-3 py-1 rounded-full bg-gray-100 text-gray-700">
+            {community.price}
+          </span>
         </div>
 
+        {/* Community Name */}
+        <h3 className="text-xl font-extrabold text-gray-900 line-clamp-1">
+          {community.name}
+        </h3>
+
         {/* Description */}
-        <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+        <p className="text-sm text-gray-600 font-medium line-clamp-3 min-h-[48px]">
           {community.description}
         </p>
 
-        {/* Stats */}
-        <div className="flex items-center text-sm">
-          <span className="text-gray-600">{community.members}</span>
-          <span className={`px-2.5 py-0.5 text-xs font-semibold rounded-md ${
-            community.price === "Free" 
-              ? " text-gray-700" 
-              : " text-gray-700"
-          }`}>
-            {community.price}
+        {/* Members */}
+        <div className="flex items-center justify-between mt-auto">
+          <span className="text-[11px] text-gray-500 font-medium">
+            Members
+          </span>
+          <span className="font-semibold text-[#786AED] text-xs">
+            {community.members}
           </span>
         </div>
       </div>
     </div>
   )
-} 
+}
