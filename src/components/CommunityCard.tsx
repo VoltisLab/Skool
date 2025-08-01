@@ -37,7 +37,7 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
             src={community.image}
             alt={community.name}
             fill
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+            className="w-full h-full object-contain transition-transform duration-200"
           />
         </div>
       </div>
