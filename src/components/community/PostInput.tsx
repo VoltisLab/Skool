@@ -27,10 +27,12 @@ export default function PostInput({
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-200 p-2">
       <div className="flex items-center gap-3">
+        {/* Explicit width/height instead of fill */}
         <Image
           src={userAvatar}
           alt="User avatar"
-          fill
+          width={32}
+          height={32}
           className="w-8 h-8 rounded-full object-cover flex-shrink-0"
         />
         <input
@@ -48,4 +50,4 @@ export default function PostInput({
       </div>
     </div>
   )
-} 
+}

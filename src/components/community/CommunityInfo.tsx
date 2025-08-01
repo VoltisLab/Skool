@@ -44,7 +44,7 @@ export default function CommunityInfo({
             src={bannerImage} 
             alt={`${name} banner`}
             fill
-            className="absolute inset-0 w-full h-full object-cover"
+            className="object-cover"
           />
         </div>
       </div>
@@ -107,7 +107,8 @@ export default function CommunityInfo({
                 key={member.id}
                 src={member.avatar}
                 alt={member.name}
-                fill
+                width={32}
+                height={32}
                 className="w-8 h-8 rounded-full border-2 border-white"
                 title={member.name}
               />
@@ -127,4 +128,4 @@ export default function CommunityInfo({
       </div>
     </div>
   )
-} 
+}
