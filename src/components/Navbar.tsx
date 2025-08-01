@@ -2,7 +2,6 @@
 
 import { useAuthModal } from "@/lib/AuthModalContext"
 import { ChevronUp, ChevronDown, Search, Settings, Plus, Compass } from "lucide-react"
-import Link from "next/link"
 import { useState, useEffect } from "react"
 
 export default function Navbar() {

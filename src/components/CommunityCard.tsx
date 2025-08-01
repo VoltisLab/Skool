@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 interface Community {
   id: number
   rank: number
@@ -31,9 +33,10 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
 
         {/* Community Image */}
         <div className="aspect-video w-full overflow-hidden rounded-t-lg">
-          <img
+          <Image
             src={community.image}
             alt={community.name}
+            fill
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
           />
         </div>
@@ -42,8 +45,9 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
       <div className="p-4">
         {/* Community Info */}
         <div className="flex gap-3 mb-3 items-center">
-          <img
+          <Image
             src={community.avatar}
+            fill
             alt={`${community.name} avatar`}
             className="w-8 h-8 rounded-lg object-cover"
           />

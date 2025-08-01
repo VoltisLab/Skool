@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronLeft, ChevronRight, List, Calendar as CalendarIcon, MapPin, Link as LinkIcon, ChevronDown } from "lucide-react"
+import { ChevronLeft, ChevronRight, List, Calendar as CalendarIcon, Link as LinkIcon, ChevronDown } from "lucide-react"
+import Image from "next/image"
 
 interface CalendarEvent {
   id: string
@@ -65,10 +66,11 @@ function EventModal({ event, isOpen, onClose }: EventModalProps) {
       <div className="bg-white rounded-lg max-w-xs w-full max-h-[100vh] shadow-lg">
         {/* Upper Section - Visual Banner */}
         <div className="relative h-40 bg-gradient-to-br from-blue-900 to-blue-700">
-          <img
+          <Image
             src="https://ext.same-assets.com/637669732/1603192324.jpeg"
             alt="Liam Ottley"
-            className="absolute inset-0 w-full h-full object-cover opacity-80"
+            fill
+            className="absolute inset-0 w-full h-full object-cover"
           />
           
         </div>

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { MapPin, Play, Brain, Bot } from "lucide-react"
+import { MapPin, Play, Brain } from "lucide-react"
 
 // Import all components
 import PostInput from "@/components/community/PostInput"
@@ -252,7 +252,6 @@ export default function CommunityPage() {
               url="skool.com/learn-ai"
               description="Start Your AI Automation Agency - Created by Liam Ottley"
               bannerImage="https://ext.same-assets.com/637669732/1603192324.jpeg"
-              logo="///A HUB"
               stats={{
                 members: "214.5k",
                 online: "612",

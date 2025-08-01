@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 const memberAvatars = [
   "/head.jpg", // Using your provided image for all avatars
@@ -83,8 +84,9 @@ export default function AISCommunityCard() {
           <div className="flex -space-x-2">
             {memberAvatars.map((avatar, index) => (
               <div key={index} className="w-8 h-8 rounded-full overflow-hidden border-2 border-white bg-gray-100">
-                <img 
-                  src={avatar} 
+                <Image 
+                  src={avatar}
+                  fill
                   alt={`Member ${index + 1}`}
                   className="w-full h-full object-cover"
                 />

@@ -1,4 +1,5 @@
-import { ThumbsUp, MessageCircle, MapPin, Star, Trophy } from "lucide-react"
+import { ThumbsUp, MessageCircle, MapPin, Trophy } from "lucide-react"
+import Image from "next/image"
 
 interface Commenter {
   id: string
@@ -14,10 +15,6 @@ interface PostCardProps {
     badge?: string
   }
   timestamp: string
-  category?: {
-    name: string
-    icon?: React.ReactNode
-  }
   title: string
   content: string
   media?: {
@@ -41,7 +38,6 @@ export default function PostCard({
   id,
   author,
   timestamp,
-  category,
   title,
   content,
   media,
@@ -57,9 +53,10 @@ export default function PostCard({
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-start gap-3">
           <div className="relative">
-            <img
+            <Image
               src={author.avatar}
               alt={author.name}
+              fill
               className="w-10 h-10 rounded-full object-cover"
             />
             {author.badge && (
@@ -101,67 +98,80 @@ export default function PostCard({
 
       {/* Content */}
       <div className="mb-4">
-        <div className="flex gap-4">
-          <div className="flex-1">
-            <div className="flex items-start gap-2 mb-2">
-              <MapPin className="w-3 h-3 text-red-500 mt-0.5 flex-shrink-0" />
-              <p className="text-gray-700 text-sm leading-relaxed">{content}</p>
+        <p className="text-gray-700 text-sm leading-relaxed">{content}</p>
+      </div>
+
+      {/* Media */}
+      {media && (
+        <div className="mb-4">
+          {media.type === 'image' && (
+            <Image
+              src={media.url}
+              alt={media.alt}
+              fill
+              className="w-full h-32 object-cover rounded-lg"
+            />
+          )}
+          {media.type === 'video' && (
+            <div className="relative w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center">
+              <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center">
+                <div className="w-0 h-0 border-l-[8px] border-l-gray-800 border-t-[6px] border-t-transparent border-b-[6px] border-b-transparent ml-1"></div>
+              </div>
             </div>
-          </div>
-          
-          {media && (
-            <div className="w-24 h-24 flex-shrink-0">
-              <img
-                src={media.url}
-                alt={media.alt}
-                className="w-full h-full object-cover rounded-lg"
-              />
+          )}
+          {media.type === 'document' && (
+            <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+              <div className="w-10 h-10 bg-blue-100 rounded flex items-center justify-center">
+                <div className="w-6 h-6 bg-blue-600 rounded"></div>
+              </div>
+              <div>
+                <div className="text-sm font-medium text-gray-900">Document</div>
+                <div className="text-xs text-gray-500">Click to view</div>
+              </div>
             </div>
           )}
         </div>
-      </div>
+      )}
 
       {/* Engagement */}
-      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button
             onClick={() => onLike?.(id)}
             className="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors"
           >
             <ThumbsUp className="w-4 h-4" />
-            <span className="text-sm font-medium">{engagement.likes}</span>
+            <span className="text-sm">{engagement.likes}</span>
           </button>
-          
           <button
             onClick={() => onComment?.(id)}
             className="flex items-center gap-2 text-gray-500 hover:text-blue-600 transition-colors"
           >
             <MessageCircle className="w-4 h-4" />
-            <span className="text-sm font-medium">{engagement.comments}</span>
+            <span className="text-sm">{engagement.comments}</span>
           </button>
         </div>
-
-        <div className="flex items-center gap-3">
-          {engagement.recentCommenters.length > 0 && (
-            <div className="flex items-center gap-1">
-              {engagement.recentCommenters.slice(0, 1).map((commenter, index) => (
-                <img
+        
+        {/* Recent commenters */}
+        {engagement.recentCommenters.length > 0 && (
+          <div className="flex items-center gap-2">
+            <div className="flex -space-x-2">
+              {engagement.recentCommenters.slice(0, 3).map((commenter) => (
+                <Image
                   key={commenter.id}
                   src={commenter.avatar}
                   alt={commenter.name}
-                  className="w-6 h-6 rounded-full border-2 border-white object-cover"
-                  style={{ zIndex: engagement.recentCommenters.length - index }}
+                  fill
+                  className="w-6 h-6 rounded-full border-2 border-white"
+                  title={commenter.name}
                 />
               ))}
             </div>
-          )}
-          
-          {engagement.lastCommentTime && (
-            <span className="text-blue-600 text-xs font-medium">
-              New comment {engagement.lastCommentTime}
-            </span>
-          )}
-        </div>
+            {engagement.lastCommentTime && (
+              <span className="text-xs text-gray-500">{engagement.lastCommentTime}</span>
+            )}
+          </div>
+        )}
       </div>
     </div>
   )

@@ -1,7 +1,6 @@
 "use client"
 
 import ModuleCard from "@/components/classroom/ModuleCard"
-import { useState } from "react"
 
 // Sample module data matching the reference image
 const modules = [
@@ -50,16 +49,9 @@ const modules = [
 ]
 
 export default function ClassroomPage() {
-  const [activeTab, setActiveTab] = useState("Classroom")
-
   const handleModuleClick = (moduleId: string) => {
     console.log("Module clicked:", moduleId)
     alert(`Module "${modules.find(m => m.id === moduleId)?.title}" clicked!`)
-  }
-
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab)
-    console.log("Tab changed to:", tab)
   }
 
   return (
