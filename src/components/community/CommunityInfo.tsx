@@ -1,4 +1,5 @@
-import { Users, Crown, Zap, ThumbsUp } from "lucide-react"
+import { Users, Zap, ThumbsUp } from "lucide-react"
+import Image from "next/image"
 
 interface CommunityMember {
   id: string
@@ -11,7 +12,6 @@ interface CommunityInfoProps {
   url: string
   description: string
   bannerImage: string
-  logo?: string
   stats: {
     members: string
     online: string
@@ -30,7 +30,6 @@ export default function CommunityInfo({
   url,
   description,
   bannerImage,
-  logo,
   stats,
   recentMembers,
   links,
@@ -41,9 +40,10 @@ export default function CommunityInfo({
       {/* Banner */}
       <div className="relative w-full overflow-hidden rounded-t-lg">
         <div className="aspect-video bg-gradient-to-r from-blue-600 to-purple-600 relative">
-          <img 
+          <Image 
             src={bannerImage} 
             alt={`${name} banner`}
+            fill
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
@@ -98,17 +98,17 @@ export default function CommunityInfo({
         {/* Recent Members */}
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-3">
-            <Users className="w-4 h-4 text-gray-500" />
-            <span className="text-sm font-medium text-gray-700">Recent Members</span>
+            <Users className="w-4 h-4 text-gray-600" />
+            <span className="text-sm font-medium text-gray-900">Recent Members</span>
           </div>
-          <div className="flex items-center gap-1">
-            {recentMembers.slice(0, 8).map((member, index) => (
-              <img
+          <div className="flex -space-x-2">
+            {recentMembers.map((member) => (
+              <Image
                 key={member.id}
                 src={member.avatar}
                 alt={member.name}
-                className="w-8 h-8 rounded-full border-2 border-white object-cover"
-                // style={{ zIndex: recentMembers.length - index }}
+                fill
+                className="w-8 h-8 rounded-full border-2 border-white"
                 title={member.name}
               />
             ))}
@@ -116,12 +116,14 @@ export default function CommunityInfo({
         </div>
 
         {/* Invite Button */}
-        <button
-          onClick={onInvite}
-          className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 px-4 rounded-lg transition-colors"
-        >
-          INVITE PEOPLE
-        </button>
+        {onInvite && (
+          <button
+            onClick={onInvite}
+            className="w-full py-2 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Invite Friends
+          </button>
+        )}
       </div>
     </div>
   )

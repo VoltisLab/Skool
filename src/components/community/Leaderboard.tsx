@@ -1,4 +1,5 @@
 import { Medal, Flame } from "lucide-react"
+import Image from "next/image"
 
 interface LeaderboardEntry {
   id: string
@@ -40,9 +41,10 @@ export default function Leaderboard({ title, entries, onViewAll }: LeaderboardPr
               {getRankIcon(entry.rank)}
             </div>
             
-            <img
+            <Image
               src={entry.avatar}
               alt={entry.name}
+              fill
               className="w-8 h-8 rounded-full object-cover"
             />
             

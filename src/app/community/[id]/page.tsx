@@ -1,8 +1,9 @@
 "use client"
 
 import { useParams, useRouter } from "next/navigation"
-import { ChevronDown, Play, Lock, Users, Tag, Star, Volume2, SkipBack, SkipForward, Pause } from "lucide-react"
+import { Play, Lock, Users, Tag, Star } from "lucide-react"
 import { useState } from "react"
+import Image from "next/image"
 
 // Sample community data - in a real app this would come from an API
 const communities = [
@@ -199,9 +200,10 @@ export default function CommunityDetailPage() {
                   />
                 ) : (
                   <>
-                    <img 
+                    <Image 
                       src={`https://img.youtube.com/vi/${currentVideo.videoId}/maxresdefault.jpg`}
                       alt={currentVideo.title}
+                      fill
                       className="w-full h-full object-cover"
                     />
                     <div className="absolute inset-0 bg-opacity-20 flex items-center justify-center">
@@ -235,10 +237,11 @@ export default function CommunityDetailPage() {
                     onClick={() => handleVideoSelect(video)}
                   >
                     <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
-                      <img 
+                      <Image 
                         src={video.thumbnail}
+                        fill
                         alt={video.title}
-                        className="w-full h-full object-cover opacity-80"
+                        className="w-full h-full object-cover "
                       />
                       <div className="absolute inset-0  bg-opacity-30 flex items-center justify-center">
                         <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
@@ -273,8 +276,9 @@ export default function CommunityDetailPage() {
                     <span>{community.price}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <img 
-                      src={community.avatar} 
+                    <Image 
+                      src={community.avatar}
+                      fill
                       alt="Admin" 
                       className="w-5 h-5 rounded-full"
                     />
@@ -299,8 +303,8 @@ export default function CommunityDetailPage() {
                   <h2 className="text-lg font-semibold text-gray-900 mb-3">COMMUNITY RULES:</h2>
                   <ol className="list-decimal list-inside space-y-2 text-gray-700">
                     <li>Be Respectful: Treat others kindly, no profanities, and offer constructive criticism.</li>
-                    <li>This isn't a place to ask for donations or sell things.</li>
-                    <li>Talk about things that relate to men's fragrances.</li>
+                    <li>This isn&apos;t a place to ask for donations or sell things.</li>
+                    <li>Talk about things that relate to men&apos;s fragrances.</li>
                     <li>Share tips, support each other, engage and be active.</li>
                     <li>Inactive accounts are deleted within 30 days.</li>
                   </ol>
@@ -308,19 +312,19 @@ export default function CommunityDetailPage() {
 
                 {/* Community Benefits */}
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3">THIS COMMUNITY IS FOR YOU IF YOU'RE LOOKING TO:</h2>
+                  <h2 className="text-lg font-semibold text-gray-900 mb-3">THIS COMMUNITY IS FOR YOU IF YOU&apos;RE LOOKING TO:</h2>
                   <ul className="list-disc list-inside space-y-2 text-gray-700">
                     <li>Learn about fragrance, cologne, Parfum, EDT, EDP, & perfumes.</li>
                     <li>Build connections with like-minded people</li>
                     <li>Learn from other fragrance lovers.</li>
-                    <li>Teach others what you've learned & share your opinions.</li>
+                    <li>Teach others what you&apos;ve learned & share your opinions.</li>
                     <li>Become your best self.</li>
                   </ul>
                 </div>
 
                 {/* Inside Community */}
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3">INSIDE THIS COMMUNITY YOU'LL FIND:</h2>
+                  <h2 className="text-lg font-semibold text-gray-900 mb-3">INSIDE THIS COMMUNITY YOU&apos;LL FIND:</h2>
                   <ul className="list-disc list-inside space-y-2 text-gray-700">
                     <li>Access to courses and training.</li>
                     <li>Exclusive Coaching sessions and LIVE events.</li>
@@ -364,9 +368,10 @@ export default function CommunityDetailPage() {
                 <div className="aspect-video bg-gradient-to-r from-orange-200 to-blue-200 relative">
                  
                   {/* Main Image */}
-                  <img 
+                  <Image 
                     src={community.image} 
                     alt={community.name}
+                    fill
                     className="absolute top-0 right-0 w-full h-full object-cover"
                   />
                 </div>

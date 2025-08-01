@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 interface Member {
@@ -65,9 +66,10 @@ export default function MemberList() {
               {/* Avatar with level */}
               <div className="relative">
                 <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-100">
-                  <img 
+                  <Image 
                     src={member.avatar} 
                     alt={member.name}
+                    fill
                     className="w-full h-full object-cover"
                   />
                 </div>

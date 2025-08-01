@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
-import Link from "next/link";
 import { useAuthModal } from "@/lib/AuthModalContext";
 
 interface Slide {

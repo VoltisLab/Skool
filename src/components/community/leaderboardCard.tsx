@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React from 'react';
 
 interface LeaderboardEntry {
@@ -65,9 +66,10 @@ export default function LeaderboardCard() {
                 
                 {/* Avatar */}
                 <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-100">
-                  <img 
+                  <Image 
                     src={entry.avatar} 
                     alt={entry.name}
+                    fill
                     className="w-full h-full object-cover"
                   />
                 </div>

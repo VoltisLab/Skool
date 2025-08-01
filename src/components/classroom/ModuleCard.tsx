@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 interface ModuleCardProps {
   id: string
   title: string
@@ -8,7 +10,6 @@ interface ModuleCardProps {
 }
 
 export default function ModuleCard({
-  id,
   title,
   description,
   image,
@@ -22,9 +23,10 @@ export default function ModuleCard({
     >
       {/* Image with Overlay */}
       <div className="relative aspect-video">
-        <img
+        <Image
           src={image}
           alt={title}
+          fill
           className="w-full h-full object-cover"
         />
         {/* <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
