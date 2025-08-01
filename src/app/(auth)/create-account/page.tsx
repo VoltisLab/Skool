@@ -33,7 +33,7 @@ const slides: Slide[] = [
 export default function Page() {
   const [current, setCurrent] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-    const { openModal } = useAuthModal();
+  const { openModal } = useAuthModal();
 
 
   const prev = () => {
