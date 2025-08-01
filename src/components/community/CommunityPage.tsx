@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { MapPin, Play, Brain } from "lucide-react"
 
-// Import all components
 import PostInput from "@/components/community/PostInput"
 import EventBanner from "@/components/community/EventBanner"
 import FilterTabs, { defaultTabs } from "@/components/community/FilterTabs"

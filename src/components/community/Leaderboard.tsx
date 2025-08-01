@@ -41,12 +41,14 @@ export default function Leaderboard({ title, entries, onViewAll }: LeaderboardPr
               {getRankIcon(entry.rank)}
             </div>
             
-            <Image
-              src={entry.avatar}
-              alt={entry.name}
-              fill
-              className="w-8 h-8 rounded-full object-cover"
-            />
+            <div className="relative w-8 h-8">
+              <Image
+                src={entry.avatar}
+                alt={entry.name}
+                fill
+                className="rounded-full object-cover"
+              />
+            </div>
             
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900 truncate">{entry.name}</p>

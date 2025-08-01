@@ -52,12 +52,12 @@ export default function PostCard({
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-start gap-3">
-          <div className="relative">
+          <div className="relative w-10 h-10">
             <Image
               src={author.avatar}
               alt={author.name}
               fill
-              className="w-10 h-10 rounded-full object-cover"
+              className="rounded-full object-cover"
             />
             {author.badge && (
               <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center font-bold">
@@ -105,12 +105,14 @@ export default function PostCard({
       {media && (
         <div className="mb-4">
           {media.type === 'image' && (
-            <Image
-              src={media.url}
-              alt={media.alt}
-              fill
-              className="w-full h-32 object-cover rounded-lg"
-            />
+            <div className="relative w-full h-32">
+              <Image
+                src={media.url}
+                alt={media.alt}
+                fill
+                className="object-cover rounded-lg"
+              />
+            </div>
           )}
           {media.type === 'video' && (
             <div className="relative w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center">
@@ -157,14 +159,15 @@ export default function PostCard({
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
               {engagement.recentCommenters.slice(0, 3).map((commenter) => (
-                <Image
-                  key={commenter.id}
-                  src={commenter.avatar}
-                  alt={commenter.name}
-                  fill
-                  className="w-6 h-6 rounded-full border-2 border-white"
-                  title={commenter.name}
-                />
+                <div key={commenter.id} className="relative w-6 h-6">
+                  <Image
+                    src={commenter.avatar}
+                    alt={commenter.name}
+                    fill
+                    className="rounded-full border-2 border-white object-cover"
+                    title={commenter.name}
+                  />
+                </div>
               ))}
             </div>
             {engagement.lastCommentTime && (

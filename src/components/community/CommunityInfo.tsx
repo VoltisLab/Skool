@@ -44,7 +44,7 @@ export default function CommunityInfo({
             src={bannerImage} 
             alt={`${name} banner`}
             fill
-            className="absolute inset-0 w-full h-full object-cover"
+            className="object-cover"
           />
         </div>
       </div>
@@ -103,14 +103,15 @@ export default function CommunityInfo({
           </div>
           <div className="flex -space-x-2">
             {recentMembers.map((member) => (
-              <Image
-                key={member.id}
-                src={member.avatar}
-                alt={member.name}
-                fill
-                className="w-8 h-8 rounded-full border-2 border-white"
-                title={member.name}
-              />
+              <div key={member.id} className="relative w-8 h-8">
+                <Image
+                  src={member.avatar}
+                  alt={member.name}
+                  fill
+                  className="rounded-full border-2 border-white object-cover"
+                  title={member.name}
+                />
+              </div>
             ))}
           </div>
         </div>
