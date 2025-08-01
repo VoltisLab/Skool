@@ -69,7 +69,8 @@ export default function MemberList() {
                   <Image 
                     src={member.avatar} 
                     alt={member.name}
-                    fill
+                    width={48}
+                    height={48}
                     className="w-full h-full object-cover"
                   />
                 </div>
