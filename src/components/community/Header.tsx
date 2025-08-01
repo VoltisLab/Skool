@@ -9,6 +9,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import DropdownPanel from '../DropdownPanel';
+import LogoutModal from '../auth/LogoutModal';
 
 export default function Header() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -20,6 +21,16 @@ export default function Header() {
   const pathname = usePathname();
   const community = params.community;  const segments = pathname.split("/").filter(Boolean);
   const currentTab = segments[segments.length - 1] ?? "";
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleLogout = () => {
+    setIsModalOpen(false);
+
+    // TODO: Add your logout logic here
+    window.location.href= "/login"
+    console.log("User logged out");
+  };
+
 
   const tabs = [
     { name: 'Community', link: '/' },
@@ -150,7 +161,7 @@ export default function Header() {
                   <li className="cursor-not-allowed">Discover communities</li>
                 </ul>
                 <div className="px-4 pb-3 pt-2">
-                  <button className="text-base text-red-500 hover:underline">Log out</button>
+                  <button onClick={() => setIsModalOpen(true)} className="text-base text-red-500 hover:underline">Log out</button>
                 </div>
               </div>
             </DropdownPanel>
@@ -205,6 +216,11 @@ export default function Header() {
           </div>
         </div>
       )}
+      <LogoutModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleLogout}
+      />
     </header>
   );
 }
