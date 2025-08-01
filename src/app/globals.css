@@ -24,6 +24,9 @@ body {
   color: black;
   font-family: Arial, Helvetica, sans-serif;
 }
+button{
+@apply cursor-pointer;
+}
 
 .custom-marker {
   background: transparent !important;
