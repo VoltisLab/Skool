@@ -156,7 +156,7 @@ export default function HomePage() {
           </h1>
           <Link href="/create-account">
           <p className="text-[#909090] mb-8">
-            or <a href="#" className="text-[#2E6EF5] font-semibold hover:underline">create your own</a>
+            or <span className="text-[#2E6EF5] font-semibold hover:underline">create your own</span>
           </p>
           </Link>
 
