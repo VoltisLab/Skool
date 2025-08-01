@@ -103,15 +103,15 @@ export default function CommunityInfo({
           </div>
           <div className="flex -space-x-2">
             {recentMembers.map((member) => (
-              <div key={member.id} className="relative w-8 h-8">
-                <Image
-                  src={member.avatar}
-                  alt={member.name}
-                  fill
-                  className="rounded-full border-2 border-white object-cover"
-                  title={member.name}
-                />
-              </div>
+              <Image
+                key={member.id}
+                src={member.avatar}
+                alt={member.name}
+                width={32}
+                height={32}
+                className="w-8 h-8 rounded-full border-2 border-white"
+                title={member.name}
+              />
             ))}
           </div>
         </div>
@@ -128,4 +128,4 @@ export default function CommunityInfo({
       </div>
     </div>
   )
-} 
+}

@@ -73,7 +73,7 @@ const videoSeries = [
 export default function CommunityDetailPage() {
   const [currentVideo, setCurrentVideo] = useState(videoSeries[0])
   const [isPlaying, setIsPlaying] = useState(false)
-  
+
   return (
     <div className="min-h-screen bg-gray-50">
 
@@ -81,10 +81,10 @@ export default function CommunityDetailPage() {
       <main className="max-w-[1085px] mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Side - Video Preview and Description */}
-          <div className="lg:col-span-2 ">
+          <div className="lg:col-span-2">
             {/* Video Preview Area */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6 p-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-6">{community.name}</h1>
+              <h1 className="text-2xl font-bold text-gray-900 mb-6">{community.name}</h1>
               
               {/* Main Video Player */}
               <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden mb-4">
@@ -116,7 +116,7 @@ export default function CommunityDetailPage() {
                     <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
                       {currentVideo.duration}
                     </div>
-                    <div className="absolute bottom-4 right-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
+                    <div className="absolute bottom-4 right-4 bg-opacity-70 text-white text-sm px-2 py-1 rounded">
                       1.2x
                     </div>
                   </div>
@@ -156,8 +156,6 @@ export default function CommunityDetailPage() {
               
               {/* Community Info */}
               <div className="py-6">
-                
-                
                 {/* Tags */}
                 <div className="flex items-center gap-4 mb-4 text-sm font-semibold text-gray-800">
                   <div className="flex items-center gap-1">
@@ -173,25 +171,18 @@ export default function CommunityDetailPage() {
                     <span>{community.price}</span>
                   </div>
                   <div className="flex items-center gap-1">
-                    <div className="relative w-5 h-5">
-                      <Image 
-                        src={community.avatar} 
-                        alt="Admin" 
-                        fill
-                        className="rounded-full object-cover"
-                      />
-                    </div>
+                    {/* Fixed avatar sizing */}
+                    <Image 
+                      src={community.avatar} 
+                      alt="Admin" 
+                      width={20}
+                      height={20}
+                      className="w-5 h-5 rounded-full"
+                    />
                     <span>By Antonio O. Centeno</span>
                     <Star className="h-4 w-4 text-yellow-400 fill-current" />
                   </div>
                 </div>
-
-                {/* Join Instructions */}
-                {/* <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-                  <p className="text-gray-800 font-medium">
-                    Click the yellow 'Join' button and then PLEASE answer our 3 vetting questions - you MUST answer them.
-                  </p>
-                </div> */}
 
                 <p className="text-gray-600 mb-6">
                   This group is hosted by Antonio Centeno and Real Men Real Style team.
@@ -237,33 +228,11 @@ export default function CommunityDetailPage() {
                 </p>
               </div>
             </div>
-
-            {/* Additional Content Cards */}
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">COMMUNITY RULES</h3>
-                <p className="text-sm text-gray-600">Learn how to get the most out of this community</p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">Engage and Level-up</h3>
-                <p className="text-sm text-gray-600">Participate in discussions and grow with the community</p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">Unlock Exclusive Courses</h3>
-                <p className="text-sm text-gray-600">Access premium content and training materials</p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">Win Awesome Prizes!</h3>
-                <p className="text-sm text-gray-600">Participate in giveaways and contests</p>
-              </div>
-            </div> */}
           </div>
 
           {/* Right Side - Community Details */}
           <div className="lg:col-span-1">
-           
-
-            <CommunityCard/>
+            <CommunityCard />
           </div>
         </div>
       </main>

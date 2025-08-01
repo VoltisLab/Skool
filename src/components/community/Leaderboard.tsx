@@ -33,27 +33,27 @@ export default function Leaderboard({ title, entries, onViewAll }: LeaderboardPr
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
       <h3 className="font-semibold text-gray-900 mb-4">{title}</h3>
-      
+
       <div className="space-y-3">
         {entries.map((entry) => (
           <div key={entry.id} className="flex items-center gap-3">
             <div className="flex items-center justify-center w-6 h-6">
               {getRankIcon(entry.rank)}
             </div>
-            
-            <div className="relative w-8 h-8">
-              <Image
-                src={entry.avatar}
-                alt={entry.name}
-                fill
-                className="rounded-full object-cover"
-              />
-            </div>
-            
+
+            {/* Fixed avatar sizing */}
+            <Image
+              src={entry.avatar}
+              alt={entry.name}
+              width={32}
+              height={32}
+              className="w-8 h-8 rounded-full object-cover"
+            />
+
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-gray-900 truncate">{entry.name}</p>
             </div>
-            
+
             <div className="flex items-center gap-1">
               {entry.isTopPerformer && (
                 <Flame className="w-3 h-3 text-red-500" />
@@ -63,7 +63,7 @@ export default function Leaderboard({ title, entries, onViewAll }: LeaderboardPr
           </div>
         ))}
       </div>
-      
+
       {onViewAll && (
         <button
           onClick={onViewAll}
@@ -114,4 +114,4 @@ export const defaultLeaderboardEntries: LeaderboardEntry[] = [
     avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=32&h=32&fit=crop&crop=face",
     score: 183
   }
-] 
+]

@@ -144,10 +144,10 @@ export default function CommunityDetailPage() {
   const params = useParams()
   const router = useRouter()
   const communityId = parseInt(params.id as string)
-  
+
   const [currentVideo, setCurrentVideo] = useState(videos[0])
   const [isPlaying, setIsPlaying] = useState(false)
-  
+
   // Find the community by ID
   const community = communities.find(c => c.id === communityId)
 
@@ -179,15 +179,15 @@ export default function CommunityDetailPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-
       {/* Main Content */}
       <main className="max-w-[1085px] mx-auto px-6 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Side - Video Preview and Description */}
-          <div className="lg:col-span-2 ">
-            {/* Video Preview Area */}
+          <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-6 p-6">
-            <h1 className="text-2xl font-bold text-gray-900 mb-6">{community.name}</h1>
+              <h1 className="text-2xl font-bold text-gray-900 mb-6">{community.name}</h1>
+
+              {/* Video Preview Area */}
               <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden mb-4">
                 {isPlaying ? (
                   <iframe
@@ -224,8 +224,6 @@ export default function CommunityDetailPage() {
                 )}
               </div>
 
-    
-
               {/* Video Thumbnails Section */}
               <div className="grid grid-cols-4 gap-4 mb-4">
                 {videos.map((video) => (
@@ -239,11 +237,11 @@ export default function CommunityDetailPage() {
                     <div className="aspect-video bg-gradient-to-br from-blue-400 to-purple-600 relative">
                       <Image 
                         src={video.thumbnail}
-                        fill
                         alt={video.title}
-                        className="w-full h-full object-cover "
+                        fill
+                        className="w-full h-full object-cover"
                       />
-                      <div className="absolute inset-0  bg-opacity-30 flex items-center justify-center">
+                      <div className="absolute inset-0 bg-opacity-30 flex items-center justify-center">
                         <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
                           <Play className="w-4 h-4 text-gray-800 ml-0.5" />
                         </div>
@@ -252,15 +250,12 @@ export default function CommunityDetailPage() {
                         {video.duration}
                       </div>
                     </div>
-                   
                   </div>
                 ))}
               </div>
-              
+
               {/* Community Info */}
               <div className="py-6">
-                
-                
                 {/* Tags */}
                 <div className="flex items-center gap-4 mb-4 text-sm font-semibold text-gray-800">
                   <div className="flex items-center gap-1">
@@ -271,28 +266,23 @@ export default function CommunityDetailPage() {
                     <Users className="h-4 w-4" />
                     <span>{community.members}</span>
                   </div>
-                  <div className="flex items-center gap-1">
+                    <div className="flex items-center gap-1">
                     <Tag className="h-4 w-4" />
                     <span>{community.price}</span>
                   </div>
                   <div className="flex items-center gap-1">
+                    {/* Fixed avatar sizing */}
                     <Image 
                       src={community.avatar}
-                      fill
                       alt="Admin" 
+                      width={20}
+                      height={20}
                       className="w-5 h-5 rounded-full"
                     />
                     <span>By Antonio O. Centeno</span>
                     <Star className="h-4 w-4 text-yellow-400 fill-current" />
                   </div>
                 </div>
-
-                {/* Join Instructions */}
-                {/* <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-                  <p className="text-gray-800 font-medium">
-                    Click the yellow 'Join' button and then PLEASE answer our 3 vetting questions - you MUST answer them.
-                  </p>
-                </div> */}
 
                 <p className="text-gray-600 mb-6">
                   This group is hosted by Antonio Centeno and Real Men Real Style team.
@@ -338,26 +328,6 @@ export default function CommunityDetailPage() {
                 </p>
               </div>
             </div>
-
-            {/* Additional Content Cards */}
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">COMMUNITY RULES</h3>
-                <p className="text-sm text-gray-600">Learn how to get the most out of this community</p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">Engage and Level-up</h3>
-                <p className="text-sm text-gray-600">Participate in discussions and grow with the community</p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">Unlock Exclusive Courses</h3>
-                <p className="text-sm text-gray-600">Access premium content and training materials</p>
-              </div>
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
-                <h3 className="font-semibold text-gray-900 mb-2">Win Awesome Prizes!</h3>
-                <p className="text-sm text-gray-600">Participate in giveaways and contests</p>
-              </div>
-            </div> */}
           </div>
 
           {/* Right Side - Community Details */}
@@ -366,13 +336,12 @@ export default function CommunityDetailPage() {
               {/* Community Image with Gradient Banner */}
               <div className="relative w-full overflow-hidden rounded-lg">
                 <div className="aspect-video bg-gradient-to-r from-orange-200 to-blue-200 relative">
-                 
                   {/* Main Image */}
                   <Image 
                     src={community.image} 
                     alt={community.name}
                     fill
-                    className="absolute top-0 right-0 w-full h-full object-cover"
+                    className="object-cover"
                   />
                 </div>
               </div>
@@ -423,4 +392,4 @@ export default function CommunityDetailPage() {
       </main>
     </div>
   )
-} 
+}

@@ -52,12 +52,14 @@ export default function PostCard({
       {/* Header */}
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-start gap-3">
-          <div className="relative w-10 h-10">
+          <div className="relative">
+            {/* Fixed avatar sizing to avoid fill conflicts */}
             <Image
               src={author.avatar}
               alt={author.name}
-              fill
-              className="rounded-full object-cover"
+              width={40}
+              height={40}
+              className="w-10 h-10 rounded-full object-cover"
             />
             {author.badge && (
               <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-blue-600 text-white text-xs rounded-full flex items-center justify-center font-bold">
@@ -81,7 +83,7 @@ export default function PostCard({
                 </>
               )}
             </div>
-            
+
             {/* Pinned indicator and title */}
             <div className="flex items-center gap-2 mb-2">
               {isPinned && (
@@ -105,12 +107,13 @@ export default function PostCard({
       {media && (
         <div className="mb-4">
           {media.type === 'image' && (
-            <div className="relative w-full h-32">
+            // Wrap image in a relative container and let it fill naturally
+            <div className="relative w-full h-32 rounded-lg overflow-hidden">
               <Image
                 src={media.url}
                 alt={media.alt}
                 fill
-                className="object-cover rounded-lg"
+                className="object-cover"
               />
             </div>
           )}
@@ -153,21 +156,21 @@ export default function PostCard({
             <span className="text-sm">{engagement.comments}</span>
           </button>
         </div>
-        
+
         {/* Recent commenters */}
         {engagement.recentCommenters.length > 0 && (
           <div className="flex items-center gap-2">
             <div className="flex -space-x-2">
               {engagement.recentCommenters.slice(0, 3).map((commenter) => (
-                <div key={commenter.id} className="relative w-6 h-6">
-                  <Image
-                    src={commenter.avatar}
-                    alt={commenter.name}
-                    fill
-                    className="rounded-full border-2 border-white object-cover"
-                    title={commenter.name}
-                  />
-                </div>
+                <Image
+                  key={commenter.id}
+                  src={commenter.avatar}
+                  alt={commenter.name}
+                  width={24}
+                  height={24}
+                  className="w-6 h-6 rounded-full border-2 border-white"
+                  title={commenter.name}
+                />
               ))}
             </div>
             {engagement.lastCommentTime && (
@@ -178,4 +181,4 @@ export default function PostCard({
       </div>
     </div>
   )
-} 
+}
