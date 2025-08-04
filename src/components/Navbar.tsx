@@ -86,7 +86,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Create a community */}
-                <Link href="/signup" className="">
+                <Link href="/create-account" className="">
                   <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-200 p-1 rounded-lg transition-colors">
                     <div className="w-6 h-6 bg-gray-200 rounded flex items-center justify-center">
                       <Plus className="h-4 w-4 text-gray-600" />

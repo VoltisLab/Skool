@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
-import { useAuthModal } from "@/lib/AuthModalContext";
+import { useRouter } from "next/navigation";
 
 interface Slide {
   img: string;
@@ -32,8 +32,7 @@ const slides: Slide[] = [
 export default function Page() {
   const [current, setCurrent] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-  const { openModal } = useAuthModal();
-
+  const router = useRouter();
 
   const prev = () => {
     if (isAnimating) return;
@@ -74,10 +73,14 @@ export default function Page() {
     }
   };
 
+  const handleCreateCommunity = () => {
+    router.push('/pricing');
+  };
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-white text-center">
       {/* Logo */}
-                    <Image src="/logo.svg" alt="logo" height={30} width={30} />
+      <Image src="/logo.svg" alt="logo" height={30} width={30} />
       
       {/* <h1 className="text-4xl font-extrabold mb-2">
         <span className="text-red-500">s</span>
@@ -169,7 +172,7 @@ export default function Page() {
       </div>
 
       {/* CTA */}
-      <button onClick={() => openModal("signup")}>
+      <button onClick={handleCreateCommunity}>
         <button className="mt-8 cursor-pointer bg-[#313273] hover:bg-[#2a2a5a] text-white font-bold py-3 px-6 rounded shadow-md transition-colors duration-200">
           CREATE YOUR COMMUNITY
         </button>
