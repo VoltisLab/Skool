@@ -77,13 +77,15 @@ export default function Page() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-white text-center">
       {/* Logo */}
-      <h1 className="text-4xl font-extrabold mb-2">
+                    <Image src="/logo.svg" alt="logo" height={30} width={30} />
+      
+      {/* <h1 className="text-4xl font-extrabold mb-2">
         <span className="text-red-500">s</span>
         <span className="text-[#313273]">k</span>
         <span className="text-blue-500">o</span>
         <span className="text-green-500">o</span>
         <span className="text-purple-600">l</span>
-      </h1>
+      </h1> */}
 
       {/* Tagline */}
       <p className="text-xl font-semibold text-gray-700 leading-relaxed">

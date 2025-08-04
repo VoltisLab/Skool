@@ -2,6 +2,7 @@
 
 import { useAuthModal } from "@/lib/AuthModalContext"
 import { ChevronUp, ChevronDown, Search, Settings, Plus, Compass } from "lucide-react"
+import Image from "next/image"
 import { useState, useEffect } from "react"
 
 export default function Navbar() {
@@ -35,13 +36,18 @@ export default function Navbar() {
           {/* Skool Logo */}
           <div className="flex items-center gap-2 relative">
             <div className="text-center">
-              <h1 className="text-2xl font-bold">
+              <div className="flex items-center gap-2 font-bold text-blue-900">
+                <Image src="/logo.svg" alt="logo" height={30} width={30} />
+                <p>VOLTIS LABS</p>
+
+              </div>
+              {/* <h1 className="text-2xl font-bold">
                 <span className="text-blue-600">s</span>
                 <span className="text-red-500">k</span>
                 <span className="text-[#313273]">o</span>
                 <span className="text-green-500">o</span>
                 <span className="text-blue-600">l</span>
-              </h1>
+              </h1> */}
             </div>
             <div 
               className="flex flex-col cursor-pointer hover:bg-gray-200 rounded-full px-2 transition-colors"
