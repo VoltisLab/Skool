@@ -3,10 +3,17 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import AuthForm from "@/components/auth/authForm";
 
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+type AuthFormData = LoginFormData | { firstName: string; lastName: string; email: string; password: string } | { code: string } | { email: string };
+
 const AuthPage: React.FC = () => {
   const router = useRouter();
 
-  const handleLogin = (data: any) => {
+  const handleLogin = (data: AuthFormData) => {
     console.log("Login", data);
     // In a real app, you would validate credentials here
     // For now, we'll just redirect to dashboard

@@ -1,4 +1,4 @@
-import { Copy, ChevronDown, DollarSign } from 'lucide-react'
+import { ChevronDown, DollarSign } from 'lucide-react'
 
 export default function Affiliates() {
   return (

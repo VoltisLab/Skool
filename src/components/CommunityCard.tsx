@@ -1,7 +1,5 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-// import DeleteModal from './DeleteCourseModal'; // Adjust this import if your delete modal is named differently
 
 interface Community {
   id: number;
@@ -21,17 +19,8 @@ interface CommunityCardProps {
 }
 
 export default function CommunityCard({ community, onClick }: CommunityCardProps) {
-  // State for handling the delete confirmation modal
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
-
   // Compute a pseudo progress based on rank (rank 1 shows a full bar)
   const progressPercent = Math.max(0, Math.min(100, 100 - (community.rank - 1)));
-
-  // Handle delete confirmation
-  const handleDeleteConfirm = async () => {
-    // TODO: implement actual delete if needed
-    setShowDeleteModal(false);
-  };
 
   return (
     <div
@@ -98,11 +87,6 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
             </button>
           </Link>
           <button
-            onClick={(e) => {
-              e.stopPropagation();
-              e.preventDefault();
-              setShowDeleteModal(true);
-            }}
             className="flex-1 w-full py-2 rounded-xl border border-red-200 bg-red-50 text-red-600 font-bold shadow-md hover:bg-red-100 transition-all text-sm"
             type="button"
           >
@@ -110,15 +94,6 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
           </button>
         </div>
       </div>
-
-      {/* Delete Confirmation Modal */}
-      {/* <DeleteModal
-        isOpen={showDeleteModal}
-        onClose={() => setShowDeleteModal(false)}
-        onConfirm={handleDeleteConfirm}
-        courseTitle={community.name} // Title shown in modal
-        id={community.id}
-      /> */}
     </div>
   );
 }

@@ -1,5 +1,4 @@
-import { Settings, Eye, Pin } from 'lucide-react'
-import Image from 'next/image'
+import { Eye, Pin } from 'lucide-react'
 
 const communities = [
   {

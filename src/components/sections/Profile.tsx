@@ -4,9 +4,6 @@ import { useState } from 'react'
 import ChangeNameModal from '../modals/ChangeNameModal'
 
 export default function Profile() {
-  const [isEditingUrl, setIsEditingUrl] = useState(false)
-  const [isEditingBio, setIsEditingBio] = useState(false)
-  const [isEditingLocation, setIsEditingLocation] = useState(false)
   const [isNameModalOpen, setIsNameModalOpen] = useState(false)
   const [firstName, setFirstName] = useState('Stanley')
   const [lastName, setLastName] = useState('Samuel')
@@ -81,14 +78,12 @@ export default function Profile() {
           <input
             type="text"
             defaultValue="skool.com/@stanley-samuel-2133"
-            readOnly={!isEditingUrl}
-            className={`w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 ${
-              !isEditingUrl ? 'bg-gray-50 cursor-not-allowed' : 'bg-white'
-            }`}
+            readOnly
+            className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 bg-gray-50 cursor-not-allowed"
           />
         </div>
         <p className="text-sm text-gray-600 mt-2">
-          You can change your URL once you've got 90 contributions, 30 followers, and been using it for 90 days.
+          You can change your URL once you&apos;ve got 90 contributions, 30 followers, and been using it for 90 days.
         </p>
       </div>
       
@@ -101,10 +96,8 @@ export default function Profile() {
           <textarea
             defaultValue="Software Engineer"
             rows={3}
-            readOnly={!isEditingBio}
-            className={`w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 resize-none ${
-              !isEditingBio ? 'bg-gray-50 cursor-not-allowed' : 'bg-white'
-            }`}
+            readOnly
+            className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 resize-none bg-gray-50 cursor-not-allowed"
           />
         </div>
         <div className="text-right mt-1">
@@ -121,10 +114,8 @@ export default function Profile() {
           <input
             type="text"
             placeholder=""
-            readOnly={!isEditingLocation}
-            className={`w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 ${
-              !isEditingLocation ? 'bg-gray-50 cursor-not-allowed' : 'bg-white'
-            }`}
+            readOnly
+            className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 bg-gray-50 cursor-not-allowed"
           />
         </div>
         <div className="flex items-center justify-between mt-2">
@@ -146,7 +137,7 @@ export default function Profile() {
           </label>
           <div className="relative">
             <select className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 appearance-none bg-white">
-              <option>Don't show</option>
+              <option>Don&apos;t show</option>
             </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
           </div>
