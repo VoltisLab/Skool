@@ -3,12 +3,15 @@
 import { useAuthModal } from "@/lib/AuthModalContext"
 import { ChevronUp, ChevronDown, Search, Settings, Plus, Compass } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const { openModal } = useAuthModal();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +30,12 @@ export default function Navbar() {
     if (e.target === e.currentTarget) {
       setIsDropdownOpen(false)
     }
+  }
+
+  const handleSettingsClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    router.push('/login')
   }
 
   return (
@@ -61,7 +70,7 @@ export default function Navbar() {
             {isDropdownOpen && (
               <div className="absolute top-full left-0  bg-white max-w-[230px] p-2 rounded-lg shadow-lg border border-gray-200 w-52 z-50">
                 {/* Search Bar */}
-                <div className="p-1.5 ">
+                <div className="p-1 ">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <input
@@ -69,29 +78,32 @@ export default function Navbar() {
                       placeholder="Search"
                       className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg bg-gray-200"
                     />
-                    <Settings className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 cursor-pointer" />
+                    <Settings 
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 cursor-pointer hover:text-gray-600 transition-colors" 
+                      onClick={handleSettingsClick}
+                    />
                   </div>
                 </div>
 
                 {/* Create a community */}
-                <div className="p-1">
+                <Link href="/signup" className="">
                   <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-200 p-1 rounded-lg transition-colors">
                     <div className="w-6 h-6 bg-gray-200 rounded flex items-center justify-center">
                       <Plus className="h-4 w-4 text-gray-600" />
                     </div>
                     <span className="text-xs font-medium text-gray-700">Create a community</span>
                   </div>
-                </div>
+                </Link>
 
                 {/* Discover communities */}
-                <div className="p-1">
+                <Link href="/" className="">
                   <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-200 p-1 rounded-lg transition-colors">
                     <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center">
                       <Compass className="h-4 w-4 text-gray-600" />
                     </div>
                     <span className="text-xs font-medium text-gray-700">Discover communities</span>
                   </div>
-                </div>
+                </Link>
               </div>
             )}
           </div>
