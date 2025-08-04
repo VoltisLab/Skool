@@ -105,7 +105,7 @@ export default function CommunityDetailPage() {
                       fill
                       className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-opacity-20 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center">
                       <button 
                         onClick={() => setIsPlaying(true)}
                         className="w-16 h-16 bg-white bg-opacity-90 rounded-full flex items-center justify-center hover:bg-opacity-100 transition-all"
@@ -113,7 +113,7 @@ export default function CommunityDetailPage() {
                         <Play className="w-8 h-8 text-gray-800 ml-1" />
                       </button>
                     </div>
-                    <div className="absolute bottom-4 left-4 bg-opacity-70 text-white text-sm px-2 py-1 rounded">
+                    <div className="absolute bottom-4 left-4 bg-black bg-opacity-70 text-white text-sm px-2 py-1 rounded">
                       {currentVideo.duration}
                     </div>
                     <div className="absolute bottom-4 right-4 bg-opacity-70 text-white text-sm px-2 py-1 rounded">
@@ -141,12 +141,12 @@ export default function CommunityDetailPage() {
                         fill
                         className="object-cover"
                       />
-                      <div className="absolute inset-0 bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                         <div className="w-8 h-8 bg-white bg-opacity-90 rounded-full flex items-center justify-center">
                           <Play className="w-4 h-4 text-gray-800 ml-0.5" />
                         </div>
                       </div>
-                      <div className="absolute bottom-1 right-1 bg-opacity-70 text-white text-xs px-1 py-0.5 rounded">
+                      <div className="absolute bottom-1 right-1 bg-black bg-opacity-70 text-white text-xs px-1 py-0.5 rounded">
                         {video.duration}
                       </div>
                     </div>
