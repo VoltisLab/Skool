@@ -54,15 +54,15 @@ export default function AISCommunityCard() {
         {/* Stats */}
         <div className="flex justify-between mb-6 px-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">106.4k</div>
+            <div className="text-2xl font-bold text-[#313273]">106.4k</div>
             <div className="text-xs text-gray-500">Members</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">510</div>
+            <div className="text-2xl font-bold text-[#313273]">510</div>
             <div className="text-xs text-gray-500">Online</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">10</div>
+            <div className="text-2xl font-bold text-[#313273]">10</div>
             <div className="text-xs text-gray-500">Admins</div>
           </div>
         </div>

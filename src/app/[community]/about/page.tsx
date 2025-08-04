@@ -180,7 +180,7 @@ export default function CommunityDetailPage() {
                       className="w-5 h-5 rounded-full"
                     />
                     <span>By Antonio O. Centeno</span>
-                    <Star className="h-4 w-4 text-yellow-400 fill-current" />
+                    <Star className="h-4 w-4 text-[#313273] fill-current" />
                   </div>
                 </div>
 

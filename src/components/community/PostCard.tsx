@@ -77,7 +77,7 @@ export default function PostCard({
                 <>
                   <span>•</span>
                   <div className="flex items-center gap-1">
-                    <Trophy className="w-3 h-3 text-yellow-500" />
+                    <Trophy className="w-3 h-3 text-[#313273]" />
                     <span>Wins</span>
                   </div>
                 </>

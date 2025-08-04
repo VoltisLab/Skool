@@ -79,7 +79,7 @@ export default function Page() {
       {/* Logo */}
       <h1 className="text-4xl font-extrabold mb-2">
         <span className="text-red-500">s</span>
-        <span className="text-yellow-400">k</span>
+        <span className="text-[#313273]">k</span>
         <span className="text-blue-500">o</span>
         <span className="text-green-500">o</span>
         <span className="text-purple-600">l</span>
@@ -168,7 +168,7 @@ export default function Page() {
 
       {/* CTA */}
       <button onClick={() => openModal("signup")}>
-        <button className="mt-8 cursor-pointer bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-3 px-6 rounded shadow-md transition-colors duration-200">
+        <button className="mt-8 cursor-pointer bg-[#313273] hover:bg-[#2a2a5a] text-white font-bold py-3 px-6 rounded shadow-md transition-colors duration-200">
           CREATE YOUR COMMUNITY
         </button>
       </button>

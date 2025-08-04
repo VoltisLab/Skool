@@ -52,7 +52,7 @@ export default function LogoutModal({ isOpen, onClose, onConfirm }: LogoutModalP
           </button>
           <button
             onClick={onConfirm}
-            className="bg-yellow-300 text-black text-sm font-semibold py-2 px-4 rounded hover:bg-yellow-400"
+            className="bg-[#313273] text-white text-sm font-semibold py-2 px-4 rounded hover:bg-[#2a2a5a]"
           >
             LOG OUT
           </button>

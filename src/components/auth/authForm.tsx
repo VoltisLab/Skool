@@ -86,7 +86,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             <h1 className="text-3xl font-bold">
               <span className="text-blue-600">s</span>
               <span className="text-red-500">k</span>
-              <span className="text-yellow-500">o</span>
+              <span className="text-[#313273]">o</span>
               <span className="text-green-500">o</span>
               <span className="text-blue-600">l</span>
             </h1>
@@ -195,7 +195,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             {/* Submit */}
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg"
+              className="w-full py-3 px-4 bg-[#313273] hover:bg-[#2a2a5a] text-white font-semibold rounded-lg"
             >
               {{
                 login: 'LOG IN',
