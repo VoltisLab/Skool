@@ -229,7 +229,7 @@ export default function HomePage() {
                     onClick={() => setCurrentPage(page)}
                     className={`w-8 h-8 rounded-full text-xs font-medium transition-colors ${
                       currentPage === page
-                        ? 'bg-[#F8D481] text-black'
+                        ? 'bg-[#313273] text-white'
                         : 'text-gray-400 hover:text-gray-600'
                     }`}
                   >

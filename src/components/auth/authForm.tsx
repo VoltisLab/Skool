@@ -96,8 +96,8 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             <div className="text-center">
               <h2 className="text-xl font-semibold text-gray-900">
                 {{
-                  login: 'Log in to Skool',
-                  signup: 'Sign up for Skool',
+                  login: 'Log in to your account',
+                  signup: 'Sign up for free',
                   verify: 'We sent you a code',
                   forgot: 'Forgot Password',
                 }[mode]}
