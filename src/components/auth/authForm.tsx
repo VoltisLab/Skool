@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuthModal } from '@/lib/AuthModalContext';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import {
@@ -82,14 +83,16 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
     <div className="h-fit flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-lg">
         <div className="w-full min-w-[26rem] bg-white rounded-xl shadow-sm border border-gray-200 px-10 py-12">
-          <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold">
+          <div className="flex w-full justify-center items-center mb-6">
+                          <Image src="/logo.svg" alt="logo" height={30} width={30} />
+            
+            {/* <h1 className="text-3xl font-bold">
               <span className="text-blue-600">s</span>
               <span className="text-red-500">k</span>
               <span className="text-[#313273]">o</span>
               <span className="text-green-500">o</span>
               <span className="text-blue-600">l</span>
-            </h1>
+            </h1> */}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
