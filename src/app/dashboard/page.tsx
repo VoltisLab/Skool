@@ -1,6 +1,7 @@
-"use client"
+'use client'
 
 import { useState } from 'react'
+import ProtectedRoute from '@/components/ProtectedRoute'
 import Sidebar from '@/components/Sidebar'
 import Communities from '@/components/sections/Communities'
 import Profile from '@/components/sections/Profile'
@@ -18,42 +19,33 @@ export default function Dashboard() {
 
   const renderContent = () => {
     switch (activeSection) {
-      case 'communities':
-        return <Communities />
-      case 'profile':
-        return <Profile />
-      case 'affiliates':
-        return <Affiliates />
-      case 'payouts':
-        return <Payouts />
-      case 'account':
-        return <Account />
-      case 'notifications':
-        return <Notifications />
-      case 'chat':
-        return <Chat />
-      case 'payment-methods':
-        return <PaymentMethods />
-      case 'payment-history':
-        return <PaymentHistory />
-      case 'theme':
-        return <Theme />
-      default:
-        return <Communities />
+      case 'communities': return <Communities />
+      case 'profile': return <Profile />
+      case 'affiliates': return <Affiliates />
+      case 'payouts': return <Payouts />
+      case 'account': return <Account />
+      case 'notifications': return <Notifications />
+      case 'chat': return <Chat />
+      case 'payment-methods': return <PaymentMethods />
+      case 'payment-history': return <PaymentHistory />
+      case 'theme': return <Theme />
+      default: return <Communities />
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 ">
-      <div className='flex mx-auto max-w-[1085px]'>
-      <Sidebar 
-        activeSection={activeSection} 
-        onSectionChange={setActiveSection} 
-      />
-      <main className="flex-1 p-8">
-        {renderContent()}
-      </main>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-50">
+        <div className='flex mx-auto max-w-[1085px]'>
+          <Sidebar
+            activeSection={activeSection}
+            onSectionChange={setActiveSection}
+          />
+          <main className="flex-1 p-8">
+            {renderContent()}
+          </main>
+        </div>
       </div>
-    </div>
+    </ProtectedRoute>
   )
 } 

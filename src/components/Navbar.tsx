@@ -1,17 +1,17 @@
 "use client"
 
-import { useAuthModal } from "@/lib/AuthModalContext"
 import { ChevronUp, ChevronDown, Search, Settings, Plus, Compass } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
+import { useAuth } from "@/lib/contexts/AuthContext"
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const { openModal } = useAuthModal();
-  const router = useRouter();
+  const { isAuthenticated, user, logout } = useAuth()
+  const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,7 +35,16 @@ export default function Navbar() {
   const handleSettingsClick = (e: React.MouseEvent) => {
     e.preventDefault()
     e.stopPropagation()
-    router.push('/login')
+    if (isAuthenticated) {
+      router.push('/dashboard')
+    } else {
+      router.push('/login')
+    }
+  }
+
+  const handleLogout = () => {
+    logout()
+    setIsDropdownOpen(false)
   }
 
   return (
@@ -48,15 +57,7 @@ export default function Navbar() {
               <div className="flex items-center gap-2 font-bold text-blue-900">
                 <Image src="/logo.svg" alt="logo" height={30} width={30} />
                 <p>VOLTIS LABS</p>
-
               </div>
-              {/* <h1 className="text-2xl font-bold">
-                <span className="text-blue-600">s</span>
-                <span className="text-red-500">k</span>
-                <span className="text-[#313273]">o</span>
-                <span className="text-green-500">o</span>
-                <span className="text-blue-600">l</span>
-              </h1> */}
             </div>
             <div 
               className="flex flex-col cursor-pointer hover:bg-gray-200 rounded-full px-2 transition-colors"
@@ -104,6 +105,28 @@ export default function Navbar() {
                     <span className="text-xs font-medium text-gray-700">Discover communities</span>
                   </div>
                 </Link>
+
+                {/* User info and logout if authenticated */}
+                {isAuthenticated && user && (
+                  <>
+                    <div className="border-t border-gray-200 my-2"></div>
+                    <div className="px-1 py-1">
+                      <div className="text-xs text-gray-500 mb-1">Signed in as</div>
+                      <div className="text-sm font-medium text-gray-900">{user.email}</div>
+                    </div>
+                    <button 
+                      onClick={handleLogout}
+                      className="w-full text-left flex items-center gap-3 cursor-pointer hover:bg-gray-200 p-1 rounded-lg transition-colors mt-2"
+                    >
+                      <div className="w-6 h-6 bg-red-100 rounded flex items-center justify-center">
+                        <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                        </svg>
+                      </div>
+                      <span className="text-xs font-medium text-red-600">Sign out</span>
+                    </button>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -122,12 +145,25 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Login Button */}
-
-            <button onClick={() => openModal('login')} className="px-5 font-bold py-2 text-sm text-[#909090] cursor-pointer bg-white border border-gray-300 rounded-md hover:text-gray-900 transition-colors">
+          {/* Login/User Button */}
+          {isAuthenticated ? (
+            <div className="flex items-center gap-3">
+              <span className="text-sm text-gray-600">Welcome, {user?.firstName || user?.email}</span>
+              <button 
+                onClick={logout}
+                className="px-5 font-bold py-2 text-sm text-[#909090] cursor-pointer bg-white border border-gray-300 rounded-md hover:text-gray-900 transition-colors"
+              >
+                LOG OUT
+              </button>
+            </div>
+          ) : (
+            <button 
+              onClick={() => router.push('/login')} 
+              className="px-5 font-bold py-2 text-sm text-[#909090] cursor-pointer bg-white border border-gray-300 rounded-md hover:text-gray-900 transition-colors"
+            >
               LOG IN
             </button>
-
+          )}
         </div>
       </header>
 

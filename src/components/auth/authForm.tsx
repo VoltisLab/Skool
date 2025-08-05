@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuthModal } from '@/lib/AuthModalContext';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
@@ -54,7 +54,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
   const [code, setCode] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [resendCounter, setResendCounter] = useState(60);
-  const { openModal, closeModal } = useAuthModal();
+
 
 
   useEffect(() => {
@@ -173,18 +173,18 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             {/* Forgot link */}
             {mode === 'login' && (
               <div className="flex items-center justify-between w-full">
-                <button
-                  onClick={() => openModal("forgot")}
+                <Link
+                  href="/forgot-password"
                   className="text-sm cursor-pointer text-blue-600 hover:underline"
                 >
                   Forgot password?
-                </button>
-                 <button
-                  onClick={() => openModal("verify", "john@gmail.com")}
+                </Link>
+                 <Link
+                  href="/verify"
                   className="text-sm cursor-pointer text-blue-600 hover:underline"
                 >
                   login with code
-                </button>
+                </Link>
               </div>
             )}
 
@@ -218,15 +218,14 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
                   {
                     mode === "login"?
                 <Link
-                  onClick={closeModal}
-                  href={ '/create-account' }
+                  href="/signup"
                   className="text-blue-600 hover:underline font-medium"
                 >
                   Sign up for free
                 </Link> : 
-                <button onClick={() =>openModal("login")} className="text-blue-600 cursor-pointer hover:underline font-medium">
+                <Link href="/login" className="text-blue-600 cursor-pointer hover:underline font-medium">
                     login
-                </button>
+                </Link>
                   }
               </div>
             )}

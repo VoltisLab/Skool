@@ -9,20 +9,20 @@ export default function Affiliates() {
       </p>
       
       {/* Commission Summary Cards */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-gray-50 rounded-lg p-4">
+      <div className="grid grid-cols-4 gap-4 mb-8">
+        <div className="bg-gray-50 rounded-lg p-4 text-center border border-gray-300">
           <div className="text-2xl font-bold text-gray-900">$0</div>
-          <div className="text-sm text-gray-500">Last 30 days</div>
+          <div className="text-xs font-bold text-gray-500">Last 30 days</div>
         </div>
-        <div className="bg-gray-50 rounded-lg p-4">
+        <div className="bg-gray-50 rounded-lg p-4 text-center border border-gray-300">
           <div className="text-2xl font-bold text-gray-900">$0</div>
-          <div className="text-sm text-gray-500">Lifetime</div>
+          <div className="text-xs font-bold text-gray-500">Lifetime</div>
         </div>
-        <div className="bg-gray-50 rounded-lg p-4">
+        <div className="bg-gray-50 rounded-lg p-4 col-span-2 border border-gray-300">
           <div className="flex items-center justify-between">
-            <div>
-              <div className="text-2xl font-bold text-gray-900">$0</div>
-              <div className="text-sm text-gray-500">Account balance</div>
+            <div className='text-center '>
+              <div className="text-2xl font-bold text-green-600 ">$0</div>
+              <div className="text-xs font-bold text-gray-500">Account balance</div>
             </div>
             <button className="px-3 py-1 text-sm text-gray-400 bg-gray-200 rounded cursor-not-allowed">
               PAYOUT
@@ -31,19 +31,17 @@ export default function Affiliates() {
         </div>
       </div>
       
-      <p className="text-sm text-gray-500 mb-6">$0 available soon</p>
-      
       {/* Your Affiliate Links */}
       <div className="mb-8">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Your affiliate links</h2>
-        
-        <div className="bg-gray-50 rounded-lg p-4">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="px-3 py-1 text-sm bg-gray-200 text-gray-700 rounded-full">
+        <h2 className=" font-semibold text-gray-900 mb-2">Your affiliate links</h2>
+        <div className="flex items-center gap-2 mb-2">
+            <span className="px-3 py-2 text-sm bg-[#909090] text-white rounded-full">
               Skool platform
             </span>
           </div>
-          <p className="text-sm text-gray-600 mb-3">
+        <div className="rounded-lg ">
+         
+          <p className="text-sm text-gray-800 mb-5">
             Earn 40% commission when you invite somebody to create a Skool community.
           </p>
           <div className="flex items-center gap-2">
@@ -57,15 +55,15 @@ export default function Affiliates() {
               COPY
             </button>
           </div>
-          <div className="flex items-center gap-2 mt-2">
-            <span className="text-sm text-green-600">Active</span>
+          <div className="flex items-center gap-2 mt-2 w-full justify-end">
+            <span className="text-sm text-gray-500">Active</span>
             <ChevronDown className="w-4 h-4 text-gray-400" />
           </div>
         </div>
       </div>
       
       {/* Referrals Display */}
-      <div className="bg-gray-50 rounded-lg p-8 text-center">
+      <div className="bg-gray-50 rounded-lg p-8 text-center border border-gray-300 h-40">
         <div className="flex justify-center mb-4">
           <div className="relative">
             <DollarSign className="w-8 h-8 text-yellow-500" />
