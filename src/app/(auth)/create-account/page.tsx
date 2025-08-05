@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
-import { useRouter } from "next/navigation";
+import { useAuthModal } from "@/lib/AuthModalContext";
 
 interface Slide {
   img: string;
@@ -32,7 +32,8 @@ const slides: Slide[] = [
 export default function Page() {
   const [current, setCurrent] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-  const router = useRouter();
+    const { openModal } = useAuthModal();
+  
 
   const prev = () => {
     if (isAnimating) return;
@@ -74,7 +75,8 @@ export default function Page() {
   };
 
   const handleCreateCommunity = () => {
-    router.push('/pricing');
+    // router.push('/pricing');
+    openModal("signup")
   };
 
   return (
