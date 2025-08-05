@@ -44,7 +44,7 @@ const NotificationPreferences = () => {
     },
     {
       id: 3,
-      name: 'The Feminine Effect',
+      name: 'Society and Human',
       icon: '/img2.jpg',
     },
   ];
