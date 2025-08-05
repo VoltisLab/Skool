@@ -13,6 +13,14 @@ import Image from 'next/image';
 import { useState } from 'react';
 import CommunityNotificationSettingsModal from '../modals/NotificationModal';
 
+
+interface NotificationSettings {
+  digestEmail: string;
+  notificationEmail: string;
+  postLikes: string;
+  adminAnnouncements: string;
+  eventReminders: string;
+}
 const NotificationPreferences = () => {
   const [isOpen, setIsOpen] = useState(false)
   const [title, setTitle] = useState("")
@@ -25,7 +33,7 @@ const NotificationPreferences = () => {
   const handleToggle = (key: keyof typeof settings) => {
     setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
   };
-   const handleSave = (settings: any) => {
+   const handleSave = (settings: NotificationSettings) => {
     console.log('Saved settings:', settings);
     setIsOpen(false)
     // optionally: send to API

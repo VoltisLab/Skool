@@ -51,7 +51,7 @@ export default function UpdateEmailModal({ isOpen, onClose }: UpdateEmailModalPr
       >
         <div>
           <h2 className="text-lg font-semibold text-gray-900">Change email</h2>
-          <p className="text-sm text-gray-600 mt-1">We'll send you an email to verify your new email.</p>
+          <p className="text-sm text-gray-600 mt-1">{"We'll send you an email to verify your new email."}</p>
         </div>
 
         <InputField

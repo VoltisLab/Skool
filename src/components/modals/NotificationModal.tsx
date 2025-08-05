@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 interface Props {
   isOpen: boolean;
@@ -38,18 +38,18 @@ export default function CommunityNotificationSettingsModal({
     setChanged(false);
   }, [isOpen]);
 
-  const handleClickOutside = (e: MouseEvent) => {
-    if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-      onClose();
-    }
-  };
+ const handleClickOutside = useCallback((e: MouseEvent) => {
+  if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+    onClose();
+  }
+}, [onClose]);
 
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [isOpen]);
+useEffect(() => {
+  if (isOpen) {
+    document.addEventListener('mousedown', handleClickOutside);
+  }
+  return () => document.removeEventListener('mousedown', handleClickOutside);
+}, [isOpen, handleClickOutside]);
 
   const handleChange = (key: keyof typeof settings, value: string) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
