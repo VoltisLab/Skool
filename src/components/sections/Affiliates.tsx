@@ -78,5 +78,6 @@ export default function Affiliates() {
         <p className="text-gray-500">Your referrals will show here</p>
       </div>
     </div>
+    </div>
   );
 }

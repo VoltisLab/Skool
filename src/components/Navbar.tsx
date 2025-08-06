@@ -1,6 +1,7 @@
 'use client';
 
 import { useAuthModal } from '@/lib/AuthModalContext';
+import { useAuth } from '@/lib/contexts/AuthContext';
 import {
   ChevronUp,
   ChevronDown,
@@ -175,7 +176,7 @@ export default function Navbar() {
             >
               LOG IN
             </button>
-          </div>          )}
+                 )}
         </div>
       </header>
 

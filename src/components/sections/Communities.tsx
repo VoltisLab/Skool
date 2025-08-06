@@ -1,6 +1,8 @@
 'use client';
 
 import { Eye, Pin } from 'lucide-react';
+import GroupModal from '../modals/groupModal/GroupModal';
+import { useState } from 'react';
 
 const communities = [
   {
@@ -30,6 +32,7 @@ const communities = [
 ];
 
 export default function Communities() {
+  const [isModalOpen, setIsModalOpen] =useState(false)
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <h1 className="text-2xl font-bold text-gray-900 mb-2">Communities</h1>
@@ -62,7 +65,7 @@ export default function Communities() {
 
               {/* Action Buttons */}
               <div className="flex items-center gap-2">
-                <button className="px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded hover:bg-gray-200 transition-colors">
+                <button onClick={() => setIsModalOpen(true)} className="px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded hover:bg-gray-200 transition-colors">
                   SETTINGS
                 </button>
                 <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
@@ -76,6 +79,8 @@ export default function Communities() {
           </div>
         ))}
       </div>
+      {isModalOpen && <GroupModal onClose={() => setIsModalOpen(false)} />}
+
     </div>
   );
 }
