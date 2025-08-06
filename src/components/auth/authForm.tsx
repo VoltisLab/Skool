@@ -258,7 +258,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             {(mode === 'verify' || mode === 'verification') && (
               <div className="text-center">
                 <p className="text-sm text-gray-500">
-                  Didn't get the email?{' '}
+                  Didn&apos;t get the email?{' '}
                   {resendCounter > 0 ? (
                     <span>Resend in {resendCounter}s</span>
                   ) : (

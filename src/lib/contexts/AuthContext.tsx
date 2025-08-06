@@ -4,8 +4,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { gql } from '@apollo/client'
 import { AuthContextType, User, RegisterInput } from '../types/auth'
 import { apolloClient, saveAuthData, clearAuthCookies, getUserData, getAuthToken } from '../apollo-client'
-import { AUTH_STATUS, AuthStatus } from '../constants'
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const useAuth = () => {

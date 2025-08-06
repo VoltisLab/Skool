@@ -316,7 +316,7 @@ export default function Profile() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-black rounded flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">///A</span>
+                    <span className="text-white text-sm font-bold">A</span>
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900">AI Automation Agency Hub</h4>
