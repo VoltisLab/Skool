@@ -1,18 +1,8 @@
-// export default function Notifications() {
-//   return (
-//     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-//       <h1 className="text-2xl font-bold text-gray-900 mb-6">Notifications</h1>
-//       <p className="text-gray-500">Notification settings will be displayed here.</p>
-//     </div>
-//   )
-// } 
-
 'use client';
 
 import Image from 'next/image';
 import { useState } from 'react';
 import CommunityNotificationSettingsModal from '../modals/NotificationModal';
-
 
 interface NotificationSettings {
   digestEmail: string;
@@ -21,9 +11,10 @@ interface NotificationSettings {
   adminAnnouncements: string;
   eventReminders: string;
 }
+
 const NotificationPreferences = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const [title, setTitle] = useState("")
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState('');
   const [settings, setSettings] = useState({
     followerEmail: true,
     affiliateEmail: true,
@@ -33,10 +24,11 @@ const NotificationPreferences = () => {
   const handleToggle = (key: keyof typeof settings) => {
     setSettings((prev) => ({ ...prev, [key]: !prev[key] }));
   };
-   const handleSave = (settings: NotificationSettings) => {
+
+  const handleSave = (settings: NotificationSettings) => {
     console.log('Saved settings:', settings);
-    setIsOpen(false)
-    // optionally: send to API
+    setIsOpen(false);
+    // Optionally send to API
   };
 
   const communitySettings = [
@@ -58,9 +50,10 @@ const NotificationPreferences = () => {
   ];
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border space-y-3 border-gray-200 p-6">
+    <div className="bg-white rounded-lg shadow-sm border space-y-6 border-gray-200 p-6">
       <h2 className="text-lg font-bold text-gray-900">Notifications</h2>
 
+      {/* Toggle Options */}
       <div className="space-y-4">
         <ToggleItem
           label="New follower email notification"
@@ -79,34 +72,47 @@ const NotificationPreferences = () => {
         />
       </div>
 
+      {/* Community Notification Settings */}
       <div className="space-y-5 pt-4">
         {communitySettings.map((community) => (
-          <div key={community.id} className="flex items-center justify-between">
+          <div
+            key={community.id}
+            className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-6"
+          >
+            {/* Icon + Text */}
             <div className="flex items-center gap-3">
-              <div className='w-[40px] h-[40px] relative'>
-              <Image
-                src={community.icon}
-                alt={community.name}
-                fill
-                className="rounded-md object-cover"
-              />
-
+              <div className="w-10 h-10 relative flex-shrink-0">
+                <Image
+                  src={community.icon}
+                  alt={community.name}
+                  fill
+                  className="rounded-md object-cover"
+                />
               </div>
-              <div>
+              <div className="text-left">
                 <p className="font-medium text-sm text-gray-900">{community.name}</p>
                 <p className="text-xs text-gray-500">Weekly digest • Hourly bundle</p>
               </div>
             </div>
-            <button onClick={() => {
-              setTitle(community.name)
-              setIsOpen(true)
-            }} className="text-sm font-semibold text-gray-600 border rounded px-4 py-1.5 hover:text-black">
-              CHANGE
-            </button>
+
+            {/* Change Button */}
+            <div className="sm:ml-auto">
+              <button
+                onClick={() => {
+                  setTitle(community.name);
+                  setIsOpen(true);
+                }}
+                className="text-sm font-semibold text-gray-600 border rounded px-4 py-1.5 hover:text-black"
+              >
+                CHANGE
+              </button>
+            </div>
           </div>
         ))}
       </div>
-       <CommunityNotificationSettingsModal
+
+      {/* Modal */}
+      <CommunityNotificationSettingsModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
         onSave={handleSave}
@@ -125,7 +131,7 @@ const ToggleItem = ({
   value: boolean;
   onToggle: () => void;
 }) => (
-  <div className="flex items-center justify-between">
+  <div className="flex items-center justify-between gap-4">
     <p className="text-sm text-gray-900">{label}</p>
     <div
       className={`relative w-10 h-5 transition duration-300 cursor-pointer ${
@@ -139,7 +145,6 @@ const ToggleItem = ({
         }`}
       />
     </div>
-   
   </div>
 );
 
