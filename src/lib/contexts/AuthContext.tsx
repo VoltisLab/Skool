@@ -17,8 +17,8 @@ export const useAuth = () => {
         user: null,
         isAuthenticated: false,
         isLoading: true,
-        login: async () => ({ success: false, errors: [{ message: 'Not available during SSR' }] }),
-        register: async () => ({ success: false, errors: [{ message: 'Not available during SSR' }] }),
+        login: async () => ({ success: false, errors: ['Not available during SSR'] }),
+        register: async () => ({ success: false, errors: ['Not available during SSR'] }),
         logout: () => {},
         refreshToken: async () => false
       }
@@ -32,14 +32,11 @@ interface AuthProviderProps {
   children: React.ReactNode
 }
 
-// GraphQL Mutations
+// GraphQL Mutations - Fixed to match your schema
 const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      errors {
-        field
-        message
-      }
+      errors
       success
       token
       refreshExpiresIn
@@ -51,10 +48,7 @@ const LOGIN_MUTATION = gql`
 const REGISTER_MUTATION = gql`
   mutation Register($code: String!, $email: String!, $firstName: String!, $lastName: String!, $password1: String!, $password2: String!, $username: String!) {
     register(code: $code, email: $email, firstName: $firstName, lastName: $lastName, password1: $password1, password2: $password2, username: $username) {
-      errors {
-        field
-        message
-      }
+      errors
       success
     }
   }
@@ -88,13 +82,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setUser(null)
           setIsAuthenticated(false)
         }
-              } catch (error) {
-          console.error('Auth initialization error:', error)
-          setUser(null)
-          setIsAuthenticated(false)
-        } finally {
-          setIsLoading(false)
-        }
+      } catch (error) {
+        console.error('Auth initialization error:', error)
+        setUser(null)
+        setIsAuthenticated(false)
+      } finally {
+        setIsLoading(false)
+      }
     }
 
     initializeAuth()
@@ -103,7 +97,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Login function
   const login = async (email: string, password: string) => {
     if (!isClient) {
-      return { success: false, errors: [{ message: 'Not available during SSR' }] }
+      return { success: false, errors: ['Not available during SSR'] }
     }
 
     try {
@@ -145,14 +139,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         return { 
           success: false, 
-          errors: response.errors || [{ message: 'Login failed' }]
+          errors: response.errors || ['Login failed']
         }
       }
     } catch (error) {
       console.error('Login error:', error)
       return { 
         success: false, 
-        errors: [{ message: 'An unexpected error occurred' }]
+        errors: ['An unexpected error occurred']
       }
     } finally {
       setIsLoading(false)
@@ -162,7 +156,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Register function
   const register = async (data: RegisterInput) => {
     if (!isClient) {
-      return { success: false, errors: [{ message: 'Not available during SSR' }] }
+      return { success: false, errors: ['Not available during SSR'] }
     }
 
     try {
@@ -180,14 +174,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         return { 
           success: false, 
-          errors: response.errors || [{ message: 'Registration failed' }]
+          errors: response.errors || ['Registration failed']
         }
       }
     } catch (error) {
       console.error('Registration error:', error)
       return { 
         success: false, 
-        errors: [{ message: 'An unexpected error occurred' }]
+        errors: ['An unexpected error occurred']
       }
     } finally {
       setIsLoading(false)
@@ -240,4 +234,4 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
-} 
+}
