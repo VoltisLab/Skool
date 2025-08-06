@@ -5,7 +5,6 @@ import GroupModalSidebar from "./GroupModalSideBar";
 import GroupModalContent from "./GroupModalContent";
 import { X } from "lucide-react";
 
-const TABS = ["Membership", "Notifications", "Chat", "Invite"];
 
 export default function GroupModal({ onClose }: { onClose: () => void }) {
   const [activeTab, setActiveTab] = useState("Membership");

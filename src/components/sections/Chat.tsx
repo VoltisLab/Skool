@@ -56,7 +56,7 @@ const MessageSettings = () => {
         <h2 className="text-lg font-bold text-gray-900">Email notifications</h2>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-sm text-gray-700">
-            If you're offline and somebody messages you, we'll let you know via email. We won't email you if you're online.
+           {" If you're offline and somebody messages you, we'll let you know via email. We won't email you if you're online."}
           </p>
           <Toggle value={emailNotification} onChange={() => setEmailNotification(!emailNotification)} />
         </div>
@@ -66,7 +66,7 @@ const MessageSettings = () => {
       <section className="space-y-4">
         <h2 className="text-lg font-bold text-gray-900">Who can message me?</h2>
         <p className="text-sm text-gray-700">
-          Only members in the group you're in can message you. You choose what group users can message you from by turning your chat on/off below.
+          {"Only members in the group you're in can message you. You choose what group users can message you from by turning your chat on/off below."}
         </p>
 
         {communities.map((group) => (

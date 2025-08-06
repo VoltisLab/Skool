@@ -99,7 +99,7 @@ export default function Profile() {
           />
         </div>
         <p className="text-sm text-gray-600 mt-2">
-          You can change your URL once you've got 90 contributions, 30 followers, and been using it for 90 days.
+         {" You can change your URL once you've got 90 contributions, 30 followers, and been using it for 90 days."}
         </p>
       </div>
 

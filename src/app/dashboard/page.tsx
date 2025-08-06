@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from "react";
-import ProtectedRoute from '@/components/ProtectedRoute'
 import Sidebar from "@/components/Sidebar";
 import Communities from "@/components/sections/Communities";
 import Profile from "@/components/sections/Profile";

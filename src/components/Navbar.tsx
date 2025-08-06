@@ -1,6 +1,5 @@
 'use client';
 
-import { useAuthModal } from '@/lib/AuthModalContext';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import {
   ChevronUp,
