@@ -151,12 +151,12 @@ export default function HomePage() {
       <main className="max-w-[1085px] mx-auto py-8">
         {/* Hero Section */}
         <div className="text-center mb-8">
-          <h1 className="text-5xl font-bold text-gray-900 mb-2">
+          <h1 className="text-5xl font-bold text-[#313273] mb-2">
             Discover communities
           </h1>
           <Link href="/create-account">
           <p className="text-[#909090] mb-8">
-            or <span className="text-[#2E6EF5] font-semibold hover:underline">create your own</span>
+            or <span className="text-[#313273] font-semibold hover:underline">create your own</span>
           </p>
           </Link>
 
@@ -229,7 +229,7 @@ export default function HomePage() {
                     onClick={() => setCurrentPage(page)}
                     className={`w-8 h-8 rounded-full text-xs font-medium transition-colors ${
                       currentPage === page
-                        ? 'bg-[#F8D481] text-black'
+                        ? 'bg-[#313273] text-white'
                         : 'text-gray-400 hover:text-gray-600'
                     }`}
                   >

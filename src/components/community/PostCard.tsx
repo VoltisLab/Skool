@@ -53,10 +53,12 @@ export default function PostCard({
       <div className="flex items-start justify-between mb-4">
         <div className="flex items-start gap-3">
           <div className="relative">
+            {/* Fixed avatar sizing to avoid fill conflicts */}
             <Image
               src={author.avatar}
               alt={author.name}
-              fill
+              width={40}
+              height={40}
               className="w-10 h-10 rounded-full object-cover"
             />
             {author.badge && (
@@ -75,13 +77,13 @@ export default function PostCard({
                 <>
                   <span>•</span>
                   <div className="flex items-center gap-1">
-                    <Trophy className="w-3 h-3 text-yellow-500" />
+                    <Trophy className="w-3 h-3 text-[#313273]" />
                     <span>Wins</span>
                   </div>
                 </>
               )}
             </div>
-            
+
             {/* Pinned indicator and title */}
             <div className="flex items-center gap-2 mb-2">
               {isPinned && (
@@ -105,12 +107,15 @@ export default function PostCard({
       {media && (
         <div className="mb-4">
           {media.type === 'image' && (
-            <Image
-              src={media.url}
-              alt={media.alt}
-              fill
-              className="w-full h-32 object-cover rounded-lg"
-            />
+            // Wrap image in a relative container and let it fill naturally
+            <div className="relative w-full h-32 rounded-lg overflow-hidden">
+              <Image
+                src={media.url}
+                alt={media.alt}
+                fill
+                className="object-cover"
+              />
+            </div>
           )}
           {media.type === 'video' && (
             <div className="relative w-full h-32 bg-gray-200 rounded-lg flex items-center justify-center">
@@ -151,7 +156,7 @@ export default function PostCard({
             <span className="text-sm">{engagement.comments}</span>
           </button>
         </div>
-        
+
         {/* Recent commenters */}
         {engagement.recentCommenters.length > 0 && (
           <div className="flex items-center gap-2">
@@ -161,7 +166,8 @@ export default function PostCard({
                   key={commenter.id}
                   src={commenter.avatar}
                   alt={commenter.name}
-                  fill
+                  width={24}
+                  height={24}
                   className="w-6 h-6 rounded-full border-2 border-white"
                   title={commenter.name}
                 />
@@ -175,4 +181,4 @@ export default function PostCard({
       </div>
     </div>
   )
-} 
+}

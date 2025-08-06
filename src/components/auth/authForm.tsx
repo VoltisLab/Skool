@@ -1,6 +1,7 @@
 'use client';
 
-import { useAuthModal } from '@/lib/AuthModalContext';
+
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import {
@@ -53,7 +54,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
   const [code, setCode] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [resendCounter, setResendCounter] = useState(60);
-  const { openModal, closeModal } = useAuthModal();
+
 
 
   useEffect(() => {
@@ -82,22 +83,24 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
     <div className="h-fit flex items-center justify-center px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-lg">
         <div className="w-full min-w-[26rem] bg-white rounded-xl shadow-sm border border-gray-200 px-10 py-12">
-          <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold">
+          <div className="flex w-full justify-center items-center mb-6">
+                          <Image src="/logo.svg" alt="logo" height={30} width={30} />
+            
+            {/* <h1 className="text-3xl font-bold">
               <span className="text-blue-600">s</span>
               <span className="text-red-500">k</span>
-              <span className="text-yellow-500">o</span>
+              <span className="text-[#313273]">o</span>
               <span className="text-green-500">o</span>
               <span className="text-blue-600">l</span>
-            </h1>
+            </h1> */}
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="text-center">
               <h2 className="text-xl font-semibold text-gray-900">
                 {{
-                  login: 'Log in to Skool',
-                  signup: 'Sign up for Skool',
+                  login: 'Log in to your account',
+                  signup: 'Sign up for free',
                   verify: 'We sent you a code',
                   forgot: 'Forgot Password',
                 }[mode]}
@@ -170,18 +173,18 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             {/* Forgot link */}
             {mode === 'login' && (
               <div className="flex items-center justify-between w-full">
-                <button
-                  onClick={() => openModal("forgot")}
+                <Link
+                  href="/forgot-password"
                   className="text-sm cursor-pointer text-blue-600 hover:underline"
                 >
                   Forgot password?
-                </button>
-                 <button
-                  onClick={() => openModal("verify", "john@gmail.com")}
+                </Link>
+                 <Link
+                  href="/verify"
                   className="text-sm cursor-pointer text-blue-600 hover:underline"
                 >
                   login with code
-                </button>
+                </Link>
               </div>
             )}
 
@@ -195,7 +198,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             {/* Submit */}
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-lg"
+              className="w-full py-3 px-4 bg-[#313273] hover:bg-[#2a2a5a] text-white font-semibold rounded-lg"
             >
               {{
                 login: 'LOG IN',
@@ -215,15 +218,14 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
                   {
                     mode === "login"?
                 <Link
-                  onClick={closeModal}
-                  href={ '/create-account' }
+                  href="/signup"
                   className="text-blue-600 hover:underline font-medium"
                 >
                   Sign up for free
                 </Link> : 
-                <button onClick={() =>openModal("login")} className="text-blue-600 cursor-pointer hover:underline font-medium">
+                <Link href="/login" className="text-blue-600 cursor-pointer hover:underline font-medium">
                     login
-                </button>
+                </Link>
                   }
               </div>
             )}

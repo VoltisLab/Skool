@@ -114,7 +114,7 @@ export default function CategoryFilter({
                   }}
                   className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-50 transition-colors ${
                     language.selected 
-                      ? 'bg-yellow-100 text-yellow-800 font-medium' 
+                      ? 'bg-[#313273] bg-opacity-10 text-[#313273] font-medium' 
                       : 'text-gray-700'
                   }`}
                 >

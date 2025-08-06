@@ -69,7 +69,8 @@ export default function MemberList() {
                   <Image 
                     src={member.avatar} 
                     alt={member.name}
-                    fill
+                    width={48}
+                    height={48}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -88,7 +89,7 @@ export default function MemberList() {
                     <span className="text-blue-500">💎</span>
                   )}
                   {member.hasStarIcon && (
-                    <span className="text-yellow-500">⭐</span>
+                    <span className="text-[#313273]">⭐</span>
                   )}
                   {member.hasFireIcon && (
                     <span className="text-orange-500">🔥</span>

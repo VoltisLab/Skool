@@ -99,7 +99,7 @@ export const defaultTabs: FilterTab[] = [
   { id: "youtube", label: "YouTube Resources", icon: <Play className="w-4 h-4 text-black" /> },
   { id: "business", label: "Business & Strategy", icon: <Brain className="w-4 h-4 text-pink-500" /> },
   { id: "tech", label: "Tech & Tools", icon: <Bot className="w-4 h-4 text-gray-600" /> },
-  { id: "wins", label: "Wins", icon: <Trophy className="w-4 h-4 text-yellow-500" /> },
+          { id: "wins", label: "Wins", icon: <Trophy className="w-4 h-4 text-[#313273]" /> },
   { id: "jobs", label: "Job Board / Hiring", icon: <Briefcase className="w-4 h-4 text-red-500" /> },
   { id: "help", label: "Ask for Help", icon: <HelpCircle className="w-4 h-4 text-red-500" /> },
 ] 

@@ -32,8 +32,8 @@ const slides: Slide[] = [
 export default function Page() {
   const [current, setCurrent] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
-  const { openModal } = useAuthModal();
-
+    const { openModal } = useAuthModal();
+  
 
   const prev = () => {
     if (isAnimating) return;
@@ -74,16 +74,23 @@ export default function Page() {
     }
   };
 
+  const handleCreateCommunity = () => {
+    // router.push('/pricing');
+    openModal("signup")
+  };
+
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-white text-center">
       {/* Logo */}
-      <h1 className="text-4xl font-extrabold mb-2">
+      <Image src="/logo.svg" alt="logo" height={30} width={30} />
+      
+      {/* <h1 className="text-4xl font-extrabold mb-2">
         <span className="text-red-500">s</span>
-        <span className="text-yellow-400">k</span>
+        <span className="text-[#313273]">k</span>
         <span className="text-blue-500">o</span>
         <span className="text-green-500">o</span>
         <span className="text-purple-600">l</span>
-      </h1>
+      </h1> */}
 
       {/* Tagline */}
       <p className="text-xl font-semibold text-gray-700 leading-relaxed">
@@ -167,8 +174,8 @@ export default function Page() {
       </div>
 
       {/* CTA */}
-      <button onClick={() => openModal("signup")}>
-        <button className="mt-8 cursor-pointer bg-yellow-400 hover:bg-yellow-300 text-black font-bold py-3 px-6 rounded shadow-md transition-colors duration-200">
+      <button onClick={handleCreateCommunity}>
+        <button className="mt-8 cursor-pointer bg-[#313273] hover:bg-[#2a2a5a] text-white font-bold py-3 px-6 rounded shadow-md transition-colors duration-200">
           CREATE YOUR COMMUNITY
         </button>
       </button>

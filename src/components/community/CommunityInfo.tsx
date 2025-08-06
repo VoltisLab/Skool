@@ -44,7 +44,7 @@ export default function CommunityInfo({
             src={bannerImage} 
             alt={`${name} banner`}
             fill
-            className="absolute inset-0 w-full h-full object-cover"
+            className="object-cover"
           />
         </div>
       </div>
@@ -81,15 +81,15 @@ export default function CommunityInfo({
         <div className="border-t border-gray-200 pt-4 mb-6">
           <div className="flex justify-between text-center">
             <div>
-              <div className="text-2xl font-bold text-gray-900">{stats.members}</div>
+                              <div className="text-2xl font-bold text-[#313273]">{stats.members}</div>
               <div className="text-sm text-gray-500">Members</div>
             </div>
             <div className="border-l border-r border-gray-200 px-4">
-              <div className="text-2xl font-bold text-gray-900">{stats.online}</div>
+                              <div className="text-2xl font-bold text-[#313273]">{stats.online}</div>
               <div className="text-sm text-gray-500">Online</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900">{stats.admins}</div>
+                              <div className="text-2xl font-bold text-[#313273]">{stats.admins}</div>
               <div className="text-sm text-gray-500">Admins</div>
             </div>
           </div>
@@ -107,7 +107,8 @@ export default function CommunityInfo({
                 key={member.id}
                 src={member.avatar}
                 alt={member.name}
-                fill
+                width={32}
+                height={32}
                 className="w-8 h-8 rounded-full border-2 border-white"
                 title={member.name}
               />
@@ -127,4 +128,4 @@ export default function CommunityInfo({
       </div>
     </div>
   )
-} 
+}

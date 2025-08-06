@@ -25,7 +25,7 @@ const leaderboardData: LeaderboardEntry[] = [
 const getRankBadgeColor = (rank: number) => {
   switch (rank) {
     case 1:
-      return "bg-yellow-400 text-white";
+              return "bg-[#313273] text-white";
     case 2:
       return "bg-gray-400 text-white";
     case 3:
@@ -64,12 +64,13 @@ export default function LeaderboardCard() {
                   {getRankEmoji(entry.rank)}
                 </div>
                 
-                {/* Avatar */}
+                {/* Avatar - specify width/height instead of fill */}
                 <div className="w-8 h-8 rounded-full overflow-hidden bg-gray-100">
                   <Image 
                     src={entry.avatar} 
                     alt={entry.name}
-                    fill
+                    width={32}
+                    height={32}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -84,7 +85,7 @@ export default function LeaderboardCard() {
               </div>
               
               {/* Right side: Points */}
-              <div className=" pl-8 text-blue-600 font-medium">
+              <div className="pl-8 text-blue-600 font-medium">
                 +{entry.points}
               </div>
             </div>

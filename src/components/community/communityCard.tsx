@@ -2,9 +2,9 @@ import React from 'react';
 import Image from 'next/image';
 
 const memberAvatars = [
-  "/head.jpg", // Using your provided image for all avatars
   "/head.jpg",
-  "/head.jpg", 
+  "/head.jpg",
+  "/head.jpg",
   "/head.jpg",
   "/head.jpg",
   "/head.jpg",
@@ -13,7 +13,6 @@ const memberAvatars = [
 
 export default function AISCommunityCard() {
   return (
-    <>
     <div className="bg-white rounded-lg shadow-lg max-w-sm mx-auto overflow-hidden">
       {/* Header with gradient background and profile */}
       <div className="relative h-32 bg-gradient-to-r from-blue-900 via-blue-800 to-purple-900">
@@ -21,17 +20,6 @@ export default function AISCommunityCard() {
         <div className="absolute top-4 left-4">
           <h1 className="text-white text-4xl font-bold italic transform -skew-x-12">AIS</h1>
         </div>
-        
-        {/* Profile Image */}
-        {/* <div className="absolute bottom-0 right-4 transform translate-y-1/2">
-          <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white bg-gray-100">
-            <img 
-              src="/head.png" 
-              alt="Profile"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div> */}
       </div>
       
       {/* Content */}
@@ -66,15 +54,15 @@ export default function AISCommunityCard() {
         {/* Stats */}
         <div className="flex justify-between mb-6 px-4">
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">106.4k</div>
+            <div className="text-2xl font-bold text-[#313273]">106.4k</div>
             <div className="text-xs text-gray-500">Members</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">510</div>
+            <div className="text-2xl font-bold text-[#313273]">510</div>
             <div className="text-xs text-gray-500">Online</div>
           </div>
           <div className="text-center">
-            <div className="text-2xl font-bold text-gray-900">10</div>
+            <div className="text-2xl font-bold text-[#313273]">10</div>
             <div className="text-xs text-gray-500">Admins</div>
           </div>
         </div>
@@ -86,8 +74,9 @@ export default function AISCommunityCard() {
               <div key={index} className="w-8 h-8 rounded-full overflow-hidden border-2 border-white bg-gray-100">
                 <Image 
                   src={avatar}
-                  fill
                   alt={`Member ${index + 1}`}
+                  width={32}
+                  height={32}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -107,6 +96,5 @@ export default function AISCommunityCard() {
         </div>
       </div>
     </div>
-    </>
   );
 }
