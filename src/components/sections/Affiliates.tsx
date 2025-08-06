@@ -14,11 +14,11 @@ export default function Affiliates() {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
         <div className="bg-gray-50 rounded-lg p-4">
           <div className="text-2xl font-bold text-gray-900">$0</div>
-          <div className="text-sm text-gray-500">Last 30 days</div>
+          <div className="text-xs font-bold text-gray-500">Last 30 days</div>
         </div>
-        <div className="bg-gray-50 rounded-lg p-4">
+        <div className="bg-gray-50 rounded-lg p-4 text-center border border-gray-300">
           <div className="text-2xl font-bold text-gray-900">$0</div>
-          <div className="text-sm text-gray-500">Lifetime</div>
+          <div className="text-xs font-bold text-gray-500">Lifetime</div>
         </div>
         <div className="bg-gray-50 rounded-lg p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -45,7 +45,9 @@ export default function Affiliates() {
               Skool platform
             </span>
           </div>
-          <p className="text-sm text-gray-600 mb-3">
+        <div className="rounded-lg ">
+         
+          <p className="text-sm text-gray-800 mb-5">
             Earn 40% commission when you invite somebody to create a Skool community.
           </p>
           <div className="flex flex-col sm:flex-row gap-2">
@@ -59,8 +61,8 @@ export default function Affiliates() {
               COPY
             </button>
           </div>
-          <div className="flex items-center gap-2 mt-2">
-            <span className="text-sm text-green-600">Active</span>
+          <div className="flex items-center gap-2 mt-2 w-full justify-end">
+            <span className="text-sm text-gray-500">Active</span>
             <ChevronDown className="w-4 h-4 text-gray-400" />
           </div>
         </div>

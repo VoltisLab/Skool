@@ -1,6 +1,6 @@
 'use client';
 
-import { MapPin, ChevronDown } from 'lucide-react';
+import { MapPin, ChevronDown, ChevronUp } from 'lucide-react';
 import Image from 'next/image';
 import { useState } from 'react';
 import ChangeNameModal from '../modals/ChangeNameModal';
@@ -9,11 +9,25 @@ export default function Profile() {
   const [isNameModalOpen, setIsNameModalOpen] = useState(false);
   const [firstName, setFirstName] = useState('Stanley');
   const [lastName, setLastName] = useState('Samuel');
+  const [expandedSections, setExpandedSections] = useState({
+    socialLinks: true,
+    membershipVisibility: false,
+    advanced: false
+  })
+  const [isLocationFocused, setIsLocationFocused] = useState(false)
+  const [focusedSocialField, setFocusedSocialField] = useState<string | null>(null)
 
   const handleNameSave = (newFirstName: string, newLastName: string) => {
     setFirstName(newFirstName);
     setLastName(newLastName);
   };
+
+  const toggleSection = (section: keyof typeof expandedSections) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [section]: !prev[section]
+    }))
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -29,7 +43,7 @@ export default function Profile() {
             className="rounded-full object-cover"
           />
         </div>
-        <button className="text-blue-600 text-sm hover:text-blue-700 transition-colors">
+        <button className="text-blue-600 text-sm font-bold hover:text-blue-700 transition-colors">
           Change profile photo
         </button>
       </div>
@@ -38,14 +52,14 @@ export default function Profile() {
       <div className="mb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div className="relative">
-            <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500">
+            <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-400">
               First Name
             </label>
             <input
               type="text"
               value={firstName}
               readOnly
-              className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 bg-gray-50 cursor-not-allowed"
+              className="w-full px-3 py-3 border border-gray-400 rounded focus:outline-none focus:border-blue-500 text-gray-400 cursor-not-allowed pointer-events-none"
             />
           </div>
           <div className="relative">
@@ -56,7 +70,7 @@ export default function Profile() {
               type="text"
               value={lastName}
               readOnly
-              className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 bg-gray-50 cursor-not-allowed"
+              className="w-full px-3 py-3 border border-gray-400 rounded focus:outline-none focus:border-blue-500 text-gray-400 cursor-not-allowed pointer-events-none"
             />
           </div>
         </div>
@@ -81,7 +95,7 @@ export default function Profile() {
             type="text"
             defaultValue="skool.com/@stanley-samuel-2133"
             readOnly
-            className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 bg-gray-50 cursor-not-allowed"
+            className="w-full px-3 py-3 border border-gray-400 rounded focus:outline-none focus:border-blue-500 text-gray-400 cursor-not-allowed pointer-events-none"
           />
         </div>
         <p className="text-sm text-gray-600 mt-2">
@@ -98,8 +112,7 @@ export default function Profile() {
           <textarea
             defaultValue="Software Engineer"
             rows={3}
-            readOnly
-            className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 resize-none bg-gray-50 cursor-not-allowed"
+            className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 resize-none"
           />
         </div>
         <div className="text-right mt-1">
@@ -110,13 +123,17 @@ export default function Profile() {
       {/* Location Field */}
       <div className="mb-8">
         <div className="relative">
-          <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500">
+          <label className={`absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 transition-all duration-200 ${
+            isLocationFocused ? 'opacity-100' : 'opacity-0'
+          }`}>
             Location
           </label>
           <input
             type="text"
-            readOnly
-            className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 bg-gray-50 cursor-not-allowed"
+            placeholder={isLocationFocused ? "" : "Location"}
+            onFocus={() => setIsLocationFocused(true)}
+            onBlur={() => setIsLocationFocused(false)}
+            className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900"
           />
         </div>
         <div className="flex flex-col sm:flex-row sm:justify-between gap-2 mt-2">
@@ -133,7 +150,7 @@ export default function Profile() {
       {/* Myers Briggs */}
       <div className="mb-8">
         <div className="relative">
-          <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500">
+          <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 z-10">
             Myers Briggs
           </label>
           <div className="relative">
@@ -145,20 +162,202 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Expandable Sections */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between p-3 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 transition-colors">
+      {/* Social Links Section */}
+      <div className="mb-4">
+        <div 
+          className="flex items-center mb-4 gap-2 cursor-pointer transition-colors"
+          onClick={() => toggleSection('socialLinks')}
+        >
           <span className="font-medium text-gray-900 text-sm">Social links</span>
-          <ChevronDown className="w-4 h-4 text-gray-400" />
+          {expandedSections.socialLinks ? (
+            <ChevronUp className="w-4 h-4 text-gray-800" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-gray-800" />
+          )}
         </div>
-        <div className="flex items-center justify-between p-3 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 transition-colors">
+        
+          {expandedSections.socialLinks && (
+            <div className=" border-t-0 rounded-b-lg space-y-4">
+              <div className="relative">
+                <label className={`absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 transition-all duration-200 ${
+                  focusedSocialField === 'website' ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  Website
+                </label>
+                <input
+                  type="text"
+                  placeholder={focusedSocialField === 'website' ? "" : "Website"}
+                  onFocus={() => setFocusedSocialField('website')}
+                  onBlur={() => setFocusedSocialField(null)}
+                  className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900"
+                />
+              </div>
+              <div className="relative">
+                <label className={`absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 transition-all duration-200 ${
+                  focusedSocialField === 'instagram' ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  Instagram
+                </label>
+                <input
+                  type="text"
+                  placeholder={focusedSocialField === 'instagram' ? "" : "Instagram"}
+                  onFocus={() => setFocusedSocialField('instagram')}
+                  onBlur={() => setFocusedSocialField(null)}
+                  className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900"
+                />
+              </div>
+              <div className="relative">
+                <label className={`absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 transition-all duration-200 ${
+                  focusedSocialField === 'x' ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  X
+                </label>
+                <input
+                  type="text"
+                  placeholder={focusedSocialField === 'x' ? "" : "X"}
+                  onFocus={() => setFocusedSocialField('x')}
+                  onBlur={() => setFocusedSocialField(null)}
+                  className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900"
+                />
+              </div>
+              <div className="relative">
+                <label className={`absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 transition-all duration-200 ${
+                  focusedSocialField === 'youtube' ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  YouTube
+                </label>
+                <input
+                  type="text"
+                  placeholder={focusedSocialField === 'youtube' ? "" : "YouTube"}
+                  onFocus={() => setFocusedSocialField('youtube')}
+                  onBlur={() => setFocusedSocialField(null)}
+                  className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900"
+                />
+              </div>
+              <div className="relative">
+                <label className={`absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 transition-all duration-200 ${
+                  focusedSocialField === 'linkedin' ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  LinkedIn
+                </label>
+                <input
+                  type="text"
+                  placeholder={focusedSocialField === 'linkedin' ? "" : "LinkedIn"}
+                  onFocus={() => setFocusedSocialField('linkedin')}
+                  onBlur={() => setFocusedSocialField(null)}
+                  className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900"
+                />
+              </div>
+              <div className="relative">
+                <label className={`absolute -top-2 left-3 bg-white px-1 text-xs text-gray-500 transition-all duration-200 ${
+                  focusedSocialField === 'facebook' ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  Facebook
+                </label>
+                <input
+                  type="text"
+                  placeholder={focusedSocialField === 'facebook' ? "" : "Facebook"}
+                  onFocus={() => setFocusedSocialField('facebook')}
+                  onBlur={() => setFocusedSocialField(null)}
+                  className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900"
+                />
+              </div>
+            </div>
+          )}
+      </div>
+
+      {/* Membership Visibility Section */}
+      <div className="mb-4">
+        <div 
+          className="flex items-center mb-4 gap-2 transition-colors"
+          onClick={() => toggleSection('membershipVisibility')}
+        >
           <span className="font-medium text-gray-900 text-sm">Membership visibility</span>
-          <ChevronDown className="w-4 h-4 text-gray-400" />
+          {expandedSections.membershipVisibility ? (
+            <ChevronUp className="w-4 h-4 text-gray-800" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-gray-800" />
+          )}
         </div>
-        <div className="flex items-center justify-between p-3 border border-gray-200 rounded cursor-pointer hover:bg-gray-50 transition-colors">
+        
+        {expandedSections.membershipVisibility && (
+          <div className="border border-gray-200 border-t-0 rounded-b-lg p-4">
+            <p className="text-sm text-gray-600 mb-4">Control what groups show on your profile.</p>
+            
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-black rounded flex items-center justify-center">
+                    <span className="text-white text-sm font-bold">AIS</span>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900">AI Automation Society</h4>
+                    <p className="text-sm text-gray-500">Public • 109.2k members</p>
+                  </div>
+                </div>
+                <div className="w-11 h-6 bg-green-600 rounded-full relative cursor-pointer">
+                  <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 right-0.5 transition-transform"></div>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-gray-800 rounded flex items-center justify-center">
+                    <span className="text-white text-sm font-bold">AAA</span>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900">AI Automation (A-Z)</h4>
+                    <p className="text-sm text-gray-500">Private • 81.1k members</p>
+                  </div>
+                </div>
+                <div className="w-11 h-6 bg-green-600 rounded-full relative cursor-pointer">
+                  <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 right-0.5 transition-transform"></div>
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-black rounded flex items-center justify-center">
+                    <span className="text-white text-sm font-bold">A</span>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900">AI Automation Agency Hub</h4>
+                    <p className="text-sm text-gray-500">Private • 217.6k members</p>
+                  </div>
+                </div>
+                <div className="w-11 h-6 bg-green-600 rounded-full relative cursor-pointer">
+                  <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 right-0.5 transition-transform"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Advanced Section */}
+      <div className="mb-4">
+        <div 
+          className="flex items-center gap-2 mb-4 cursor-pointer hover:bg-gray-50 transition-colors"
+          onClick={() => toggleSection('advanced')}
+        >
           <span className="font-medium text-gray-900 text-sm">Advanced</span>
-          <ChevronDown className="w-4 h-4 text-gray-400" />
+          {expandedSections.advanced ? (
+            <ChevronUp className="w-4 h-4 text-gray-800" />
+          ) : (
+            <ChevronDown className="w-4 h-4 text-gray-800" />
+          )}
         </div>
+        
+        {expandedSections.advanced && (
+          <div className="border-t-0 rounded-b-lg ">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-900">Hide profile from search engines</span>
+              <div className="w-12 h-6 bg-gray-300 rounded-full relative cursor-pointer">
+                <div className="w-5 h-5 bg-white rounded-full absolute top-0.5 left-0.5 transition-transform"></div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Change Name Modal */}

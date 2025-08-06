@@ -1,6 +1,5 @@
 'use client';
 
-import { useAuthModal } from '@/lib/AuthModalContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
@@ -10,7 +9,7 @@ import {
   AiOutlineClose,
 } from 'react-icons/ai';
 
-type Mode = 'login' | 'signup' | 'verify' | 'forgot';
+type Mode = 'login' | 'signup' | 'verify' | 'forgot' | 'verification';
 
 interface LoginFormData {
   email: string;
@@ -39,13 +38,19 @@ type AuthFormData =
 interface SkoolAuthFormProps {
   mode: Mode;
   onSubmit?: (data: AuthFormData) => void;
+  onBack?: () => void;
   emailForVerify?: string;
+  email?: string;
+  isLoading?: boolean;
 }
 
 const AuthForm: React.FC<SkoolAuthFormProps> = ({
   mode,
   onSubmit,
+  onBack,
   emailForVerify,
+  email: propEmail,
+  isLoading = false,
 }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -54,12 +59,10 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
   const [code, setCode] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [resendCounter, setResendCounter] = useState(60);
-  const { openModal, closeModal } = useAuthModal();
-
 
   useEffect(() => {
     let timer: NodeJS.Timeout;
-    if (mode === 'verify' && resendCounter > 0) {
+    if ((mode === 'verify' || mode === 'verification') && resendCounter > 0) {
       timer = setTimeout(() => setResendCounter(resendCounter - 1), 1000);
     }
     return () => clearTimeout(timer);
@@ -67,16 +70,69 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (isLoading) return;
+
     const formData: AuthFormData =
       mode === 'login'
         ? { email, password }
         : mode === 'signup'
         ? { firstName, lastName, email, password }
-        : mode === 'verify'
+        : (mode === 'verify' || mode === 'verification')
         ? { code }
         : { email };
 
     onSubmit?.(formData);
+  };
+
+  const displayEmail = emailForVerify || propEmail || email;
+
+  const getTitle = () => {
+    switch (mode) {
+      case 'login':
+        return 'Log in to your account';
+      case 'signup':
+        return 'Sign up for free';
+      case 'verify':
+      case 'verification':
+        return 'We sent you a code';
+      case 'forgot':
+        return 'Forgot Password';
+      default:
+        return '';
+    }
+  };
+
+  const getButtonText = () => {
+    if (isLoading) {
+      switch (mode) {
+        case 'login':
+          return 'LOGGING IN...';
+        case 'signup':
+          return 'SIGNING UP...';
+        case 'verify':
+        case 'verification':
+          return 'VERIFYING...';
+        case 'forgot':
+          return 'SENDING EMAIL...';
+        default:
+          return 'LOADING...';
+      }
+    }
+
+    switch (mode) {
+      case 'login':
+        return 'LOG IN';
+      case 'signup':
+        return 'SIGN UP';
+      case 'verify':
+      case 'verification':
+        return 'VERIFY';
+      case 'forgot':
+        return 'EMAIL ME';
+      default:
+        return 'SUBMIT';
+    }
   };
 
   return (
@@ -84,32 +140,19 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
       <div className="w-full max-w-lg">
         <div className="w-full min-w-[26rem] bg-white rounded-xl shadow-sm border border-gray-200 px-10 py-12">
           <div className="flex w-full justify-center items-center mb-6">
-                          <Image src="/logo.svg" alt="logo" height={30} width={30} />
-            
-            {/* <h1 className="text-3xl font-bold">
-              <span className="text-blue-600">s</span>
-              <span className="text-red-500">k</span>
-              <span className="text-[#313273]">o</span>
-              <span className="text-green-500">o</span>
-              <span className="text-blue-600">l</span>
-            </h1> */}
+            <Image src="/logo.svg" alt="logo" height={30} width={30} />
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="text-center">
               <h2 className="text-xl font-semibold text-gray-900">
-                {{
-                  login: 'Log in to your account',
-                  signup: 'Sign up for free',
-                  verify: 'We sent you a code',
-                  forgot: 'Forgot Password',
-                }[mode]}
+                {getTitle()}
               </h2>
-              {mode === 'verify' && (
+              {(mode === 'verify' || mode === 'verification') && (
                 <p className="text-sm mt-1 text-gray-600">
-                  Enter it below to log in using <br />
+                  Enter it below to verify your email <br />
                   <span className="font-medium text-black">
-                    {emailForVerify || email}
+                    {displayEmail}
                   </span>
                 </p>
               )}
@@ -128,22 +171,25 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
                   label="First Name"
                   value={firstName}
                   setValue={setFirstName}
+                  disabled={isLoading}
                 />
                 <InputField
                   label="Last Name"
                   value={lastName}
                   setValue={setLastName}
+                  disabled={isLoading}
                 />
               </>
             )}
 
             {/* Email */}
-            {mode !== 'verify' && (
+            {mode !== 'verify' && mode !== 'verification' && (
               <InputField
                 label="Email"
                 type="email"
                 value={email}
                 setValue={setEmail}
+                disabled={isLoading}
               />
             )}
 
@@ -154,6 +200,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 setValue={setPassword}
+                disabled={isLoading}
                 icon={
                   showPassword ? (
                     <AiOutlineEyeInvisible className="h-5 w-5 text-gray-400 hover:text-gray-600" />
@@ -166,46 +213,74 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             )}
 
             {/* Code */}
-            {mode === 'verify' && (
-              <InputField label="Code" value={code} setValue={setCode} />
+            {(mode === 'verify' || mode === 'verification') && (
+              <InputField 
+                label="Verification Code" 
+                value={code} 
+                setValue={setCode}
+                disabled={isLoading}
+                maxLength={6}
+                placeholder="Enter 6-digit code"
+              />
             )}
 
             {/* Forgot link */}
             {mode === 'login' && (
               <div className="flex items-center justify-between w-full">
-                <button
-                  onClick={() => openModal("forgot")}
+                <Link
+                  href="/forgot-password"
                   className="text-sm cursor-pointer text-blue-600 hover:underline"
                 >
                   Forgot password?
-                </button>
-                 <button
-                  onClick={() => openModal("verify", "john@gmail.com")}
+                </Link>
+                <Link
+                  href="/verify"
                   className="text-sm cursor-pointer text-blue-600 hover:underline"
                 >
                   login with code
-                </button>
+                </Link>
               </div>
             )}
 
+            {/* Back button for verification mode */}
+            {mode === 'verification' && onBack && (
+              <button
+                type="button"
+                onClick={onBack}
+                disabled={isLoading}
+                className="w-full text-center text-sm text-gray-600 hover:text-gray-900 disabled:opacity-50"
+              >
+                ← Back to signup form
+              </button>
+            )}
+
             {/* Resend countdown */}
-            {mode === 'verify' && (
-              <p className="text-center text-sm text-gray-500">
-                Didn’t get the email? Resend in {resendCounter}s
-              </p>
+            {(mode === 'verify' || mode === 'verification') && (
+              <div className="text-center">
+                <p className="text-sm text-gray-500">
+                  Didn&apos;t get the email?{' '}
+                  {resendCounter > 0 ? (
+                    <span>Resend in {resendCounter}s</span>
+                  ) : (
+                    <button
+                      type="button"
+                      className="text-blue-600 hover:underline"
+                      disabled={isLoading}
+                    >
+                      Resend code
+                    </button>
+                  )}
+                </p>
+              </div>
             )}
 
             {/* Submit */}
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-[#313273] hover:bg-[#2a2a5a] text-white font-semibold rounded-lg"
+              disabled={isLoading}
+              className="w-full py-3 px-4 bg-[#313273] hover:bg-[#2a2a5a] text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {{
-                login: 'LOG IN',
-                signup: 'SIGN UP',
-                verify: 'LOG IN',
-                forgot: 'EMAIL ME',
-              }[mode]}
+              {getButtonText()}
             </button>
 
             {/* Switch mode */}
@@ -213,21 +288,22 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
               <div className="text-center text-sm text-gray-600">
                 {mode === 'login'
                   ? "Don't have an account? "
-
                   : 'Already have an account? '}
-                  {
-                    mode === "login"?
-                <Link
-                  onClick={closeModal}
-                  href={ '/create-account' }
-                  className="text-blue-600 hover:underline font-medium"
-                >
-                  Sign up for free
-                </Link> : 
-                <button onClick={() =>openModal("login")} className="text-blue-600 cursor-pointer hover:underline font-medium">
+                {mode === 'login' ? (
+                  <Link
+                    href="/signup"
+                    className="text-blue-600 hover:underline font-medium"
+                  >
+                    Sign up for free
+                  </Link>
+                ) : (
+                  <Link 
+                    href="/login" 
+                    className="text-blue-600 cursor-pointer hover:underline font-medium"
+                  >
                     login
-                </button>
-                  }
+                  </Link>
+                )}
               </div>
             )}
           </form>
@@ -245,6 +321,9 @@ const InputField = ({
   type = 'text',
   icon,
   onIconClick,
+  disabled = false,
+  maxLength,
+  placeholder,
 }: {
   label: string;
   value: string;
@@ -252,6 +331,9 @@ const InputField = ({
   type?: string;
   icon?: React.ReactNode;
   onIconClick?: () => void;
+  disabled?: boolean;
+  maxLength?: number;
+  placeholder?: string;
 }) => (
   <div className="relative">
     <input
@@ -260,9 +342,11 @@ const InputField = ({
       type={type}
       value={value}
       required
+      disabled={disabled}
+      maxLength={maxLength}
       onChange={(e) => setValue(e.target.value)}
-      placeholder={label}
-      className="peer w-full px-4 py-2 border focus:border-2 border-gray-200 rounded-sm bg-white text-gray-900 placeholder-transparent focus:outline-none focus:border-gray-800"
+      placeholder={placeholder || label}
+      className="peer w-full px-4 py-2 border focus:border-2 border-gray-200 rounded-sm bg-white text-gray-900 placeholder-transparent focus:outline-none focus:border-gray-800 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-gray-50"
     />
     <label
       htmlFor={label}
@@ -270,7 +354,7 @@ const InputField = ({
     >
       {label}
     </label>
-    {value && (
+    {value && !disabled && (
       <button
         type="button"
         onClick={() => setValue('')}
@@ -283,7 +367,8 @@ const InputField = ({
       <button
         type="button"
         onClick={onIconClick}
-        className="absolute inset-y-0 right-0 pr-3 flex items-center"
+        disabled={disabled}
+        className="absolute inset-y-0 right-0 pr-3 flex items-center disabled:opacity-50"
       >
         {icon}
       </button>
