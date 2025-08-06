@@ -6,15 +6,20 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div className='w-full flex justify-center'>
-        <div className='w-[65%] grid grid-cols-4 gap-4'>
-            <div className="col-span-3 h-full ">
-                <CommunityTabs/>
-                <MemberList/>
-            </div>
-
-        <CommunityCard/>
+    <div className='w-full flex justify-center px-4'>
+      <div className='w-full max-w-6xl grid grid-cols-1 lg:grid-cols-4 gap-6'>
+        
+        {/* Main content (tabs + members) */}
+        <div className="lg:col-span-3 space-y-6">
+          <CommunityTabs />
+          <MemberList />
         </div>
+
+        {/* Sidebar card */}
+        <div className="lg:col-span-1">
+          <CommunityCard />
+        </div>
+      </div>
     </div>
   )
 }

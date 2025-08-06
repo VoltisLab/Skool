@@ -1,12 +1,3 @@
-// export default function Chat() {
-//   return (
-//     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-//       <h1 className="text-2xl font-bold text-gray-900 mb-6">Chat</h1>
-//       <p className="text-gray-500">Chat settings will be displayed here.</p>
-//     </div>
-//   )
-// } 
-
 'use client';
 
 import Image from 'next/image';
@@ -14,21 +5,21 @@ import { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 const communities = [
-   {
-      id: 1,
-      name: 'AI Automation Society',
-      icon: '/head.jpg',
-    },
-    {
-      id: 2,
-      name: 'Software Developer Academy',
-      icon: '/img1.jpg',
-    },
-    {
-      id: 3,
-      name: 'Society and Human',
-      icon: '/img2.jpg',
-    },
+  {
+    id: 1,
+    name: 'AI Automation Society',
+    icon: '/head.jpg',
+  },
+  {
+    id: 2,
+    name: 'Software Developer Academy',
+    icon: '/img1.jpg',
+  },
+  {
+    id: 3,
+    name: 'Society and Human',
+    icon: '/img2.jpg',
+  },
 ];
 
 const MessageSettings = () => {
@@ -52,7 +43,7 @@ const MessageSettings = () => {
       {/* Notifications */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-gray-900">Notifications</h2>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-sm text-gray-700">
             Notify me with sound and blinking tab header when somebody messages me.
           </p>
@@ -63,9 +54,9 @@ const MessageSettings = () => {
       {/* Email Notifications */}
       <section className="space-y-3">
         <h2 className="text-lg font-bold text-gray-900">Email notifications</h2>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <p className="text-sm text-gray-700">
-           {" If you're offline and somebody messages you, we'll let you know via email. We won't email you if you're online."}
+            If you're offline and somebody messages you, we'll let you know via email. We won't email you if you're online.
           </p>
           <Toggle value={emailNotification} onChange={() => setEmailNotification(!emailNotification)} />
         </div>
@@ -75,21 +66,25 @@ const MessageSettings = () => {
       <section className="space-y-4">
         <h2 className="text-lg font-bold text-gray-900">Who can message me?</h2>
         <p className="text-sm text-gray-700">
-          {"Only members in the group you're in can message you. You choose what group users can message you from by turning your chat on/off below."}
+          Only members in the group you're in can message you. You choose what group users can message you from by turning your chat on/off below.
         </p>
 
         {communities.map((group) => (
-          <div key={group.id} className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Image
-                src={group.icon}
-                alt={group.name}
-                width={40}
-                height={40}
-                className="rounded-md object-cover"
-              />
-              <span className="text-sm font-medium text-gray-900">{group.name}</span>
-            </div>
+          <div
+           key={group.id}
+    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+  >
+    <div className="flex items-center gap-3">
+      <div className="relative w-10 h-10 flex-shrink-0">
+        <Image
+          src={group.icon}
+          alt={group.name}
+          fill
+          className="rounded-md object-cover"
+        />
+      </div>
+      <span className="text-sm font-medium text-gray-900">{group.name}</span>
+    </div>
 
             <div className="relative">
               <button

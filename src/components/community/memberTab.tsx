@@ -10,9 +10,9 @@ export default function CommunityTabs() {
   ];
 
   return (
-    <div className="flex items-center justify-between p-2 max-w-4xl mx-auto">
-      {/* Left side - Stats tabs */}
-      <div className="flex items-center space-x-2">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-2 gap-4">
+      {/* Tabs */}
+      <div className="flex flex-wrap gap-2">
         {tabs.map((tab) => (
           <div
             key={tab.id}
@@ -27,9 +27,9 @@ export default function CommunityTabs() {
           </div>
         ))}
       </div>
-      
-      {/* Right side - Invite button */}
-              <div className="bg-[#313273] text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-[#2a2a5a] cursor-pointer">
+
+      {/* Invite Button */}
+      <div className="bg-[#313273] text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-[#2a2a5a] cursor-pointer w-fit self-start sm:self-auto">
         INVITE
       </div>
     </div>

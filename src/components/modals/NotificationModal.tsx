@@ -38,18 +38,21 @@ export default function CommunityNotificationSettingsModal({
     setChanged(false);
   }, [isOpen]);
 
- const handleClickOutside = useCallback((e: MouseEvent) => {
-  if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
-    onClose();
-  }
-}, [onClose]);
+  const handleClickOutside = useCallback(
+    (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    },
+    [onClose]
+  );
 
-useEffect(() => {
-  if (isOpen) {
-    document.addEventListener('mousedown', handleClickOutside);
-  }
-  return () => document.removeEventListener('mousedown', handleClickOutside);
-}, [isOpen, handleClickOutside]);
+  useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen, handleClickOutside]);
 
   const handleChange = (key: keyof typeof settings, value: string) => {
     setSettings((prev) => ({ ...prev, [key]: value }));
@@ -65,11 +68,11 @@ useEffect(() => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm px-4 sm:px-6">
       <form
         ref={modalRef}
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white p-6 rounded-xl shadow space-y-6 border border-gray-200"
+        className="w-full max-w-md bg-white p-5 sm:p-6 rounded-xl shadow space-y-6 border border-gray-200"
       >
         <div>
           <h2 className="text-lg font-semibold text-gray-900">{communityName}</h2>
@@ -114,7 +117,7 @@ useEffect(() => {
           />
         </div>
 
-        <div className="flex justify-end gap-4 pt-4">
+        <div className="flex flex-col sm:flex-row sm:justify-end gap-3 sm:gap-4 pt-4">
           <button
             type="button"
             onClick={onClose}
@@ -125,7 +128,7 @@ useEffect(() => {
           <button
             type="submit"
             disabled={!changed}
-            className={`text-sm font-semibold text-white px-4 py-2 rounded-md ${
+            className={`text-sm font-semibold text-white px-4 py-2 rounded-md transition-colors ${
               changed
                 ? 'bg-[#313273] hover:bg-[#2a2a5a]'
                 : 'bg-gray-300 cursor-not-allowed'
