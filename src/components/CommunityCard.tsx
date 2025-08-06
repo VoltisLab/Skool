@@ -23,7 +23,7 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
       className="bg-white border border-gray-200 rounded-xl shadow-lg hover:shadow-lg transition-shadow cursor-pointer group"
       onClick={onClick}
     >
-      <div className="relative">
+      <div className="">
         {/* Rank Badge */}
         <div className="absolute top-3 left-3 z-10">
           <div className="bg-black/50 text-white text-sm font-semibold px-3 py-2 rounded-full">
@@ -32,12 +32,13 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
         </div>
 
         {/* Community Image */}
-        <div className="aspect-video w-full overflow-hidden rounded-t-lg">
+        <div className="aspect-video overflow-hidden rounded-t-lg relative">
           <Image
             src={community.image}
             alt={community.name}
-            fill
-            className="w-full h-full object-cover transition-transform duration-200"
+            height={100}
+            width={150}
+            className="object-cover w-full transition-transform duration-200"
           />
         </div>
       </div>
