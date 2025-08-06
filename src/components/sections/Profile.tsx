@@ -155,7 +155,7 @@ export default function Profile() {
           </label>
           <div className="relative">
             <select className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 appearance-none bg-white">
-              <option>Don't show</option>
+              <option>{"Don't show"}</option>
             </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
           </div>
