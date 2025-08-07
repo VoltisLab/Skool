@@ -42,6 +42,8 @@ interface SkoolAuthFormProps {
   emailForVerify?: string;
   email?: string;
   isLoading?: boolean;
+  errorMessage?: string;
+  successMessage?: string;
 }
 
 const AuthForm: React.FC<SkoolAuthFormProps> = ({
@@ -51,6 +53,8 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
   emailForVerify,
   email: propEmail,
   isLoading = false,
+  errorMessage,
+  successMessage,
 }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -70,7 +74,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (isLoading) return;
 
     const formData: AuthFormData =
@@ -158,8 +162,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
               )}
               {mode === 'forgot' && (
                 <p className="text-sm mt-1 text-gray-600">
-                  Enter your email address and we&apos;ll send you a link to reset
-                  your password.
+                  Enter your email address and we&apos;ll send you a link to reset your password.
                 </p>
               )}
             </div>
@@ -271,6 +274,18 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
                     </button>
                   )}
                 </p>
+              </div>
+            )}
+
+            {/* ✅ Show messages just above the submit button */}
+            {errorMessage && (
+              <div className="bg-red-100 text-red-700 px-4 py-2 rounded text-sm font-medium text-center">
+                {errorMessage}
+              </div>
+            )}
+            {successMessage && (
+              <div className="bg-green-100 text-green-700 px-4 py-2 rounded text-sm font-medium text-center">
+                {successMessage}
               </div>
             )}
 
