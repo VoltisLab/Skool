@@ -6,6 +6,8 @@ export const COOKIE_NAMES = {
   USER_DATA: 'user_data'
 } as const
 
+export const GRAPHQL_ENDPOINT = "https://uat-api.vmodel.app/skool/graphql";
+
 export const AUTH_STATUS = {
   AUTHENTICATED: 'authenticated',
   UNAUTHENTICATED: 'unauthenticated',

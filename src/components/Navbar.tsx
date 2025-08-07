@@ -1,65 +1,73 @@
-"use client"
+'use client';
 
-import { ChevronUp, ChevronDown, Search, Settings, Plus, Compass } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react"
-import { useAuth } from "@/lib/contexts/AuthContext"
+import { useAuth } from '@/lib/contexts/AuthContext';
+import {
+  ChevronUp,
+  ChevronDown,
+  Search,
+  Settings,
+  Plus,
+  Compass,
+} from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { isAuthenticated, user, logout } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
-    }
+      setIsScrolled(window.scrollY > 0);
+    };
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleChevronClick = () => {
-    setIsDropdownOpen(!isDropdownOpen)
-  }
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   const handleDropdownClose = (e: React.MouseEvent) => {
     if (e.target === e.currentTarget) {
-      setIsDropdownOpen(false)
+      setIsDropdownOpen(false);
     }
-  }
+  };
 
   const handleSettingsClick = (e: React.MouseEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
+    e.preventDefault();
+    e.stopPropagation();
     if (isAuthenticated) {
       router.push('/dashboard')
     } else {
-      router.push('/login')
+      router.push('/login');
     }
   }
 
   const handleLogout = () => {
     logout()
     setIsDropdownOpen(false)
-  }
+  };
 
   return (
     <>
-      <header className="bg-white border-b border-gray-200 px-6 py-2 sticky top-0 z-50">
-        <div className="max-w-[1085px] mx-auto flex items-center justify-between">
-          {/* Skool Logo */}
+      <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-2 sticky top-0 z-50">
+        <div className="max-w-[1085px] mx-auto flex flex-wrap items-center justify-between gap-4">
+          {/* Logo + Dropdown */}
           <div className="flex items-center gap-2 relative">
             <div className="text-center">
               <div className="flex items-center gap-2 font-bold text-blue-900">
                 <Image src="/logo.svg" alt="logo" height={30} width={30} />
-                <p>VOLTIS LABS</p>
+                <p className="text-sm sm:text-base">VOLTIS LABS</p>
               </div>
             </div>
-            <div 
+
+            <div
               className="flex flex-col cursor-pointer hover:bg-gray-200 rounded-full px-2 transition-colors"
               onClick={handleChevronClick}
             >
@@ -67,11 +75,11 @@ export default function Navbar() {
               <ChevronDown className="h-4 w-4 text-gray-700" />
             </div>
 
-            {/* Dropdown Menu */}
+            {/* Dropdown */}
             {isDropdownOpen && (
-              <div className="absolute top-full left-0  bg-white max-w-[230px] p-2 rounded-lg shadow-lg border border-gray-200 w-52 z-50">
-                {/* Search Bar */}
-                <div className="p-1 ">
+              <div className="absolute top-full left-0 mt-2 bg-white max-w-[230px] p-2 rounded-lg shadow-lg border border-gray-200 w-52 z-50">
+                {/* Search Input */}
+                <div className="p-1">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                     <input
@@ -79,30 +87,34 @@ export default function Navbar() {
                       placeholder="Search"
                       className="w-full pl-10 pr-10 py-2 text-sm border border-gray-300 rounded-lg bg-gray-200"
                     />
-                    <Settings 
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 cursor-pointer hover:text-gray-600 transition-colors" 
+                    <Settings
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4 cursor-pointer hover:text-gray-600 transition-colors"
                       onClick={handleSettingsClick}
                     />
                   </div>
                 </div>
 
-                {/* Create a community */}
-                <Link href="/create-account" className="">
+                {/* Create Community */}
+                <Link href="/create-account">
                   <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-200 p-1 rounded-lg transition-colors">
                     <div className="w-6 h-6 bg-gray-200 rounded flex items-center justify-center">
                       <Plus className="h-4 w-4 text-gray-600" />
                     </div>
-                    <span className="text-xs font-medium text-gray-700">Create a community</span>
+                    <span className="text-xs font-medium text-gray-700">
+                      Create a community
+                    </span>
                   </div>
                 </Link>
 
-                {/* Discover communities */}
-                <Link href="/" className="">
+                {/* Discover Communities */}
+                <Link href="/">
                   <div className="flex items-center gap-3 cursor-pointer hover:bg-gray-200 p-1 rounded-lg transition-colors">
                     <div className="w-6 h-6 bg-gray-200 rounded-full flex items-center justify-center">
                       <Compass className="h-4 w-4 text-gray-600" />
                     </div>
-                    <span className="text-xs font-medium text-gray-700">Discover communities</span>
+                    <span className="text-xs font-medium text-gray-700">
+                      Discover communities
+                    </span>
                   </div>
                 </Link>
 
@@ -131,15 +143,15 @@ export default function Navbar() {
             )}
           </div>
 
-          {/* Search Bar in Header - Only show when scrolled */}
+          {/* Scroll Search Bar */}
           {isScrolled && (
-            <div className="flex-1 max-w-2xl mx-8">
+            <div className="flex-1 w-full sm:w-auto sm:max-w-2xl mx-auto sm:mx-8">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#909090] h-4 w-4" />
                 <input
                   type="text"
                   placeholder="Search for anything"
-                  className="w-full pl-10 py-4 text-sm border text-[#909090] placeholder:text-[#909090] placeholder:font-semibold border-gray-300 rounded-lg bg-gray-200 focus:border-transparent outline-none"
+                  className="w-full pl-10 py-3 text-sm border text-[#909090] placeholder:text-[#909090] placeholder:font-semibold border-gray-300 rounded-lg bg-gray-200 focus:border-transparent outline-none"
                 />
               </div>
             </div>
@@ -163,17 +175,17 @@ export default function Navbar() {
             >
               LOG IN
             </button>
-          )}
+                 )}
         </div>
       </header>
 
-      {/* Backdrop for closing dropdown */}
+      {/* Backdrop when dropdown is open */}
       {isDropdownOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-40"
           onClick={handleDropdownClose}
         />
       )}
     </>
-  )
-} 
+  );
+}

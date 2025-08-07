@@ -1,12 +1,14 @@
-import { MapPin, ChevronDown, ChevronUp } from 'lucide-react'
-import Image from 'next/image'
-import { useState } from 'react'
-import ChangeNameModal from '../modals/ChangeNameModal'
+'use client';
+
+import { MapPin, ChevronDown, ChevronUp } from 'lucide-react';
+import Image from 'next/image';
+import { useState } from 'react';
+import ChangeNameModal from '../modals/ChangeNameModal';
 
 export default function Profile() {
-  const [isNameModalOpen, setIsNameModalOpen] = useState(false)
-  const [firstName, setFirstName] = useState('Stanley')
-  const [lastName, setLastName] = useState('Samuel')
+  const [isNameModalOpen, setIsNameModalOpen] = useState(false);
+  const [firstName, setFirstName] = useState('Stanley');
+  const [lastName, setLastName] = useState('Samuel');
   const [expandedSections, setExpandedSections] = useState({
     socialLinks: true,
     membershipVisibility: false,
@@ -16,9 +18,9 @@ export default function Profile() {
   const [focusedSocialField, setFocusedSocialField] = useState<string | null>(null)
 
   const handleNameSave = (newFirstName: string, newLastName: string) => {
-    setFirstName(newFirstName)
-    setLastName(newLastName)
-  }
+    setFirstName(newFirstName);
+    setLastName(newLastName);
+  };
 
   const toggleSection = (section: keyof typeof expandedSections) => {
     setExpandedSections(prev => ({
@@ -29,11 +31,11 @@ export default function Profile() {
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-      <h1 className="text-lg font-bold text-gray-900 mb-6">Profile</h1>
-      
+      <h1 className="text-2xl font-bold text-gray-900 mb-6">Profile</h1>
+
       {/* Profile Photo */}
-      <div className="flex items-center gap-4 mb-8">
-        <div className="relative w-10 h-10">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
+        <div className="relative w-20 h-20 flex-shrink-0">
           <Image
             src="/head.jpg"
             alt="Profile"
@@ -45,10 +47,10 @@ export default function Profile() {
           Change profile photo
         </button>
       </div>
-      
-      {/* Name Fields - Side by side */}
+
+      {/* Name Fields */}
       <div className="mb-8">
-        <div className="grid grid-cols-2 gap-4 mb-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <div className="relative">
             <label className="absolute -top-2 left-3 bg-white px-1 text-xs text-gray-400">
               First Name
@@ -74,7 +76,7 @@ export default function Profile() {
         </div>
         <p className="text-sm text-gray-600">
           You can only change your name once, and you must use your real name.{' '}
-          <button 
+          <button
             className="text-blue-600 hover:text-blue-700"
             onClick={() => setIsNameModalOpen(true)}
           >
@@ -82,7 +84,7 @@ export default function Profile() {
           </button>
         </p>
       </div>
-      
+
       {/* URL Field */}
       <div className="mb-8">
         <div className="relative">
@@ -97,10 +99,10 @@ export default function Profile() {
           />
         </div>
         <p className="text-sm text-gray-600 mt-2">
-          You can change your URL once you&apos;ve got 90 contributions, 30 followers, and been using it for 90 days.
+         {" You can change your URL once you've got 90 contributions, 30 followers, and been using it for 90 days."}
         </p>
       </div>
-      
+
       {/* Bio Field */}
       <div className="mb-8">
         <div className="relative">
@@ -117,7 +119,7 @@ export default function Profile() {
           <span className="text-sm text-gray-400">17 / 150</span>
         </div>
       </div>
-      
+
       {/* Location Field */}
       <div className="mb-8">
         <div className="relative">
@@ -134,7 +136,7 @@ export default function Profile() {
             className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900"
           />
         </div>
-        <div className="flex items-center justify-between mt-2">
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-2 mt-2">
           <button className="flex items-center gap-2 text-blue-600 text-sm hover:text-blue-700">
             <MapPin className="w-4 h-4" />
             Change my map location
@@ -144,7 +146,7 @@ export default function Profile() {
           </button>
         </div>
       </div>
-      
+
       {/* Myers Briggs */}
       <div className="mb-8">
         <div className="relative">
@@ -153,13 +155,13 @@ export default function Profile() {
           </label>
           <div className="relative">
             <select className="w-full px-3 py-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-gray-900 appearance-none bg-white">
-              <option>Don&apos;t show</option>
+              <option>{"Don't show"}</option>
             </select>
             <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
           </div>
         </div>
       </div>
-      
+
       {/* Social Links Section */}
       <div className="mb-4">
         <div 
@@ -316,7 +318,7 @@ export default function Profile() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-black rounded flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">///A</span>
+                    <span className="text-white text-sm font-bold">A</span>
                   </div>
                   <div>
                     <h4 className="font-medium text-gray-900">AI Automation Agency Hub</h4>
@@ -367,5 +369,5 @@ export default function Profile() {
         currentLastName={lastName}
       />
     </div>
-  )
-} 
+  );
+}

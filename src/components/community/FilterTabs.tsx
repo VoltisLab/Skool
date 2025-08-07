@@ -1,4 +1,13 @@
-import { Filter, MapPin, Play, Brain, Bot, Trophy, Briefcase, HelpCircle } from "lucide-react"
+import {
+  Filter,
+  MapPin,
+  Play,
+  Brain,
+  Bot,
+  Trophy,
+  Briefcase,
+  HelpCircle,
+} from "lucide-react"
 import { useState } from "react"
 
 interface FilterTab {
@@ -16,16 +25,15 @@ interface FilterTabsProps {
 
 export default function FilterTabs({ tabs, activeTab, onTabChange }: FilterTabsProps) {
   const [showAllTabs, setShowAllTabs] = useState(false)
-  
-  // Show only first 4 tabs by default, rest are hidden
+
   const visibleTabs = tabs.slice(0, 4)
   const hiddenTabs = tabs.slice(4)
   const hasMoreTabs = tabs.length > 4
 
   return (
-    <div className="mb-6">
+    <div className="mb-6 w-full">
       {/* First row - always visible tabs */}
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex flex-wrap items-center gap-2 mb-2">
         {visibleTabs.map((tab) => (
           <button
             key={tab.id}
@@ -45,7 +53,7 @@ export default function FilterTabs({ tabs, activeTab, onTabChange }: FilterTabsP
             )}
           </button>
         ))}
-        
+
         {/* More/Less button */}
         {hasMoreTabs && (
           <button
@@ -57,7 +65,7 @@ export default function FilterTabs({ tabs, activeTab, onTabChange }: FilterTabsP
         )}
 
         {/* Filter icon */}
-        <div className="flex items-center gap-2 ml-auto">
+        <div className="ml-auto">
           <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors">
             <Filter className="w-4 h-4" />
           </button>
@@ -66,7 +74,7 @@ export default function FilterTabs({ tabs, activeTab, onTabChange }: FilterTabsP
 
       {/* Second row - hidden tabs (only shown when expanded) */}
       {showAllTabs && hasMoreTabs && (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           {hiddenTabs.map((tab) => (
             <button
               key={tab.id}
@@ -92,14 +100,14 @@ export default function FilterTabs({ tabs, activeTab, onTabChange }: FilterTabsP
   )
 }
 
-// Predefined tab configurations with exact icons from the image
+// ✅ Still exported exactly as you had it
 export const defaultTabs: FilterTab[] = [
   { id: "all", label: "All" },
   { id: "announcements", label: "Announcements", icon: <MapPin className="w-4 h-4 text-red-500" /> },
   { id: "youtube", label: "YouTube Resources", icon: <Play className="w-4 h-4 text-black" /> },
   { id: "business", label: "Business & Strategy", icon: <Brain className="w-4 h-4 text-pink-500" /> },
   { id: "tech", label: "Tech & Tools", icon: <Bot className="w-4 h-4 text-gray-600" /> },
-          { id: "wins", label: "Wins", icon: <Trophy className="w-4 h-4 text-[#313273]" /> },
+  { id: "wins", label: "Wins", icon: <Trophy className="w-4 h-4 text-[#313273]" /> },
   { id: "jobs", label: "Job Board / Hiring", icon: <Briefcase className="w-4 h-4 text-red-500" /> },
   { id: "help", label: "Ask for Help", icon: <HelpCircle className="w-4 h-4 text-red-500" /> },
-] 
+]

@@ -56,110 +56,118 @@ const Account: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 ">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Account</h1>
-      
-      {/* Email Section */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-base font-bold text-gray-900 mb-2">Email</h2>
-            <p className="text-gray-900 text-sm">kawekwuneemmanuel2001@gmail.com</p>
-          </div>
-          <button onClick={() => setEmailIsOpen(true)} className="px-4 py-2 hover:text-black text-xs font-bold text-gray-500 bg-gray-50 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors">
-            CHANGE EMAIL
-          </button>
-        </div>
-      </div>
+   <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+  <h1 className="text-2xl font-bold text-gray-900 mb-6">Account</h1>
 
-      {/* Password Section */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-base font-bold text-gray-900 mb-2">Password</h2>
-            <p className="text-gray-900 transition-colors text-sm">
-              Change your password
-            </p>
-          </div>
-          <button         onClick={() => setIsOpen(true)} className="px-4 py-2 hover:text-black text-xs font-bold text-gray-500 bg-gray-50 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors">
-            CHANGE PASSWORD
-          </button>
-        </div>
-      </div>
-
-      {/* Timezone Section with Custom Dropdown */}
-      <div className="mb-6">
-        <h2 className="text-base font-bold text-gray-900 mb-3">Timezone</h2>
-        <div className="relative" ref={dropdownRef}>
-          <button
-            onClick={toggleDropdown}
-            className="w-full h-12 px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 flex items-center justify-between group"
-          >
-            <span className="truncate text-left">{selectedTimezone.label}</span>
-            <ChevronDown 
-              className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-all duration-200 ${
-                isDropdownOpen ? 'rotate-180' : 'rotate-0'
-              }`} 
-            />
-          </button>
-          
-          {isDropdownOpen && (
-            <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg">
-              {/* Search Input */}
-              <div className="p-3 border-b border-gray-200">
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  placeholder="Search timezones..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#313273] focus:border-transparent"
-                />
-              </div>
-              
-              {/* Dropdown Options */}
-              <div className="max-h-60 overflow-y-auto">
-                {filteredTimezones.length > 0 ? (
-                  filteredTimezones.map((timezone) => (
-                    <button
-                      key={timezone.value}
-                      onClick={() => handleTimezoneSelect(timezone)}
-                      className="w-full px-4 py-3 text-sm text-left hover:bg-[#313273] hover:text-white focus:bg-[#313273] focus:text-white focus:outline-none transition-colors duration-150 flex items-center justify-between group"
-                    >
-                      <span className="truncate">{timezone.label}</span>
-                      {selectedTimezone.value === timezone.value && (
-                        <Check className="w-4 h-4 text-white flex-shrink-0 ml-2 group-hover:text-white group-focus:text-white" />
-                      )}
-                    </button>
-                  ))
-                ) : (
-                  <div className="px-4 py-3 text-sm text-gray-500 text-center">
-                    No timezones found
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {/* Log out Section */}
+  {/* Email Section */}
+  <div className="mb-6">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-base font-bold text-gray-900 mb-2">Log out of all devices</h2>
-            <p className="text-gray-600 text-sm">Log out of all active sessions on all devices.</p>
-          </div>
-          <button onClick={() => setIsLogOut(true)} className="px-4 py-2 text-xs font-bold hover:text-black text-gray-500 bg-gray-50 border border-gray-300 rounded-md hover:bg-gray-100 transition-colors">
-            LOG OUT EVERYWHERE
-          </button>
-        </div>
+        <h2 className="text-base font-bold text-gray-900 mb-1">Email</h2>
+        <p className="text-sm text-gray-900 break-all">kawekwuneemmanuel2001@gmail.com</p>
       </div>
-      <ChangePasswordModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
-      <UpdateEmailModal isOpen={isEmailOpen} onClose={() => setEmailIsOpen(false)} />
-        <LogoutModal isOpen={isLogout} onClose={() => setIsLogOut(false)} onConfirm={() => window.location.href = "/login"}/>
-
+      <button
+        onClick={() => setEmailIsOpen(true)}
+        className="px-4 py-2 text-xs font-bold text-gray-500 bg-gray-50 border border-gray-300 rounded-md hover:text-black hover:bg-gray-100 transition-colors w-full sm:w-auto"
+      >
+        CHANGE EMAIL
+      </button>
     </div>
+  </div>
+
+  {/* Password Section */}
+  <div className="mb-6">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h2 className="text-base font-bold text-gray-900 mb-1">Password</h2>
+        <p className="text-sm text-gray-900">Change your password</p>
+      </div>
+      <button
+        onClick={() => setIsOpen(true)}
+        className="px-4 py-2 text-xs font-bold text-gray-500 bg-gray-50 border border-gray-300 rounded-md hover:text-black hover:bg-gray-100 transition-colors w-full sm:w-auto"
+      >
+        CHANGE PASSWORD
+      </button>
+    </div>
+  </div>
+
+  {/* Timezone Section */}
+  <div className="mb-6">
+    <h2 className="text-base font-bold text-gray-900 mb-3">Timezone</h2>
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={toggleDropdown}
+        className="w-full h-12 px-4 py-2 text-sm text-gray-700 bg-white border border-gray-300 rounded-md hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 flex items-center justify-between group"
+      >
+        <span className="truncate text-left">{selectedTimezone.label}</span>
+        <ChevronDown
+          className={`w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-transform ${
+            isDropdownOpen ? "rotate-180" : "rotate-0"
+          }`}
+        />
+      </button>
+
+      {isDropdownOpen && (
+        <div className="absolute z-50 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg max-h-[18rem] overflow-y-auto">
+          <div className="p-3 border-b border-gray-200">
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Search timezones..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#313273]"
+            />
+          </div>
+          <div>
+            {filteredTimezones.length > 0 ? (
+              filteredTimezones.map((timezone) => (
+                <button
+                  key={timezone.value}
+                  onClick={() => handleTimezoneSelect(timezone)}
+                  className="w-full px-4 py-3 text-sm text-left hover:bg-[#313273] hover:text-white transition-colors flex items-center justify-between"
+                >
+                  <span className="truncate">{timezone.label}</span>
+                  {selectedTimezone.value === timezone.value && (
+                    <Check className="w-4 h-4 text-white ml-2" />
+                  )}
+                </button>
+              ))
+            ) : (
+              <div className="px-4 py-3 text-sm text-gray-500 text-center">No timezones found</div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+
+  {/* Logout Section */}
+  <div>
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h2 className="text-base font-bold text-gray-900 mb-1">Log out of all devices</h2>
+        <p className="text-sm text-gray-600">Log out of all active sessions on all devices.</p>
+      </div>
+      <button
+        onClick={() => setIsLogOut(true)}
+        className="px-4 py-2 text-xs font-bold text-gray-500 bg-gray-50 border border-gray-300 rounded-md hover:text-black hover:bg-gray-100 transition-colors w-full sm:w-auto"
+      >
+        LOG OUT EVERYWHERE
+      </button>
+    </div>
+  </div>
+
+  {/* Modals */}
+  <ChangePasswordModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
+  <UpdateEmailModal isOpen={isEmailOpen} onClose={() => setEmailIsOpen(false)} />
+  <LogoutModal
+    isOpen={isLogout}
+    onClose={() => setIsLogOut(false)}
+    onConfirm={() => (window.location.href = "/login")}
+  />
+</div>
+
   );
 };
 

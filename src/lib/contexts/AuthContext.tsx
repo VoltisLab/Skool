@@ -4,8 +4,6 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { gql } from '@apollo/client'
 import { AuthContextType, User, RegisterInput } from '../types/auth'
 import { apolloClient, saveAuthData, clearAuthCookies, getUserData, getAuthToken } from '../apollo-client'
-import { AUTH_STATUS, AuthStatus } from '../constants'
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const useAuth = () => {
@@ -17,8 +15,8 @@ export const useAuth = () => {
         user: null,
         isAuthenticated: false,
         isLoading: true,
-        login: async () => ({ success: false, errors: [{ message: 'Not available during SSR' }] }),
-        register: async () => ({ success: false, errors: [{ message: 'Not available during SSR' }] }),
+        login: async () => ({ success: false, errors: ['Not available during SSR'] }),
+        register: async () => ({ success: false, errors: ['Not available during SSR'] }),
         logout: () => {},
         refreshToken: async () => false
       }
@@ -32,14 +30,11 @@ interface AuthProviderProps {
   children: React.ReactNode
 }
 
-// GraphQL Mutations
+// GraphQL Mutations - Fixed to match your schema
 const LOGIN_MUTATION = gql`
   mutation Login($email: String!, $password: String!) {
     login(email: $email, password: $password) {
-      errors {
-        field
-        message
-      }
+      errors
       success
       token
       refreshExpiresIn
@@ -51,10 +46,7 @@ const LOGIN_MUTATION = gql`
 const REGISTER_MUTATION = gql`
   mutation Register($code: String!, $email: String!, $firstName: String!, $lastName: String!, $password1: String!, $password2: String!, $username: String!) {
     register(code: $code, email: $email, firstName: $firstName, lastName: $lastName, password1: $password1, password2: $password2, username: $username) {
-      errors {
-        field
-        message
-      }
+      errors
       success
     }
   }
@@ -102,7 +94,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Login function with improved error handling
   const login = async (email: string, password: string) => {
     if (!isClient) {
-      return { success: false, errors: [{ message: 'Not available during SSR' }] }
+      return { success: false, errors: ['Not available during SSR'] }
     }
 
     try {
@@ -140,7 +132,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         return { 
           success: false, 
-          errors: response?.errors || [{ message: 'Login failed' }]
+          errors: response.errors || ['Login failed']
         }
       }
     } catch (error: any) {
@@ -172,7 +164,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       return { 
         success: false, 
-        errors: [{ message: 'An unexpected error occurred' }]
+        errors: ['An unexpected error occurred']
       }
     } finally {
       setIsLoading(false)
@@ -182,7 +174,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   // Register function with improved error handling
   const register = async (data: RegisterInput) => {
     if (!isClient) {
-      return { success: false, errors: [{ message: 'Not available during SSR' }] }
+      return { success: false, errors: ['Not available during SSR'] }
     }
 
     try {
@@ -207,7 +199,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       } else {
         return { 
           success: false, 
-          errors: response?.errors || [{ message: 'Registration failed' }]
+          errors: response.errors || ['Registration failed']
         }
       }
     } catch (error: any) {
@@ -239,7 +231,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       return { 
         success: false, 
-        errors: [{ message: 'An unexpected error occurred' }]
+        errors: ['An unexpected error occurred']
       }
     } finally {
       setIsLoading(false)

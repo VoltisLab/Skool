@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
-import { useAuthModal } from "@/lib/AuthModalContext";
+// import { useAuthModal } from "@/lib/AuthModalContext";
 
 interface Slide {
   img: string;
@@ -12,28 +12,15 @@ interface Slide {
 }
 
 const slides: Slide[] = [
-  {
-    img: "/img1.jpg",
-    title: "Manifest Academy",
-    earnings: "$40,907/month",
-  },
-  {
-    img: "/img2.jpg",
-    title: "Manifest Academy",
-    earnings: "$40,907/month",
-  },
-  {
-    img: "/img3.jpg",
-    title: "Manifest Academy",
-    earnings: "$40,907/month",
-  },
+  { img: "/img1.jpg", title: "Manifest Academy", earnings: "$40,907/month" },
+  { img: "/img2.jpg", title: "Manifest Academy", earnings: "$40,907/month" },
+  { img: "/img3.jpg", title: "Manifest Academy", earnings: "$40,907/month" },
 ];
 
 export default function Page() {
-  const [current, setCurrent] = useState<number>(0);
-  const [isAnimating, setIsAnimating] = useState<boolean>(false);
-    const { openModal } = useAuthModal();
-  
+  const [current, setCurrent] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  // const { openModal } = useAuthModal();
 
   const prev = () => {
     if (isAnimating) return;
@@ -53,60 +40,50 @@ export default function Page() {
     setTimeout(() => setIsAnimating(false), 600);
   };
 
-  const getPrevIndex = () =>
-    current === 0 ? slides.length - 1 : current - 1;
+  const getPrevIndex = () => (current === 0 ? slides.length - 1 : current - 1);
+  const getNextIndex = () => (current === slides.length - 1 ? 0 : current + 1);
 
-  const getNextIndex = () =>
-    current === slides.length - 1 ? 0 : current + 1;
-
-  const getImageStyle = (position: "prev" | "current" | "next" | "hidden") => {
+  const getImageStyle = (
+    position: "prev" | "current" | "next" | "hidden"
+  ) => {
     const base =
       "absolute rounded-xl overflow-hidden shadow-lg transition-all duration-600 ease-out";
+
     switch (position) {
       case "prev":
-        return `${base} left-0 w-[280px] sm:w-[320px] md:w-[240px] lg:w-[400px] h-[240px] z-10 transform -translate-x-1/3 scale-85 opacity-60`;
+        return `${base} left-0 w-[220px] sm:w-[280px] md:w-[240px] lg:w-[320px] h-[200px] sm:h-[240px] z-10 transform -translate-x-1/3 scale-85 opacity-60`;
       case "current":
-        return `${base} left-1/2 transform -translate-x-1/2 w-[350px] sm:w-[400px] md:w-[300px] lg:w-[400px] h-[250px] z-30 scale-100 opacity-100 shadow-2xl`;
+        return `${base} left-1/2 transform -translate-x-1/2 w-[260px] sm:w-[320px] md:w-[300px] lg:w-[360px] h-[220px] sm:h-[260px] z-30 scale-100 opacity-100 shadow-2xl`;
       case "next":
-        return `${base} right-0 w-[280px] sm:w-[320px] md:w-[240px] lg:w-[400px] h-[240px] z-10 transform translate-x-1/3 scale-85 opacity-60`;
+        return `${base} right-0 w-[220px] sm:w-[280px] md:w-[240px] lg:w-[320px] h-[200px] sm:h-[240px] z-10 transform translate-x-1/3 scale-85 opacity-60`;
       default:
         return base;
     }
   };
 
   const handleCreateCommunity = () => {
-    // router.push('/pricing');
-    openModal("signup")
+    // openModal("signup");
   };
 
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-white text-center">
       {/* Logo */}
       <Image src="/logo.svg" alt="logo" height={30} width={30} />
-      
-      {/* <h1 className="text-4xl font-extrabold mb-2">
-        <span className="text-red-500">s</span>
-        <span className="text-[#313273]">k</span>
-        <span className="text-blue-500">o</span>
-        <span className="text-green-500">o</span>
-        <span className="text-purple-600">l</span>
-      </h1> */}
 
       {/* Tagline */}
-      <p className="text-xl font-semibold text-gray-700 leading-relaxed">
+      <p className="text-lg sm:text-xl font-semibold text-gray-700 leading-relaxed mt-3">
         Build a community around your passion.
         <br />
         Make money doing what you love.
       </p>
 
       {/* Carousel */}
-      <div className="relative w-[400px] h-[350px] flex items-center justify-center perspective-1000">
+      <div className="relative w-full max-w-[420px] sm:max-w-[600px] h-[300px] sm:h-[350px] mt-6 flex items-center justify-center perspective-1000">
         {slides.map((slide, index) => {
           let position: "prev" | "current" | "next" | "hidden" = "hidden";
           if (index === current) position = "current";
           else if (index === getPrevIndex()) position = "prev";
           else if (index === getNextIndex()) position = "next";
-
           if (position === "hidden") return null;
 
           return (
@@ -174,10 +151,11 @@ export default function Page() {
       </div>
 
       {/* CTA */}
-      <button onClick={handleCreateCommunity}>
-        <button className="mt-8 cursor-pointer bg-[#313273] hover:bg-[#2a2a5a] text-white font-bold py-3 px-6 rounded shadow-md transition-colors duration-200">
-          CREATE YOUR COMMUNITY
-        </button>
+      <button
+        onClick={handleCreateCommunity}
+        className="mt-8 cursor-pointer bg-[#313273] hover:bg-[#2a2a5a] text-white font-bold py-3 px-6 rounded shadow-md transition-colors duration-200"
+      >
+        CREATE YOUR COMMUNITY
       </button>
     </main>
   );
