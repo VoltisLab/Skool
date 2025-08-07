@@ -37,7 +37,7 @@ type AuthFormData =
 
 interface SkoolAuthFormProps {
   mode: Mode;
-  onSubmit?: (data: AuthFormData) => Promise<void>;
+  onSubmit?: (data: AuthFormData) => void;
   onBack?: () => void;
   emailForVerify?: string;
   email?: string;
