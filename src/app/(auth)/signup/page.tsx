@@ -8,6 +8,30 @@ import { RegisterInput } from '@/lib/types/auth';
 import { SEND_VERIFICATION_EMAIL } from '@/lib/graphql/mutations';
 import { plainApolloClient } from '@/lib/plain-client';
 
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+interface SignupFormData extends LoginFormData {
+  firstName: string;
+  lastName: string;
+}
+
+interface VerifyFormData {
+  code: string;
+}
+
+interface ForgotFormData {
+  email: string;
+}
+
+type AuthFormData =
+  | LoginFormData
+  | SignupFormData
+  | VerifyFormData
+  | ForgotFormData;
+
 const SignupPage: React.FC = () => {
   const router = useRouter();
   const { register, isAuthenticated, isLoading } = useAuth();
@@ -15,8 +39,11 @@ const SignupPage: React.FC = () => {
   const [signupStep, setSignupStep] = useState<'form' | 'verification'>('form');
   const [signupData, setSignupData] = useState<RegisterInput | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState({ error: '', success: '' });
 
-  const handleSignup = async (data: any) => {
+  const handleSignup = async (data: AuthFormData) => {
+    setMessage({ error: '', success: '' }); // Reset messages on each submit
+
     // Step 1: Full form submitted
     if ('firstName' in data && 'lastName' in data && 'email' in data && 'password' in data) {
       const newSignupData: RegisterInput = {
@@ -41,17 +68,18 @@ const SignupPage: React.FC = () => {
           },
         });
 
-        const success = res.data?.sendVerificationEmail?.success;
+        const response = res.data?.sendVerificationEmail;
 
-        if (success) {
+        if (response?.success) {
+          setMessage({ success: response.message || 'Verification email sent.', error: '' });
           setSignupData(newSignupData);
           setSignupStep('verification');
         } else {
-          alert(res.data?.sendVerificationEmail?.message || 'Failed to send verification email');
+          setMessage({ error: response?.message || 'Failed to send verification email', success: '' });
         }
       } catch (err) {
         console.error('Verification email error:', err);
-        alert('Failed to send verification email');
+        setMessage({ error: 'An error occurred while sending the verification email.', success: '' });
       }
 
       setIsSubmitting(false);
@@ -72,7 +100,10 @@ const SignupPage: React.FC = () => {
         router.push('/login');
       } else {
         console.error('Registration failed:', result.errors);
-        alert(result.errors?.join('\n') || 'Registration failed');
+        setMessage({
+          error: result.errors?.join('\n') || 'Registration failed',
+          success: '',
+        });
       }
 
       setIsSubmitting(false);
@@ -82,6 +113,7 @@ const SignupPage: React.FC = () => {
   const handleBackToForm = () => {
     setSignupStep('form');
     setSignupData(null);
+    setMessage({ error: '', success: '' });
   };
 
   useEffect(() => {
@@ -103,13 +135,18 @@ const SignupPage: React.FC = () => {
 
   return (
     <div className="w-full h-screen fixed top-0 left-0 z-[1000] bg-[rgb(248,247,245)] flex items-center justify-center">
-      <AuthForm
-        mode={signupStep === 'form' ? 'signup' : 'verification'}
-        onSubmit={handleSignup}
-        onBack={signupStep === 'verification' ? handleBackToForm : undefined}
-        email={signupData?.email}
-        isLoading={isSubmitting}
-      />
+      <div className="w-full max-w-md space-y-4">
+        
+        <AuthForm
+          mode={signupStep === 'form' ? 'signup' : 'verification'}
+          onSubmit={handleSignup}
+          onBack={signupStep === 'verification' ? handleBackToForm : undefined}
+          email={signupData?.email}
+          isLoading={isSubmitting}
+          errorMessage={message?.error}
+          successMessage={message?.success}
+        />
+      </div>
     </div>
   );
 };

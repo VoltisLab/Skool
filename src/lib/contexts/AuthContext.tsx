@@ -100,7 +100,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     try {
-      setIsLoading(true)
+      // setIsLoading(true)
       
       const { data } = await plainApolloClient.mutate({
         mutation: LOGIN_MUTATION,
@@ -141,15 +141,22 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           errors: response.errors || ['Login failed']
         }
       }
-    } catch (error) {
-      console.error('Login error:', error)
-      return { 
-        success: false, 
-        errors: ['An unexpected error occurred']
-      }
-    } finally {
-      setIsLoading(false)
-    }
+    }catch (error: unknown) {
+  let message = 'An unexpected error occurred';
+
+  if (error instanceof Error) {
+    message = error.message;
+  } else if (typeof error === 'string') {
+    message = error;
+  }
+
+  console.error('Login error:', message);
+
+  return {
+    success: false,
+    errors: message,
+  };
+}
   }
 
   // Register function
@@ -159,7 +166,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
 
     try {
-      setIsLoading(true)
+      // setIsLoading(true)
       
       const { data: responseData } = await plainApolloClient.mutate({
         mutation: REGISTER_MUTATION,
@@ -183,7 +190,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         errors: ['An unexpected error occurred']
       }
     } finally {
-      setIsLoading(false)
+      // setIsLoading(false)
     }
   }
 
