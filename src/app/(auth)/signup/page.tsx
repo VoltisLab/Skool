@@ -1,66 +1,80 @@
-"use client";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import AuthForm from "@/components/auth/authForm";
-import { useAuth } from "@/lib/contexts/AuthContext";
-import { RegisterInput } from "@/lib/types/auth";
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import AuthForm from '@/components/auth/authForm';
+import { useAuth } from '@/lib/contexts/AuthContext';
+import { RegisterInput } from '@/lib/types/auth';
+import { SEND_VERIFICATION_EMAIL } from '@/lib/graphql/mutations';
+import { plainApolloClient } from '@/lib/plain-client';
 
 const SignupPage: React.FC = () => {
   const router = useRouter();
   const { register, isAuthenticated, isLoading } = useAuth();
-  
-  // State to track signup flow
+
   const [signupStep, setSignupStep] = useState<'form' | 'verification'>('form');
   const [signupData, setSignupData] = useState<RegisterInput | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSignup = async (data: { email: string; password: string } | { firstName: string; lastName: string; email: string; password: string } | { code: string } | { email: string }) => {
-    console.log("Signup", data);
-    
-    // First step: User submitted signup form
+  const handleSignup = async (data: any) => {
+    // Step 1: Full form submitted
     if ('firstName' in data && 'lastName' in data && 'email' in data && 'password' in data) {
       const newSignupData: RegisterInput = {
-        code: "", // Empty code for initial request
+        code: '',
         email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
         password1: data.password,
         password2: data.password,
-        username: data.email.split('@')[0]
+        username: data.email.split('@')[0],
       };
-      
+
       setIsSubmitting(true);
-      
-      // Store signup data and move to verification step
-      setSignupData(newSignupData);
-      
-      // Here you might want to call an API to send the verification email
-      // For now, we'll just move to the verification step
-      setSignupStep('verification');
+
+      try {
+        const res = await plainApolloClient.mutate({
+          mutation: SEND_VERIFICATION_EMAIL,
+          variables: {
+            email: data.email,
+            isAccountVerification: true,
+            isLoginVerification: false,
+          },
+        });
+
+        const success = res.data?.sendVerificationEmail?.success;
+
+        if (success) {
+          setSignupData(newSignupData);
+          setSignupStep('verification');
+        } else {
+          alert(res.data?.sendVerificationEmail?.message || 'Failed to send verification email');
+        }
+      } catch (err) {
+        console.error('Verification email error:', err);
+        alert('Failed to send verification email');
+      }
+
       setIsSubmitting(false);
     }
-    
-    // Second step: User submitted verification code
+
+    // Step 2: Verification code submitted
     else if ('code' in data && signupData) {
       setIsSubmitting(true);
-      
+
       const finalSignupData: RegisterInput = {
         ...signupData,
-        code: data.code // Add the verification code
+        code: data.code,
       };
-      
+
       const result = await register(finalSignupData);
-      
+
       if (result.success) {
-        // Registration successful, redirect to login
         router.push('/login');
       } else {
-        // Handle registration errors
         console.error('Registration failed:', result.errors);
-        // You might want to show error messages to the user
-        // For verification errors, you could stay on verification step
+        alert(result.errors?.join('\n') || 'Registration failed');
       }
-      
+
       setIsSubmitting(false);
     }
   };
@@ -70,8 +84,7 @@ const SignupPage: React.FC = () => {
     setSignupData(null);
   };
 
-  // Redirect if already authenticated
-  React.useEffect(() => {
+  useEffect(() => {
     if (isAuthenticated && !isLoading) {
       router.push('/dashboard');
     }
