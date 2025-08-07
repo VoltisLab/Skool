@@ -64,7 +64,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
-
   const [isClient, setIsClient] = useState(false)
 
   // Ensure we're on the client side
@@ -88,19 +87,19 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setUser(null)
           setIsAuthenticated(false)
         }
-              } catch (error) {
-          console.error('Auth initialization error:', error)
-          setUser(null)
-          setIsAuthenticated(false)
-        } finally {
-          setIsLoading(false)
-        }
+      } catch (error) {
+        console.error('Auth initialization error:', error)
+        setUser(null)
+        setIsAuthenticated(false)
+      } finally {
+        setIsLoading(false)
+      }
     }
 
     initializeAuth()
   }, [isClient])
 
-  // Login function
+  // Login function with improved error handling
   const login = async (email: string, password: string) => {
     if (!isClient) {
       return { success: false, errors: [{ message: 'Not available during SSR' }] }
@@ -111,45 +110,66 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       const { data } = await apolloClient.mutate({
         mutation: LOGIN_MUTATION,
-        variables: { email, password }
+        variables: { email, password },
+        errorPolicy: 'all' // This will return both data and errors
       })
 
-      const response = data.login
+      const response = data?.login
 
-      if (response.success && response.token) {
+      if (response?.success && response.token) {
         // Save auth data to cookies
-        saveAuthData(
-          response.token,
-          response.refreshToken || '',
-          {
-            email,
-            // You might want to fetch user data from a separate query
-            firstName: '',
-            lastName: '',
-            username: email.split('@')[0], // Fallback username
-            id: 'temp-id' // You might want to get this from a user query
-          }
-        )
-
-        // Update state
-        setUser({
-          id: 'temp-id',
+        const userData = {
           email,
           firstName: '',
           lastName: '',
-          username: email.split('@')[0]
-        })
+          username: email.split('@')[0],
+          id: 'temp-id'
+        }
+
+        saveAuthData(
+          response.token,
+          response.refreshToken || '',
+          userData
+        )
+
+        // Update state
+        setUser(userData)
         setIsAuthenticated(true)
 
         return { success: true }
       } else {
         return { 
           success: false, 
-          errors: response.errors || [{ message: 'Login failed' }]
+          errors: response?.errors || [{ message: 'Login failed' }]
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error)
+      
+      // Handle network errors specifically
+      if (error.networkError) {
+        if (error.networkError.message?.includes('CORS')) {
+          return { 
+            success: false, 
+            errors: [{ message: 'Network error: Please check your internet connection or contact support' }]
+          }
+        }
+        if (error.networkError.message?.includes('Failed to fetch')) {
+          return { 
+            success: false, 
+            errors: [{ message: 'Unable to connect to server. Please try again later.' }]
+          }
+        }
+      }
+      
+      // Handle GraphQL errors
+      if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+        return { 
+          success: false, 
+          errors: error.graphQLErrors.map((err: any) => ({ message: err.message }))
+        }
+      }
+      
       return { 
         success: false, 
         errors: [{ message: 'An unexpected error occurred' }]
@@ -159,7 +179,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   }
 
-  // Register function
+  // Register function with improved error handling
   const register = async (data: RegisterInput) => {
     if (!isClient) {
       return { success: false, errors: [{ message: 'Not available during SSR' }] }
@@ -168,23 +188,55 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       setIsLoading(true)
       
+      // Generate username from email if not provided
+      const registerData = {
+        ...data,
+        username: data.username || data.email.split('@')[0]
+      }
+      
       const { data: responseData } = await apolloClient.mutate({
         mutation: REGISTER_MUTATION,
-        variables: data
+        variables: registerData,
+        errorPolicy: 'all'
       })
 
-      const response = responseData.register
+      const response = responseData?.register
 
-      if (response.success) {
+      if (response?.success) {
         return { success: true }
       } else {
         return { 
           success: false, 
-          errors: response.errors || [{ message: 'Registration failed' }]
+          errors: response?.errors || [{ message: 'Registration failed' }]
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Registration error:', error)
+      
+      // Handle network errors specifically
+      if (error.networkError) {
+        if (error.networkError.message?.includes('CORS')) {
+          return { 
+            success: false, 
+            errors: [{ message: 'Network error: Please check your internet connection or contact support' }]
+          }
+        }
+        if (error.networkError.message?.includes('Failed to fetch')) {
+          return { 
+            success: false, 
+            errors: [{ message: 'Unable to connect to server. Please try again later.' }]
+          }
+        }
+      }
+      
+      // Handle GraphQL errors
+      if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+        return { 
+          success: false, 
+          errors: error.graphQLErrors.map((err: any) => ({ message: err.message }))
+        }
+      }
+      
       return { 
         success: false, 
         errors: [{ message: 'An unexpected error occurred' }]
@@ -198,16 +250,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const logout = () => {
     if (!isClient) return
 
-    clearAuthCookies()
-    setUser(null)
-    setIsAuthenticated(false)
-    
-    // Clear Apollo cache
-    apolloClient.clearStore()
-    
-    // Redirect to login
-    if (typeof window !== 'undefined') {
-      window.location.href = '/login'
+    try {
+      clearAuthCookies()
+      setUser(null)
+      setIsAuthenticated(false)
+      
+      // Clear Apollo cache
+      apolloClient.clearStore()
+      
+      // Redirect to login
+      if (typeof window !== 'undefined') {
+        window.location.href = '/login'
+      }
+    } catch (error) {
+      console.error('Logout error:', error)
     }
   }
 
@@ -240,4 +296,4 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       {children}
     </AuthContext.Provider>
   )
-} 
+}
