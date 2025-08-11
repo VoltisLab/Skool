@@ -15,8 +15,8 @@ const communities = [
     members: "8k Members",
     price: "Free",
     category: "Self-improvement",
-    image: "https://ext.same-assets.com/637669732/1603192324.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/43396394.jpeg"
+    image: "https://assets.skool.com/f/0c60dc308ee84090a5ee3e41ce349cd8/93980277d91b402b87f2e84fd98c23a2d1fe84feef884f12bb76cf81179f6662-md.jpg",
+    avatar: "https://assets.skool.com/f/0c60dc308ee84090a5ee3e41ce349cd8/93980277d91b402b87f2e84fd98c23a2d1fe84feef884f12bb76cf81179f6662-md.jpg"
   },
   {
     id: 2,
@@ -26,8 +26,8 @@ const communities = [
     members: "13.6k Members",
     price: "$129",
     category: "Health",
-    image: "https://ext.same-assets.com/637669732/2533540919.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2074302467.jpeg"
+    image: "https://assets.skool.com/f/73d012bd0d504fda826841047f17ea81/13f44d3c1d394c0cb040468f83f055f41b0cb9cdaf884fdb95d026f0d8d40c16-md.jpg",
+    avatar: "https://assets.skool.com/f/73d012bd0d504fda826841047f17ea81/13f44d3c1d394c0cb040468f83f055f41b0cb9cdaf884fdb95d026f0d8d40c16-md.jpg"
   },
   {
     id: 3,
@@ -37,8 +37,8 @@ const communities = [
     members: "1.4k Members",
     price: "$119/month",
     category: "Money",
-    image: "https://ext.same-assets.com/637669732/553352441.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2500256124.jpeg"
+    image: "https://assets.skool.com/f/d4820176d84c4f69ae570c8e08a7e6ef/0283122c6b22436a8cee2992f086f3ad6bb2570d688e44f3aff09f8c93f9c3d9-md.jpg",
+    avatar: "https://assets.skool.com/f/d4820176d84c4f69ae570c8e08a7e6ef/0283122c6b22436a8cee2992f086f3ad6bb2570d688e44f3aff09f8c93f9c3d9-md.jpg"
   },
   {
     id: 4,
@@ -48,8 +48,8 @@ const communities = [
     members: "1.3k Members",
     price: "$9/month",
     category: "Hobbies",
-    image: "https://ext.same-assets.com/637669732/3111728284.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/979783902.jpeg"
+    image: "https://assets.skool.com/f/37a997125c1a4a7aa2ecbf73c79e8468/da3feaa7c324405cb3480442e0d1fe8001365fd0492349bc8d000d5b94a91a67-md.jpg",
+    avatar: "https://assets.skool.com/f/37a997125c1a4a7aa2ecbf73c79e8468/da3feaa7c324405cb3480442e0d1fe8001365fd0492349bc8d000d5b94a91a67-md.jpg"
   },
   {
     id: 5,
@@ -59,8 +59,8 @@ const communities = [
     members: "1k Members",
     price: "$39/month",
     category: "Sports",
-    image: "https://ext.same-assets.com/637669732/1559167490.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2757558337.jpeg"
+    image: "https://assets.skool.com/f/4c619d1a1c3647e098a70ec3c0c4088b/61f4d0e2e7694663a2dbaed36abe053d3645e0433c2c47f8b9ad181b0be078fa-md.jpg",
+    avatar: "https://assets.skool.com/f/4c619d1a1c3647e098a70ec3c0c4088b/61f4d0e2e7694663a2dbaed36abe053d3645e0433c2c47f8b9ad181b0be078fa-md.jpg"
   },
   {
     id: 6,
@@ -70,8 +70,8 @@ const communities = [
     members: "1.5k Members",
     price: "$49/month",
     category: "Health",
-    image: "https://ext.same-assets.com/637669732/2789519886.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2361569434.jpeg"
+    image: "https://assets.skool.com/f/44b2fb4fbc424b16b63d61010ec229b5/e91c6dcd1dc04b90abfe100a14aa722fe24753e5b2da4de39fdfa3dd1659cc07-md.jpg",
+    avatar: "https://assets.skool.com/f/44b2fb4fbc424b16b63d61010ec229b5/e91c6dcd1dc04b90abfe100a14aa722fe24753e5b2da4de39fdfa3dd1659cc07-md.jpg"
   },
   {
     id: 7,
@@ -81,8 +81,8 @@ const communities = [
     members: "33.1k Members",
     price: "Free",
     category: "Music",
-    image: "https://ext.same-assets.com/637669732/4164097084.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/3948433604.jpeg"
+    image: "https://assets.skool.com/f/dc483cb4b9ed4236b442301fc284c180/c2440f53314b40798fe24b9849422cc1941169f8500b4c498686ec03d3e41aaf-md.jpg",
+    avatar: "https://assets.skool.com/f/dc483cb4b9ed4236b442301fc284c180/c2440f53314b40798fe24b9849422cc1941169f8500b4c498686ec03d3e41aaf-md.jpg"
   },
   {
     id: 8,
@@ -92,8 +92,8 @@ const communities = [
     members: "15.9k Members",
     price: "Free",
     category: "Sports",
-    image: "https://ext.same-assets.com/637669732/2937592109.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/1447937987.jpeg"
+    image: "https://assets.skool.com/f/83f66d7eb37844e2adbdab53dd48b3ce/a10406bb680d4d96bc291e135003d43f27c36fd6cb6d4f9bb795ba28d16e0ff3-md.jpg",
+    avatar: "https://assets.skool.com/f/83f66d7eb37844e2adbdab53dd48b3ce/a10406bb680d4d96bc291e135003d43f27c36fd6cb6d4f9bb795ba28d16e0ff3-md.jpg"
   },
   {
     id: 9,
@@ -103,8 +103,8 @@ const communities = [
     members: "55.9k Members",
     price: "Free",
     category: "Self-improvement",
-    image: "https://ext.same-assets.com/637669732/1591204924.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2471419055.jpeg"
+    image: "https://assets.skool.com/f/cd9ce692cef44d459a51cdfb8731e48d/5fedeefdc5574e18b6487aa7c1e02d6c89cbb493c700449aaad7a9e98f5bf88c-md.jpg",
+    avatar: "https://assets.skool.com/f/cd9ce692cef44d459a51cdfb8731e48d/5fedeefdc5574e18b6487aa7c1e02d6c89cbb493c700449aaad7a9e98f5bf88c-md.jpg"
   }
 ]
 
