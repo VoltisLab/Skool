@@ -4,7 +4,6 @@ import { useParams, useRouter } from "next/navigation"
 import { Play, Lock, Users, Tag, Star } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
-
 // Sample community data - in a real app this would come from an API
 const communities = [
   {
