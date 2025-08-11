@@ -51,7 +51,7 @@ export default function Affiliates() {
               readOnly
               className="flex-1 px-3 py-2 text-sm bg-white border border-gray-300 rounded-lg"
             />
-            <button className="px-4 py-2 bg-[#313273] text-white text-sm font-medium rounded-lg hover:bg-[#2a2a5a] transition-colors">
+            <button className="px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-[#2a2a5a] transition-colors">
               COPY
             </button>
           </div>

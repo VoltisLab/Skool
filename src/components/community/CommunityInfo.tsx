@@ -81,15 +81,15 @@ export default function CommunityInfo({
         <div className="border-t border-gray-200 pt-4 mb-6">
           <div className="flex justify-between text-center">
             <div>
-                              <div className="text-2xl font-bold text-[#313273]">{stats.members}</div>
+                              <div className="text-2xl font-bold text-black">{stats.members}</div>
               <div className="text-sm text-gray-500">Members</div>
             </div>
             <div className="border-l border-r border-gray-200 px-4">
-                              <div className="text-2xl font-bold text-[#313273]">{stats.online}</div>
+                              <div className="text-2xl font-bold text-black">{stats.online}</div>
               <div className="text-sm text-gray-500">Online</div>
             </div>
             <div>
-                              <div className="text-2xl font-bold text-[#313273]">{stats.admins}</div>
+                              <div className="text-2xl font-bold text-black">{stats.admins}</div>
               <div className="text-sm text-gray-500">Admins</div>
             </div>
           </div>

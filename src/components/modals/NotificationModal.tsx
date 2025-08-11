@@ -127,7 +127,7 @@ useEffect(() => {
             disabled={!changed}
             className={`text-sm font-semibold text-white px-4 py-2 rounded-md ${
               changed
-                ? 'bg-[#313273] hover:bg-[#2a2a5a]'
+                ? 'bg-black hover:bg-[#2a2a5a]'
                 : 'bg-gray-300 cursor-not-allowed'
             }`}
           >
@@ -156,7 +156,7 @@ const SettingItem = ({
     <p className="text-sm font-semibold text-gray-900">{title}</p>
     <p className="text-xs text-gray-500 mb-2">{description}</p>
     <select
-      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#313273]"
+      className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black"
       value={value}
       onChange={(e) => onChange(e.target.value)}
     >

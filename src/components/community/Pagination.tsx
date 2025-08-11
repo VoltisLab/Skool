@@ -78,7 +78,7 @@ export default function Pagination({
               disabled={page === '...'}
               className={`w-8 h-8 text-sm font-medium rounded-full transition-colors ${
                 page === currentPage
-                  ? 'bg-[#313273] bg-opacity-20 text-gray-900'
+                  ? 'bg-black bg-opacity-20 text-gray-900'
                   : page === '...'
                   ? 'text-gray-400 cursor-default'
                   : 'text-gray-900 bg-transparent hover:bg-gray-100'

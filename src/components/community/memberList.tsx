@@ -89,7 +89,7 @@ export default function MemberList() {
                     <span className="text-blue-500">💎</span>
                   )}
                   {member.hasStarIcon && (
-                    <span className="text-[#313273]">⭐</span>
+                    <span className="text-black">⭐</span>
                   )}
                   {member.hasFireIcon && (
                     <span className="text-orange-500">🔥</span>

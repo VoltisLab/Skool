@@ -7,7 +7,7 @@ const page = () => {
     const UserLevel = () => {
         return (
             <div className=' flex items-center gap-2'>
-                <div className='bg-[#313273] bg-opacity-20 h-fit w-fit rounded-full px-4 py-2'>
+                <div className='bg-black bg-opacity-20 h-fit w-fit rounded-full px-4 py-2'>
                     1
                 </div>
                 <div>

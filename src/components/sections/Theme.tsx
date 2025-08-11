@@ -49,7 +49,7 @@ export default function ThemeSelector() {
           id="theme"
           value={selectedTheme}
           onChange={(e) => handleChange(e.target.value)}
-          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#313273]"
+          className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-black"
         >
           {themeOptions.map((option) => (
             <option key={option} value={option}>
@@ -64,7 +64,7 @@ export default function ThemeSelector() {
         disabled={!changed}
         className={`w-full py-2 text-sm font-semibold rounded-md transition ${
           changed
-            ? 'bg-[#313273] text-white hover:bg-[#2a2a5a]'
+            ? 'bg-black text-white hover:bg-[#2a2a5a]'
             : 'bg-gray-200 text-gray-500 cursor-not-allowed'
         }`}
       >

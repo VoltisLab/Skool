@@ -278,7 +278,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-[#313273] hover:bg-[#2a2a5a] text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 px-4 bg-black hover:bg-[#2a2a5a] text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {getButtonText()}
             </button>

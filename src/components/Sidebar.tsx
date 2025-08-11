@@ -45,7 +45,7 @@ export default function Sidebar({ activeSection, onSectionChange }: SidebarProps
               onClick={() => onSectionChange(item.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
                 isActive 
-                  ? 'bg-[#313273] text-white bg-opacity-20 font-medium' 
+                  ? 'bg-black text-white bg-opacity-20 font-medium' 
                   : 'text-gray-700 hover:bg-gray-100'
               }`}
             >

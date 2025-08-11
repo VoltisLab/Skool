@@ -20,7 +20,7 @@ export default function Leaderboard({ title, entries, onViewAll }: LeaderboardPr
   const getRankIcon = (rank: number) => {
     switch (rank) {
       case 1:
-        return <Medal className="w-4 h-4 text-[#313273] fill-current" />
+        return <Medal className="w-4 h-4 text-black fill-current" />
       case 2:
         return <Medal className="w-4 h-4 text-gray-400 fill-current" />
       case 3:

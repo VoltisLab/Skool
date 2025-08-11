@@ -28,13 +28,13 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
       onClick={onClick}
     >
       {/* Image + Rank Badge */}
-      <div className="relative w-full h-66">
+      <div className="relative w-full h-48">
         <Image
           src={community.image}
           alt={community.name}
           fill
           priority
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          className="object-fit h-full group-hover:scale-105 transition-transform duration-500"
         />
         <span className="absolute top-3 left-3 px-3 py-1 text-xs font-bold rounded-full shadow-lg backdrop-blur-sm bg-black/60 text-white">
           #{community.rank}
@@ -58,7 +58,7 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
         <h3 className="text-xl font-extrabold text-gray-900 line-clamp-1">
           {community.name}
         </h3>
-        <p className="text-sm text-gray-600 font-medium line-clamp-2 min-h-[40px]">
+        <p className="text-xs text-gray-600 font-medium line-clamp-2 ">
           {community.description}
         </p>
 
@@ -77,7 +77,7 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
         </div>
 
         {/* Action Buttons - Edit & Delete */}
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 mt-2">
           <Link href="#" className="flex-1">
             <button
               className="w-full py-2 rounded-xl bg-[#786AED] text-white font-bold shadow-md hover:bg-[#5743c2] transition-all text-sm"

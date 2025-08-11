@@ -280,7 +280,7 @@ export default function CommunityDetailPage() {
                       className="w-5 h-5 rounded-full"
                     />
                     <span>By Antonio O. Centeno</span>
-                    <Star className="h-4 w-4 text-[#313273] fill-current" />
+                    <Star className="h-4 w-4 text-black fill-current" />
                   </div>
                 </div>
 
@@ -290,7 +290,7 @@ export default function CommunityDetailPage() {
 
                 {/* Community Rules */}
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-[#313273] mb-3">COMMUNITY RULES:</h2>
+                  <h2 className="text-lg font-semibold text-black mb-3">COMMUNITY RULES:</h2>
                   <ol className="list-decimal list-inside space-y-2 text-gray-700">
                     <li>Be Respectful: Treat others kindly, no profanities, and offer constructive criticism.</li>
                     <li>This isn&apos;t a place to ask for donations or sell things.</li>
@@ -302,7 +302,7 @@ export default function CommunityDetailPage() {
 
                 {/* Community Benefits */}
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-[#313273] mb-3">THIS COMMUNITY IS FOR YOU IF YOU&apos;RE LOOKING TO:</h2>
+                  <h2 className="text-lg font-semibold text-black mb-3">THIS COMMUNITY IS FOR YOU IF YOU&apos;RE LOOKING TO:</h2>
                   <ul className="list-disc list-inside space-y-2 text-gray-700">
                     <li>Learn about fragrance, cologne, Parfum, EDT, EDP, & perfumes.</li>
                     <li>Build connections with like-minded people</li>
@@ -314,7 +314,7 @@ export default function CommunityDetailPage() {
 
                 {/* Inside Community */}
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-[#313273] mb-3">INSIDE THIS COMMUNITY YOU&apos;LL FIND:</h2>
+                  <h2 className="text-lg font-semibold text-black mb-3">INSIDE THIS COMMUNITY YOU&apos;LL FIND:</h2>
                   <ul className="list-disc list-inside space-y-2 text-gray-700">
                     <li>Access to courses and training.</li>
                     <li>Exclusive Coaching sessions and LIVE events.</li>
@@ -367,22 +367,22 @@ export default function CommunityDetailPage() {
                 <div className="border-t border-gray-200 pt-4 mb-6">
                   <div className="flex justify-between">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-[#313273]">27.5k</div>
+                      <div className="text-2xl font-bold text-black">27.5k</div>
                       <div className="text-sm text-gray-500">Members</div>
                     </div>
                     <div className="text-center border-l border-r border-gray-200 px-4">
-                      <div className="text-2xl font-bold text-[#313273]">12</div>
+                      <div className="text-2xl font-bold text-black">12</div>
                       <div className="text-sm text-gray-500">Online</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-[#313273]">5</div>
+                      <div className="text-2xl font-bold text-black">5</div>
                       <div className="text-sm text-gray-500">Admins</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Join Button */}
-                <button className="w-full bg-[#313273] hover:bg-[#313273]/90 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-sm">
+                <button className="w-full bg-black hover:bg-black/90 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-sm">
                   JOIN GROUP
                 </button>
               </div>

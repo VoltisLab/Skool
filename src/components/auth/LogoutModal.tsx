@@ -53,7 +53,7 @@ export default function LogoutModal({ isOpen, onClose, onConfirm }: LogoutModalP
             <button
               onClick={handleConfirm}
               disabled={isLoading}
-              className="bg-[#313273] text-white text-sm font-semibold py-2 px-4 rounded hover:bg-[#2a2a5a] disabled:opacity-50"
+              className="bg-black text-white text-sm font-semibold py-2 px-4 rounded hover:bg-[#2a2a5a] disabled:opacity-50"
             >
               {isLoading ? 'LOGGING OUT...' : 'LOG OUT'}
             </button>
