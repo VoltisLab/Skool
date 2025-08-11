@@ -23,7 +23,7 @@ export default function Pagination({
   const getVisiblePages = () => {
     const pages = []
     const maxVisible = 5
-    
+
     if (totalPages <= maxVisible) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i)
@@ -51,14 +51,14 @@ export default function Pagination({
         pages.push(totalPages)
       }
     }
-    
+
     return pages
   }
 
   return (
-    <div className="flex items-center justify-between bg-transparent p-4">
+    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 bg-transparent p-4">
       {/* Pagination Controls */}
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         {/* Previous Button */}
         <button
           onClick={() => onPageChange(currentPage - 1)}
@@ -70,7 +70,7 @@ export default function Pagination({
         </button>
 
         {/* Page Numbers */}
-        <div className="flex items-center gap-1">
+        <div className="flex flex-wrap items-center gap-1">
           {getVisiblePages().map((page, index) => (
             <button
               key={index}
@@ -102,10 +102,10 @@ export default function Pagination({
 
       {/* Item Count */}
       {showItemCount && (
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-gray-500 text-center sm:text-right">
           {startItem}-{endItem} of {totalItems.toLocaleString()}
         </div>
       )}
     </div>
   )
-} 
+}

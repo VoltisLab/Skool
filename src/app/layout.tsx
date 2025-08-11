@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Providers from "@/components/Providers";
+import ConditionalNavbar from "./conditionNavbar";
 
 export const metadata: Metadata = {
   title: "Skool App",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-sfpro">
         <Providers>
+          <ConditionalNavbar/>
           {children}
         </Providers>
       </body>

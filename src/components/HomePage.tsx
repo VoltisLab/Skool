@@ -7,7 +7,6 @@ import CategoryFilter from "@/components/CategoryFilter"
 import CommunityCard from "@/components/CommunityCard"
 import Link from "next/link"
 
-// Sample community data based on the original site
 const communities = [
   {
     id: 1,
@@ -112,14 +111,14 @@ const communities = [
 
 const categories = [
   { id: "all", label: "All", emoji: "" },
-  { id: "hobbies", label: "Hobbies", emoji: "🎪" },
-  { id: "music", label: "Music", emoji: "🎵" },
-  { id: "money", label: "Money", emoji: "💰" },
-  { id: "spirituality", label: "Spirituality", emoji: "🕯️" },
-  { id: "tech", label: "Tech", emoji: "🖥️" },
-  { id: "health", label: "Health", emoji: "🥕" },
-  { id: "sports", label: "Sports", emoji: "⚽" },
-  { id: "self-improvement", label: "Self-improvement", emoji: "📈" },
+  { id: "hobbies", label: "Hobbies", emoji: "\ud83c\udfaa" },
+  { id: "music", label: "Music", emoji: "\ud83c\udfb5" },
+  { id: "money", label: "Money", emoji: "\ud83d\udcb0" },
+  { id: "spirituality", label: "Spirituality", emoji: "\ud83d\udd27" },
+  { id: "tech", label: "Tech", emoji: "\ud83d\udda5\ufe0f" },
+  { id: "health", label: "Health", emoji: "\ud83e\udd55" },
+  { id: "sports", label: "Sports", emoji: "\u26bd" },
+  { id: "self-improvement", label: "Self-improvement", emoji: "\ud83d\udcc8" },
 ]
 
 export default function HomePage() {
@@ -128,15 +127,14 @@ export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState("all")
   const [currentPage, setCurrentPage] = useState(1)
 
-  // Filter communities based on search and category
   const filteredCommunities = useMemo(() => {
-    return communities.filter(community => {
-      const matchesSearch = community.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           community.description.toLowerCase().includes(searchTerm.toLowerCase())
-
-      const matchesCategory = activeCategory === "all" ||
-                             community.category?.toLowerCase() === activeCategory.toLowerCase()
-
+    return communities.filter((community) => {
+      const matchesSearch =
+        community.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        community.description.toLowerCase().includes(searchTerm.toLowerCase())
+      const matchesCategory =
+        activeCategory === "all" ||
+        community.category?.toLowerCase() === activeCategory.toLowerCase()
       return matchesSearch && matchesCategory
     })
   }, [searchTerm, activeCategory])
@@ -147,9 +145,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Main Content */}
-      <main className="max-w-[1085px] mx-auto py-8">
-        {/* Hero Section */}
+      <main className="max-w-[1085px] mx-auto py-8 px-4 md:px-6">
         <div className="text-center mb-8">
           <h1 className="text-5xl font-bold text-black mb-2">
             Discover communities
@@ -159,8 +155,6 @@ export default function HomePage() {
             or <span className="text-black font-semibold hover:underline">create your own</span>
           </p>
           </Link>
-
-          {/* Search Bar */}
           <SearchBar
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -168,19 +162,17 @@ export default function HomePage() {
           />
         </div>
 
-        {/* Category Filters */}
         <CategoryFilter
           categories={categories}
           activeCategory={activeCategory}
           onCategoryChange={setActiveCategory}
         />
 
-        {/* Communities Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {filteredCommunities.map((community) => (
-            <CommunityCard 
-              key={community.id} 
-              community={community} 
+            <CommunityCard
+              key={community.id}
+              community={community}
               onClick={() => handleCommunityClick(community.id)}
             />
           ))}
@@ -188,7 +180,7 @@ export default function HomePage() {
 
         {filteredCommunities.length === 0 && (
           <div className="text-center py-12">
-            <div className="text-gray-400 text-6xl mb-4">🔍</div>
+            <div className="text-gray-400 text-6xl mb-4">\ud83d\udd0d</div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No communities found</h3>
             <p className="text-gray-600 mb-4">
               Try adjusting your search or browse different categories
@@ -204,25 +196,20 @@ export default function HomePage() {
             </button>
           </div>
         )}
-
-
       </main>
 
-      {/* Footer Section - Only show if we have results */}
       {filteredCommunities.length > 0 && (
         <div className="bg-gray-50 border-t border-gray-200 mt-16">
-          <div className="max-w-[1085px] mx-auto px-6 py-8">
-            <div className="flex items-center justify-between">
-              {/* Left Side - Pagination */}
-              <div className="flex items-center gap-2">
-                <button 
+          <div className="max-w-[1085px] mx-auto px-4 md:px-6 py-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
                   onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
                   disabled={currentPage === 1}
                   className="text-gray-400 hover:text-gray-600 text-xs disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  ← Previous
+                  \u2190 Previous
                 </button>
-                
                 {[1, 2, 3, 4, 5].map((page) => (
                   <button
                     key={page}
@@ -236,26 +223,21 @@ export default function HomePage() {
                     {page}
                   </button>
                 ))}
-                
                 <span className="text-gray-400 text-xs">...</span>
-                
-                <button 
+                <button
                   onClick={() => setCurrentPage(34)}
                   className="w-8 h-8 rounded-full text-xs font-medium text-gray-400 hover:text-gray-600"
                 >
                   34
                 </button>
-                
-                <button 
+                <button
                   onClick={() => setCurrentPage(Math.min(34, currentPage + 1))}
                   className="text-gray-400 hover:text-gray-600 text-xs"
                 >
-                  Next →
+                  Next \u2192
                 </button>
               </div>
-
-              {/* Right Side - Footer Links */}
-              <div className="flex items-center gap-8 text-sm text-gray-400">
+              <div className="flex flex-wrap items-center gap-6 text-sm text-gray-400">
                 <a href="#" className="hover:text-gray-600">Community</a>
                 <a href="#" className="hover:text-gray-600">Affiliates</a>
                 <a href="#" className="hover:text-gray-600">Support</a>
@@ -268,4 +250,4 @@ export default function HomePage() {
       )}
     </div>
   )
-} 
+}
