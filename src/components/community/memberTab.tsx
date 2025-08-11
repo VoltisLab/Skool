@@ -27,15 +27,9 @@ export default function CommunityTabs() {
           </div>
         ))}
       </div>
-<<<<<<< HEAD
       
       {/* Right side - Invite button */}
               <div className="bg-black text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-[#2a2a5a] cursor-pointer">
-=======
-
-      {/* Invite Button */}
-      <div className="bg-[#313273] text-white px-6 py-2 rounded-lg text-sm font-bold hover:bg-[#2a2a5a] cursor-pointer w-fit self-start sm:self-auto">
->>>>>>> 6cb00ea6dd7370ef1aee3a4c760bc2e9b2167254
         INVITE
       </div>
     </div>

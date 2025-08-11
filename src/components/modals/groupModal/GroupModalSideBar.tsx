@@ -27,7 +27,7 @@ export default function GroupModalSidebar({ activeTab, setActiveTab }: Props) {
                 onClick={() => setActiveTab(tab)}
                 className={`px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 whitespace-nowrap ${
                   activeTab === tab
-                    ? "bg-[#313273] text-white shadow-sm"
+                    ? "bg-black text-white shadow-sm"
                     : "bg-gray-100 hover:bg-gray-200 text-gray-700"
                 }`}
               >
@@ -45,7 +45,7 @@ export default function GroupModalSidebar({ activeTab, setActiveTab }: Props) {
               onClick={() => setActiveTab(tab)}
               className={`w-full text-left px-4 lg:px-6 py-3 lg:py-4 transition-all duration-200 text-sm lg:text-base font-medium ${
                 activeTab === tab
-                  ? "bg-[#313273] text-white font-semibold border-r-2 border-r-[#313273]"
+                  ? "bg-black text-white font-semibold border-r-2 border-r-black"
                   : "hover:bg-gray-100 hover:border-r-2 hover:border-r-gray-300 text-gray-700"
               }`}
             >

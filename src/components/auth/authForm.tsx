@@ -346,7 +346,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
               <div className="flex items-center justify-between w-full">
                 <Link
                   href="/forgot-password"
-                  className="text-sm cursor-pointer text-blue-600 hover:underline"
+                  className="text-sm cursor-pointer text-black hover:underline"
                 >
                   Forgot password?
                 </Link>
@@ -355,7 +355,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
                   <button
                     type="button"
                     onClick={handleClickLoginWithCode}
-                    className="text-sm text-blue-600 hover:underline disabled:opacity-50"
+                    className="text-sm text-black hover:underline disabled:opacity-50"
                     disabled={sendingCode}
                   >
                     {sendingCode ? 'sending…' : 'login with code'}
@@ -382,7 +382,7 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 px-4 bg-black hover:bg-[#2a2a5a] text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 px-4 bg-black hover:bg-white hover:text-black hover:border-black border border-black text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {getButtonText()}
             </button>
@@ -394,14 +394,14 @@ const AuthForm: React.FC<SkoolAuthFormProps> = ({
                 {mode === 'login' ? (
                   <Link
                     href="/signup"
-                    className="text-blue-600 hover:underline font-medium"
+                    className="text-black hover:underline font-medium"
                   >
                     Sign up for free
                   </Link>
                 ) : (
                   <Link
                     href="/login"
-                    className="text-blue-600 cursor-pointer hover:underline font-medium"
+                    className="text-black cursor-pointer hover:underline font-medium"
                   >
                     login
                   </Link>
@@ -588,7 +588,7 @@ function CodeModal({
             type="button"
             onClick={onVerify}
             disabled={isLoading || code.trim().length !== 6}
-            className="w-full py-2.5 px-4 rounded-lg bg-[#313273] hover:bg-[#2a2a5a] text-white font-semibold disabled:opacity-50"
+            className="w-full py-2.5 px-4 rounded-lg bg-black hover:bg-[#2a2a5a] text-white font-semibold disabled:opacity-50"
           >
             {isLoading ? 'Verifying…' : 'Log In'}
           </button>

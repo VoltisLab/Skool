@@ -38,7 +38,7 @@ export default function InviteTabContent() {
 
         <button
           onClick={handleCopy}
-          className="bg-[#313273] hover:bg-[#313e73] text-white font-semibold text-sm px-4 py-2"
+          className="bg-black hover:bg-[#313e73] text-white font-semibold text-sm px-4 py-2"
         >
           {copied ? 'COPIED' : 'COPY'}
         </button>

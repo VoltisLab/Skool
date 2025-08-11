@@ -4,26 +4,10 @@ import React from 'react'
 
 const page = () => {
 
-<<<<<<< HEAD
-    const UserLevel = () => {
-        return (
-            <div className=' flex items-center gap-2'>
-                <div className='bg-black bg-opacity-20 h-fit w-fit rounded-full px-4 py-2'>
-                    1
-                </div>
-                <div>
-                    <p className='text-base font-semibold'>Level 1 - AI Explorer 🛠️</p>
-                    <p className='text-sm text-gray-400'>93% of members</p>
-                </div>
-            </div>
-        )
-    }
-
-=======
   const UserLevel = () => {
     return (
       <div className='flex items-center gap-2'>
-        <div className='bg-[#313273] bg-opacity-20 rounded-full px-4 py-2 text-sm'>
+        <div className='bg-black bg-opacity-20 rounded-full px-4 py-2 text-sm'>
           1
         </div>
         <div>
@@ -33,7 +17,6 @@ const page = () => {
       </div>
     )
   }
->>>>>>> 6cb00ea6dd7370ef1aee3a4c760bc2e9b2167254
 
   return (
     <div className='w-full flex flex-col items-center gap-6 px-4'>

@@ -55,7 +55,7 @@ export default function NotificationsTabContent() {
           <select
             value={selectedOptions[setting.label]}
             onChange={(e) => handleChange(setting.label, e.target.value)}
-            className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-[#313273]"
+            className="w-full max-w-md px-4 py-2 border border-gray-300 rounded-md bg-white text-sm font-medium text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-black"
           >
             {setting.options.map((option) => (
               <option key={option} value={option}>
