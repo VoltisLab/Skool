@@ -23,9 +23,9 @@ export const deleteCookie = (name: string) => {
 
 
 export const clearAuthCookies = () => {
-  deleteCookie(COOKIE_NAMES.AUTH_TOKEN)
-  deleteCookie(COOKIE_NAMES.REFRESH_TOKEN)
-  deleteCookie(COOKIE_NAMES.USER_DATA)
+  Cookies.remove('auth_token')
+  Cookies.remove('refresh_token')
+  Cookies.remove('user_data')
 }
 
 // Error handling link
