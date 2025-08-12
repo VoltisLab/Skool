@@ -250,7 +250,7 @@ export default function CommunityPage() {
               name="AI Automation Agency Hub"
               url="skool.com/learn-ai"
               description="Start Your AI Automation Agency - Created by Liam Ottley"
-              bannerImage="https://ext.same-assets.com/637669732/1603192324.jpeg"
+              bannerImage="https://assets.skool.com/f/37a997125c1a4a7aa2ecbf73c79e8468/da3feaa7c324405cb3480442e0d1fe8001365fd0492349bc8d000d5b94a91a67-md.jpg"
               stats={{
                 members: "214.5k",
                 online: "612",
