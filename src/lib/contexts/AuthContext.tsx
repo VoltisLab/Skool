@@ -52,6 +52,29 @@ const REGISTER_MUTATION = gql`
   }
 `
 
+const SEND_VERIFICATION_EMAIL_MUTATION = gql`
+  mutation SendVerificationEmail($email: String!) {
+    sendVerificationEmail(email: $email) {
+      message
+      success
+    }
+  }
+`
+
+export const sendVerificationEmail = async (email: string) => {
+  try {
+    const { data } = await apolloClient.mutate({
+      mutation: SEND_VERIFICATION_EMAIL_MUTATION,
+      variables: { email },
+      errorPolicy: 'all',
+    });
+    return data?.sendVerificationEmail;
+  } catch (error) {
+    console.error('sendVerificationEmail error:', error);
+    return { success: false, message: 'Failed to send verification email.' };
+  }
+};
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null)
   const [isAuthenticated, setIsAuthenticated] = useState(false)

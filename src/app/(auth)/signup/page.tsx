@@ -2,12 +2,12 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import AuthForm from "@/components/auth/authForm";
-import { useAuth } from "@/lib/contexts/AuthContext";
+import { useAuth, sendVerificationEmail } from "@/lib/contexts/AuthContext";
 import { RegisterInput } from "@/lib/types/auth";
 
 const SignupPage: React.FC = () => {
   const router = useRouter();
-  const { register, isAuthenticated, isLoading } = useAuth();
+  const { register, isAuthenticated, isLoading, login } = useAuth();
   
   // State to track signup flow
   const [signupStep, setSignupStep] = useState<'form' | 'verification'>('form');
@@ -20,7 +20,7 @@ const SignupPage: React.FC = () => {
     // First step: User submitted signup form
     if ('firstName' in data && 'lastName' in data && 'email' in data && 'password' in data) {
       const newSignupData: RegisterInput = {
-        code: "", // Empty code for initial request
+        code: "",
         email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
@@ -28,39 +28,42 @@ const SignupPage: React.FC = () => {
         password2: data.password,
         username: data.email.split('@')[0]
       };
-      
       setIsSubmitting(true);
-      
-      // Store signup data and move to verification step
-      setSignupData(newSignupData);
-      
-      // Here you might want to call an API to send the verification email
-      // For now, we'll just move to the verification step
-      setSignupStep('verification');
+      // Send verification email
+      const verificationResult = await sendVerificationEmail(data.email);
+      if (verificationResult?.success) {
+        setSignupData(newSignupData);
+        setSignupStep('verification');
+      } else {
+        // Handle error (show message to user)
+        alert(verificationResult?.message || 'Failed to send verification email.');
+      }
       setIsSubmitting(false);
     }
     
     // Second step: User submitted verification code
     else if ('code' in data && signupData) {
       setIsSubmitting(true);
-      
       const finalSignupData: RegisterInput = {
         ...signupData,
-        code: data.code // Add the verification code
+        code: data.code
       };
-      
       const result = await register(finalSignupData);
-      
       if (result.success) {
-        // Registration successful, redirect to login
-        router.push('/login');
+        // Automatically log in the user after successful registration
+        const loginResult = await login(finalSignupData.email, finalSignupData.password1);
+        if (loginResult.success) {
+          // Redirect to dashboard or home
+          router.push('/dashboard');
+        } else {
+          // If login fails, redirect to login page
+          router.push('/login');
+        }
       } else {
         // Handle registration errors
         console.error('Registration failed:', result.errors);
         // You might want to show error messages to the user
-        // For verification errors, you could stay on verification step
       }
-      
       setIsSubmitting(false);
     }
   };
