@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Users,
   User,
@@ -32,11 +31,6 @@ const sidebarItems = [
 ];
 
 export default function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleSidebar = () => setIsOpen(!isOpen);
-  const closeSidebar = () => setIsOpen(false);
-
   return (
     <div className="w-64 bg-gray-50 min-h-screen p-4">
       <nav className="space-y-2">

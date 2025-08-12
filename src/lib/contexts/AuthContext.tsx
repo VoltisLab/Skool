@@ -153,8 +153,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setIsAuthenticated(false)
         }
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('Auth initialization error:', error)
+        console.log(error)
         setUser(null)
         setIsAuthenticated(false)
       } finally {
