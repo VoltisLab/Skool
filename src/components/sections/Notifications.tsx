@@ -135,7 +135,7 @@ const ToggleItem = ({
     <p className="text-sm text-gray-900">{label}</p>
     <div
       className={`relative w-10 h-5 transition duration-300 cursor-pointer ${
-        value ? 'bg-[#313273]' : 'bg-gray-300'
+        value ? 'bg-black' : 'bg-gray-300'
       } rounded-full`}
       onClick={onToggle}
     >

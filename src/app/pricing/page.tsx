@@ -10,11 +10,11 @@ export default function PricingPage() {
         {/* Logo */}
         <div className="mb-6">
           <h1 className="text-3xl font-bold">
-            <span className="text-[#313273]">s</span>
+            <span className="text-black">s</span>
             <span className="text-black">k</span>
-            <span className="text-[#313273]">o</span>
             <span className="text-black">o</span>
-            <span className="text-[#313273]">l</span>
+            <span className="text-black">o</span>
+            <span className="text-black">l</span>
           </h1>
         </div>
         
@@ -140,7 +140,7 @@ export default function PricingPage() {
           </div>
           <div className="flex justify-between">
             <span className="text-gray-600">Skool</span>
-            <span className="font-medium text-[#313273]">2.9%</span>
+            <span className="font-medium text-black">2.9%</span>
           </div>
         </div>
       </div>

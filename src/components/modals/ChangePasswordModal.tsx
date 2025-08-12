@@ -107,7 +107,7 @@ export default function ChangePasswordModal({ isOpen, onClose }: ChangePasswordM
             className={`text-sm font-semibold text-white rounded-md px-4 py-2 ${
               isDisabled
                 ? 'bg-gray-300 cursor-not-allowed'
-                : 'bg-[#313273] hover:bg-[#2a2a5a]'
+                : 'bg-black hover:bg-[#2a2a5a]'
             }`}
           >
             CHANGE

@@ -4,141 +4,7 @@ import { useParams, useRouter } from "next/navigation"
 import { Play, Lock, Users, Tag, Star } from "lucide-react"
 import { useState } from "react"
 import Image from "next/image"
-
-// Sample community data - in a real app this would come from an API
-const communities = [
-  {
-    id: 1,
-    rank: 1,
-    name: "Brotherhood Of Scent",
-    description: "#1 Fragrance Community 🏆 Our mission is to help YOU leverage the power of scent to become the man you know yourself to be. Join thousands of fragrance enthusiasts who share their passion for colognes, perfumes, and the art of smelling great.",
-    members: "8k Members",
-    price: "Free",
-    category: "Self-improvement",
-    image: "https://ext.same-assets.com/637669732/1603192324.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/43396394.jpeg"
-  },
-  {
-    id: 2,
-    rank: 2,
-    name: "Abbew Crew",
-    description: "Transform your body and mind with proven fitness strategies. My mission is to help people reclaim their health, body and energy. Achieving fat loss or muscle building is not complicated - join our community of fitness enthusiasts and get the results you deserve.",
-    members: "13.6k Members",
-    price: "$129",
-    category: "Health",
-    image: "https://ext.same-assets.com/637669732/2533540919.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2074302467.jpeg"
-  },
-  {
-    id: 3,
-    rank: 3,
-    name: "Zero To Founder by Tom Bilyeu",
-    description: "Start your business and get on the path to financial freedom with billion-dollar founder Tom Bilyeu. Learn proven strategies, connect with fellow entrepreneurs, and build the business of your dreams. From idea to IPO, we've got you covered.",
-    members: "1.4k Members",
-    price: "$119/month",
-    category: "Money",
-    image: "https://ext.same-assets.com/637669732/553352441.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2500256124.jpeg"
-  },
-  {
-    id: 4,
-    rank: 4,
-    name: "Calligraphy Skool",
-    description: "Learn modern calligraphy the fun, easy way! ✏️ With sisters Jordan & Jillian",
-    members: "1.3k Members",
-    price: "$9/month",
-    category: "Hobbies",
-    image: "https://ext.same-assets.com/637669732/3111728284.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/979783902.jpeg"
-  },
-  {
-    id: 5,
-    rank: 5,
-    name: "That Pickleball School",
-    description: "🏓 THAT place for all pickleball players who want to get better.",
-    members: "1k Members",
-    price: "$39/month",
-    category: "Sports",
-    image: "https://ext.same-assets.com/637669732/1559167490.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2757558337.jpeg"
-  },
-  {
-    id: 6,
-    rank: 6,
-    name: "The Lady Change",
-    description: "THE #1 community for menopausal (peri & post) women to lose weight, get healthier and regain their confidence!",
-    members: "1.5k Members",
-    price: "$49/month",
-    category: "Health",
-    image: "https://ext.same-assets.com/637669732/2789519886.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2361569434.jpeg"
-  },
-  {
-    id: 7,
-    rank: 7,
-    name: "Unison Producer Growth Hub",
-    description: "The #1 free community for music producers to grow, learn, connect and simplify the process of producing pro-quality music.",
-    members: "33.1k Members",
-    price: "Free",
-    category: "Music",
-    image: "https://ext.same-assets.com/637669732/4164097084.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/3948433604.jpeg"
-  },
-  {
-    id: 8,
-    rank: 8,
-    name: "The Aspinall Way",
-    description: "Join the FIRST and ONLY Community Created by a UFC Champion, Become Extraordinary Today!🥇",
-    members: "15.9k Members",
-    price: "Free",
-    category: "Sports",
-    image: "https://ext.same-assets.com/637669732/2937592109.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/1447937987.jpeg"
-  },
-  {
-    id: 9,
-    rank: 9,
-    name: "Day by Day Wellness Club",
-    description: "#1 community dedicated to anyone on their journey to becoming their best self.",
-    members: "55.9k Members",
-    price: "Free",
-    category: "Self-improvement",
-    image: "https://ext.same-assets.com/637669732/1591204924.jpeg",
-    avatar: "https://ext.same-assets.com/637669732/2471419055.jpeg"
-  }
-]
-
-// Video data with YouTube embeds
-const videos = [
-  {
-    id: 1,
-    title: "Introduction to Fragrance",
-    thumbnail: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
-    videoId: "dQw4w9WgXcQ",
-    duration: "15:30"
-  },
-  {
-    id: 2,
-    title: "How to Choose Your Signature Scent",
-    thumbnail: "https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg",
-    videoId: "9bZkp7q19f0",
-    duration: "12:45"
-  },
-  {
-    id: 3,
-    title: "Top 10 Fragrances for Men",
-    thumbnail: "https://img.youtube.com/vi/jNQXAC9IVRw/maxresdefault.jpg",
-    videoId: "jNQXAC9IVRw",
-    duration: "18:20"
-  },
-  {
-    id: 4,
-    title: "Fragrance Application Techniques",
-    thumbnail: "https://img.youtube.com/vi/kJQP7kiw5Fk/maxresdefault.jpg",
-    videoId: "kJQP7kiw5Fk",
-    duration: "8:15"
-  }
-]
+import { communities, videos } from "@/lib/utils"
 
 export default function CommunityDetailPage() {
   const params = useParams()
@@ -280,7 +146,7 @@ export default function CommunityDetailPage() {
                       className="w-5 h-5 rounded-full"
                     />
                     <span>By Antonio O. Centeno</span>
-                    <Star className="h-4 w-4 text-[#313273] fill-current" />
+                    <Star className="h-4 w-4 text-black fill-current" />
                   </div>
                 </div>
 
@@ -290,7 +156,7 @@ export default function CommunityDetailPage() {
 
                 {/* Community Rules */}
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-[#313273] mb-3">COMMUNITY RULES:</h2>
+                  <h2 className="text-lg font-semibold text-black mb-3">COMMUNITY RULES:</h2>
                   <ol className="list-decimal list-inside space-y-2 text-gray-700">
                     <li>Be Respectful: Treat others kindly, no profanities, and offer constructive criticism.</li>
                     <li>This isn&apos;t a place to ask for donations or sell things.</li>
@@ -302,7 +168,7 @@ export default function CommunityDetailPage() {
 
                 {/* Community Benefits */}
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-[#313273] mb-3">THIS COMMUNITY IS FOR YOU IF YOU&apos;RE LOOKING TO:</h2>
+                  <h2 className="text-lg font-semibold text-black mb-3">THIS COMMUNITY IS FOR YOU IF YOU&apos;RE LOOKING TO:</h2>
                   <ul className="list-disc list-inside space-y-2 text-gray-700">
                     <li>Learn about fragrance, cologne, Parfum, EDT, EDP, & perfumes.</li>
                     <li>Build connections with like-minded people</li>
@@ -314,7 +180,7 @@ export default function CommunityDetailPage() {
 
                 {/* Inside Community */}
                 <div className="mb-6">
-                  <h2 className="text-lg font-semibold text-[#313273] mb-3">INSIDE THIS COMMUNITY YOU&apos;LL FIND:</h2>
+                  <h2 className="text-lg font-semibold text-black mb-3">INSIDE THIS COMMUNITY YOU&apos;LL FIND:</h2>
                   <ul className="list-disc list-inside space-y-2 text-gray-700">
                     <li>Access to courses and training.</li>
                     <li>Exclusive Coaching sessions and LIVE events.</li>
@@ -367,22 +233,22 @@ export default function CommunityDetailPage() {
                 <div className="border-t border-gray-200 pt-4 mb-6">
                   <div className="flex justify-between">
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-[#313273]">27.5k</div>
+                      <div className="text-2xl font-bold text-black">27.5k</div>
                       <div className="text-sm text-gray-500">Members</div>
                     </div>
                     <div className="text-center border-l border-r border-gray-200 px-4">
-                      <div className="text-2xl font-bold text-[#313273]">12</div>
+                      <div className="text-2xl font-bold text-black">12</div>
                       <div className="text-sm text-gray-500">Online</div>
                     </div>
                     <div className="text-center">
-                      <div className="text-2xl font-bold text-[#313273]">5</div>
+                      <div className="text-2xl font-bold text-black">5</div>
                       <div className="text-sm text-gray-500">Admins</div>
                     </div>
                   </div>
                 </div>
 
                 {/* Join Button */}
-                <button className="w-full bg-[#313273] hover:bg-[#313273]/90 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-sm">
+                <button className="w-full bg-black hover:bg-black/90 text-white font-bold py-3 px-4 rounded-lg transition-colors shadow-sm">
                   JOIN GROUP
                 </button>
               </div>

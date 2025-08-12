@@ -25,7 +25,7 @@ const leaderboardData: LeaderboardEntry[] = [
 const getRankBadgeColor = (rank: number) => {
   switch (rank) {
     case 1:
-              return "bg-[#313273] text-white";
+              return "bg-black text-white";
     case 2:
       return "bg-gray-400 text-white";
     case 3:

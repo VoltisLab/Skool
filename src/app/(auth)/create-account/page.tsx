@@ -69,6 +69,14 @@ export default function Page() {
     <main className="flex flex-col items-center justify-center min-h-screen px-4 bg-white text-center">
       {/* Logo */}
       <Image src="/logo.svg" alt="logo" height={30} width={30} />
+      
+      {/* <h1 className="text-4xl font-extrabold mb-2">
+        <span className="text-red-500">s</span>
+        <span className="text-black">k</span>
+        <span className="text-blue-500">o</span>
+        <span className="text-green-500">o</span>
+        <span className="text-purple-600">l</span>
+      </h1> */}
 
       {/* Tagline */}
       <p className="text-lg sm:text-xl font-semibold text-gray-700 leading-relaxed mt-3">
@@ -151,11 +159,10 @@ export default function Page() {
       </div>
 
       {/* CTA */}
-      <button
-        onClick={handleCreateCommunity}
-        className="mt-8 cursor-pointer bg-[#313273] hover:bg-[#2a2a5a] text-white font-bold py-3 px-6 rounded shadow-md transition-colors duration-200"
-      >
-        CREATE YOUR COMMUNITY
+      <button onClick={handleCreateCommunity}>
+        <button className="mt-8 cursor-pointer bg-black hover:bg-[#2a2a5a] text-white font-bold py-3 px-6 rounded shadow-md transition-colors duration-200">
+          CREATE YOUR COMMUNITY
+        </button>
       </button>
     </main>
   );

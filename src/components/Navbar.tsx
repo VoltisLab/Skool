@@ -61,7 +61,7 @@ export default function Navbar() {
           {/* Logo + Dropdown */}
           <div className="flex items-center gap-2 relative">
             <div className="text-center">
-              <div className="flex items-center gap-2 font-bold text-blue-900">
+              <div className="flex items-center gap-2 font-bold text-black">
                 <Image src="/logo.svg" alt="logo" height={30} width={30} />
                 <p className="text-sm sm:text-base">VOLTIS LABS</p>
               </div>

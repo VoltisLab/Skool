@@ -127,7 +127,7 @@ const Toggle = ({ value, onChange }: { value: boolean; onChange: () => void }) =
   return (
     <div
       className={`relative w-10 h-5 rounded-full cursor-pointer transition ${
-        value ? 'bg-[#313273]' : 'bg-gray-300'
+        value ? 'bg-black' : 'bg-gray-300'
       }`}
       onClick={onChange}
     >

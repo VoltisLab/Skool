@@ -280,7 +280,7 @@ export default function CommunityTestPage() {
             <h1 className="text-2xl font-bold">
               <span className="text-blue-600">s</span>
               <span className="text-red-500">k</span>
-              <span className="text-[#313273]">o</span>
+              <span className="text-black">o</span>
               <span className="text-green-500">o</span>
               <span className="text-blue-600">l</span>
             </h1>

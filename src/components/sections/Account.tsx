@@ -116,7 +116,7 @@ const Account: React.FC = () => {
               placeholder="Search timezones..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#313273]"
+              className="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
             />
           </div>
           <div>
@@ -125,7 +125,7 @@ const Account: React.FC = () => {
                 <button
                   key={timezone.value}
                   onClick={() => handleTimezoneSelect(timezone)}
-                  className="w-full px-4 py-3 text-sm text-left hover:bg-[#313273] hover:text-white transition-colors flex items-center justify-between"
+                  className="w-full px-4 py-3 text-sm text-left hover:bg-black hover:text-white transition-colors flex items-center justify-between"
                 >
                   <span className="truncate">{timezone.label}</span>
                   {selectedTimezone.value === timezone.value && (
