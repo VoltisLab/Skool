@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { X, ChevronDown, ChevronUp, Plus } from 'lucide-react'
 import { gql, useQuery } from '@apollo/client'
 import { apolloClient } from '@/lib/apollo-client'
@@ -151,7 +151,11 @@ const ModalContent: React.FC<CreateCommunityModalProps> = ({ isOpen, onClose, pl
   const [isGroupNameFocused, setIsGroupNameFocused] = useState(false)
 
   // Get active payment methods (not deleted)
-  const activePaymentMethods = paymentMethodsData?.userPaymentMethods?.filter((pm: PaymentMethod) => !pm.deleted) || []
+const activePaymentMethods = useMemo(() => {
+  return paymentMethodsData?.userPaymentMethods?.filter(
+    (pm: PaymentMethod) => !pm.deleted
+  ) || [];
+}, [paymentMethodsData]);  console.log(cardComplete);
   
   // Set default payment method on load
   useEffect(() => {

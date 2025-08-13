@@ -24,3 +24,36 @@ export const PASSWORD_RESET = gql`
     }
   }
 `;
+
+export const UPDATE_USER_MUTATION = gql`
+  mutation UpdateUser(
+    $bio: String
+    $country: String
+    $dob: Date
+    $firstName: String
+    $gender: GenderEnum
+    $hideFromSearchEngines: Boolean
+    $lastName: String
+    $location: LocationInputType
+    $profilePicture: ProfilePictureInputType
+    $socialLinks: SocialLinkInputType
+  ) {
+    updateUser(
+      bio: $bio
+      country: $country
+      dob: $dob
+      firstName: $firstName
+      gender: $gender
+      hideFromSearchEngines: $hideFromSearchEngines
+      lastName: $lastName
+      profilePicture: $profilePicture
+      socialLinks: $socialLinks
+      location: $location
+    ) {
+      message
+      restToken
+      token
+    }
+  }
+`;
+
