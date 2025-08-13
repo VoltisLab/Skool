@@ -24,9 +24,9 @@ type ProfileState = {
   lastName: string;
   bio: string;
   location: {
-    latitude: string;      // keep as string in UI, cast on send
+    latitude: string;
     locationName: string;
-    longitude: string;     // keep as string in UI, cast on send
+    longitude: string;
   };
   username: string;
   url: string;
@@ -44,33 +44,57 @@ const SOCIAL_ENUM: Record<keyof Socials, string> = {
 
 const isNonEmpty = (v?: string) => typeof v === 'string' && v.trim().length > 0;
 
+/* ==== Types that mirror your mutation variables (no `any`) ==== */
+type SocialAction = 'ADD' | 'REMOVE' | 'UPDATE';
+
+type SocialLinkOp = {
+  social: string;
+  link?: string;
+  action: SocialAction;
+};
+
+type UpdateUserVars = {
+  bio?: string;
+  displayName?: string;
+  dob?: string;
+  firstName?: string;
+  gender?: 'MALE' | 'FEMALE' | 'OTHER';
+  hideFromSearchEngines?: boolean;
+  lastName?: string;
+  otp?: string;
+  // ✅ Location expected as strings
+  location?: {
+    latitude?: string;
+    longitude?: string;
+    locationName?: string;
+  };
+  phoneNumber?: { countryCode: string; number: string };
+  profilePicture?: { profilePictureUrl: string; thumbnailUrl: string };
+  socialLinks?: { links: SocialLinkOp[] };
+  username?: string;
+  // country?: string; // keep only if your schema still needs this
+};
+
 /** Build GraphQL variables that include ONLY changed fields */
-function diffToVars(prev: ProfileState, next: ProfileState) {
-  const vars: Record<string, any> = {};
+function diffToVars(prev: ProfileState, next: ProfileState): Partial<UpdateUserVars> {
+  const vars: Partial<UpdateUserVars> = {};
 
   if (prev.bio !== next.bio) {
     vars.bio = next.bio ?? '';
   }
 
-  // ✅ Update LOCATION (not country)
+  // ✅ Update LOCATION (as strings)
   const locationChanged =
     prev.location.locationName !== next.location.locationName ||
     prev.location.latitude !== next.location.latitude ||
     prev.location.longitude !== next.location.longitude;
 
   if (locationChanged) {
-    // Send as a LocationInput (adjust names if your schema differs)
-    const lat = isNonEmpty(next.location.latitude) ? Number(next.location.latitude) : null;
-    const lng = isNonEmpty(next.location.longitude) ? Number(next.location.longitude) : null;
-
-    // Only include numeric fields if numbers are valid
-    const locationPayload: any = {
-      locationName: next.location.locationName ?? '',
-    };
-    if (!Number.isNaN(lat) && lat !== null) locationPayload.latitude = lat;
-    if (!Number.isNaN(lng) && lng !== null) locationPayload.longitude = lng;
-
-    vars.location = locationPayload;
+    const locOut: NonNullable<UpdateUserVars['location']> = {};
+    if (next.location.locationName !== undefined) locOut.locationName = next.location.locationName ?? '';
+    if (next.location.latitude !== undefined) locOut.latitude = next.location.latitude ?? '';
+    if (next.location.longitude !== undefined) locOut.longitude = next.location.longitude ?? '';
+    vars.location = locOut;
   }
 
   if (prev.firstName !== next.firstName) vars.firstName = next.firstName ?? '';
@@ -79,8 +103,8 @@ function diffToVars(prev: ProfileState, next: ProfileState) {
   // Username disabled due to backend constraint noted earlier
   // if (prev.username !== next.username) vars.username = next.username ?? '';
 
-  // Social links: per-field ADD/REMOVE based on diffs
-  const socialLinksOps: Array<{ social: string; link?: string; action: 'ADD' | 'REMOVE' | 'UPDATE'}> = [];
+  // Social links: ADD / REMOVE / UPDATE
+  const socialLinksOps: SocialLinkOp[] = [];
   (Object.keys(next.socials) as (keyof Socials)[]).forEach((key) => {
     const before = prev.socials[key] || '';
     const after = next.socials[key] || '';
@@ -88,18 +112,16 @@ function diffToVars(prev: ProfileState, next: ProfileState) {
 
     const social = SOCIAL_ENUM[key];
 
-    // Cleared -> REMOVE; Set/Changed -> ADD
-  
-if (!isNonEmpty(before) && isNonEmpty(after)) {
-  // ADD
-  socialLinksOps.push({ social, link: after, action: 'ADD' });
-} else if (isNonEmpty(before) && !isNonEmpty(after)) {
-  // REMOVE
-  socialLinksOps.push({ social, action: 'REMOVE' });
-} else if (isNonEmpty(before) && isNonEmpty(after) && before !== after) {
-  // UPDATE
-  socialLinksOps.push({ social, link: after, action: 'UPDATE' });
-}
+    if (!isNonEmpty(before) && isNonEmpty(after)) {
+      // ADD
+      socialLinksOps.push({ social, link: after, action: 'ADD' });
+    } else if (isNonEmpty(before) && !isNonEmpty(after)) {
+      // REMOVE
+      socialLinksOps.push({ social, action: 'REMOVE' });
+    } else if (isNonEmpty(before) && isNonEmpty(after) && before !== after) {
+      // UPDATE
+      socialLinksOps.push({ social, link: after, action: 'UPDATE' });
+    }
   });
 
   if (socialLinksOps.length) {
@@ -155,7 +177,7 @@ export default function Profile() {
       if (res.success && res.data) {
         const u = res.data;
 
-        // Map server -> UI state (guard with optional chaining)
+        // Map server -> UI state
         const hydratedProfile: ProfileState = {
           firstName: u.firstName || '',
           lastName: u.lastName || '',
@@ -167,7 +189,6 @@ export default function Profile() {
           },
           username: u.username || '',
           url: u.username ? `skool.com/@${u.username}` : '',
-          // TODO: If API returns structured social links, map them here
           socials: {
             website: u.socialLinks.website || '',
             instagram: u.socialLinks.instagram || '',
@@ -211,7 +232,7 @@ export default function Profile() {
     setProfile(prev => ({ ...prev, firstName: newFirstName, lastName: newLastName }));
     // Optional immediate save
     const prev = serverSnapRef.current ?? profile;
-    const next = { ...prev, firstName: newFirstName, lastName: newLastName };
+    const next: ProfileState = { ...prev, firstName: newFirstName, lastName: newLastName };
     const vars = diffToVars(prev, next);
     updateUserProfile(vars).then(res => {
       if (res.success) serverSnapRef.current = next;
@@ -608,23 +629,22 @@ export default function Profile() {
       />
 
       {/* Location Modal */}
-    <LocationPickerModal
-  isOpen={isMapOpen}
-  onClose={() => setIsMapOpen(false)}
-  onSave={(loc) => {
-    setProfile(prev => ({
-      ...prev,
-      location: {
-        ...prev.location,
-        locationName: loc.address,
-        latitude: loc.latitude.toString(),  // convert to string
-        longitude:loc.longitude.toString() // convert to string
-      }
-    }));
-  }}
-  nominatimEmail="you@example.com"
-/>
-
+      <LocationPickerModal
+        isOpen={isMapOpen}
+        onClose={() => setIsMapOpen(false)}
+        onSave={(loc) => {
+          setProfile(prev => ({
+            ...prev,
+            location: {
+              ...prev.location,
+              locationName: loc.address,
+              latitude: loc.latitude.toString(),   // ensure string
+              longitude: loc.longitude.toString(), // ensure string
+            }
+          }));
+        }}
+        nominatimEmail="you@example.com"
+      />
     </div>
   );
 }

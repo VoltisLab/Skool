@@ -2,8 +2,9 @@ import { apolloClient } from "@/lib/apollo-client";
 import { VIEW_ME_QUERY } from "../graphql/query";
 import { UPDATE_USER_MUTATION } from "../graphql/mutations";
 
-// ————— Types —————
-interface Location {
+/* ========== Domain Types (what your app uses) ========== */
+
+export interface Location {
   latitude: string;
   locationName: string;
   longitude: string;
@@ -33,12 +34,12 @@ export interface User {
   lastSeen: string;
   profilePictureUrl: string;
   socialLinks: {
-     website: string;
-  instagram: string;
-  twitter: string;
-  youtube: string;
-  linkedin: string;
-  facebook: string;
+    website: string;
+    instagram: string;
+    twitter: string;  // “X” stored under `twitter` key here
+    youtube: string;
+    linkedin: string;
+    facebook: string;
   };
   thumbnailUrl: string;
   username: string;
@@ -46,15 +47,105 @@ export interface User {
   phone: Phone;
 }
 
-// ————— Helpers to keep lat/lng as strings —————
+/* ========== GraphQL Wire Types (what the API returns/expects) ========== */
+
+/** The server can return strings or numbers for coords, or null/undefined. */
+interface GqlLocationIn {
+  latitude?: string | number | null;
+  longitude?: string | number | null;
+  locationName?: string | null;
+}
+
+interface GqlPhoneIn {
+  completed?: boolean | null;
+  countryCode?: string | null;
+  number?: string | null;
+}
+
+/** Shape of the `viewMe` object coming from your GraphQL API. */
+interface GqlUserIn {
+  bio?: string | null;
+  dateJoined?: string | null;
+  displayName?: string | null;
+  dob?: string | null;
+  email?: string | null;
+  firstName?: string | null;
+  fullName?: string | null;
+  gender?: string | null;
+  hideFromSearchEngines?: boolean | null;
+  id?: string | null;
+  isInstructor?: boolean | null;
+  isVerified?: boolean | null;
+  lastLogin?: string | null;
+  lastName?: string | null;
+  lastSeen?: string | null;
+  profilePictureUrl?: string | null;
+  socialLinks?: {
+    website?: string | null;
+    instagram?: string | null;
+    twitter?: string | null;
+    youtube?: string | null;
+    linkedin?: string | null;
+    facebook?: string | null;
+  } | null;
+  thumbnailUrl?: string | null;
+  username?: string | null;
+  location?: GqlLocationIn | null;
+  phone?: GqlPhoneIn | null;
+}
+
+/** Query and mutation envelope types */
+interface ViewMeQueryResponse {
+  viewMe: GqlUserIn;
+}
+
+type SocialAction = "ADD" | "REMOVE" | "UPDATE";
+
+interface SocialLinkOp {
+  social: string;
+  link?: string;
+  action: SocialAction;
+}
+
+interface UpdateUserMutationVariables {
+  bio?: string;
+  country?: string; // keep if your schema still has it; otherwise remove
+  displayName?: string;
+  dob?: string;
+  firstName?: string;
+  gender?: "MALE" | "FEMALE" | "OTHER";
+  hideFromSearchEngines?: boolean;
+  lastName?: string;
+  otp?: string;
+  // Location is expected as strings per your requirement
+  location?: {
+    latitude?: string;
+    longitude?: string;
+    locationName?: string;
+  };
+  phoneNumber?: { countryCode: string; number: string };
+  profilePicture?: { profilePictureUrl: string; thumbnailUrl: string };
+  socialLinks?: { links: SocialLinkOp[] };
+  username?: string;
+}
+
+interface UpdateUserMutationResponse {
+  updateUser: {
+    message: string;
+    restToken?: string | null;
+    token?: string | null;
+  } | null;
+}
+
+/* ========== Helpers to keep lat/lng as strings ========== */
+
 function toStr(v: unknown): string {
   if (v === null || v === undefined) return "";
   return typeof v === "string" ? v : String(v);
 }
 
-function normalizeLocationIn(user: any): Location {
-  // Coerce server -> UI strings
-  const loc = user?.location ?? {};
+function normalizeLocationIn(u: { location?: GqlLocationIn | null }): Location {
+  const loc = u.location ?? {};
   return {
     latitude: toStr(loc.latitude),
     longitude: toStr(loc.longitude),
@@ -62,25 +153,29 @@ function normalizeLocationIn(user: any): Location {
   };
 }
 
-function normalizeLocationOut(loc?: { latitude?: any; longitude?: any; locationName?: any }) {
+/** Coerce outgoing location to strings (omit if nothing provided). */
+function normalizeLocationOut(
+  loc?: { latitude?: string | number | null; longitude?: string | number | null; locationName?: string | null }
+): UpdateUserMutationVariables["location"] | undefined {
   if (!loc) return undefined;
-  // Only include provided fields, always as strings
-  const out: Record<string, string> = {};
-  if (loc.locationName !== undefined) out.locationName = toStr(loc.locationName);
-  if (loc.latitude !== undefined) out.latitude = toStr(loc.latitude);
-  if (loc.longitude !== undefined) out.longitude = toStr(loc.longitude);
-  return out;
+  const out: UpdateUserMutationVariables["location"] = {};
+  if (loc.locationName !== undefined && loc.locationName !== null) out.locationName = toStr(loc.locationName);
+  if (loc.latitude !== undefined && loc.latitude !== null) out.latitude = toStr(loc.latitude);
+  if (loc.longitude !== undefined && loc.longitude !== null) out.longitude = toStr(loc.longitude);
+  return Object.keys(out).length ? out : undefined;
 }
 
-// ————— Queries —————
+/* ========== Queries ========== */
+
 export async function fetchUser(): Promise<{ success: boolean; data?: User; error?: string }> {
   try {
-    const { data } = await apolloClient.query<{ viewMe: any }>({
+    const { data } = await apolloClient.query<ViewMeQueryResponse>({
       query: VIEW_ME_QUERY,
       fetchPolicy: "no-cache",
     });
 
-    const u = data.viewMe ?? {};
+    const u = data?.viewMe ?? {};
+
     const normalized: User = {
       bio: toStr(u.bio),
       dateJoined: toStr(u.dateJoined),
@@ -101,7 +196,7 @@ export async function fetchUser(): Promise<{ success: boolean; data?: User; erro
       socialLinks: {
         website: toStr(u.socialLinks?.website),
         instagram: toStr(u.socialLinks?.instagram),
-        twitter: toStr(u.socialLinks?.twitter), // X (Twitter)
+        twitter: toStr(u.socialLinks?.twitter), // “X”
         youtube: toStr(u.socialLinks?.youtube),
         linkedin: toStr(u.socialLinks?.linkedin),
         facebook: toStr(u.socialLinks?.facebook),
@@ -110,50 +205,39 @@ export async function fetchUser(): Promise<{ success: boolean; data?: User; erro
       username: toStr(u.username),
       location: normalizeLocationIn(u),
       phone: {
-        completed: Boolean(u?.phone?.completed),
-        countryCode: toStr(u?.phone?.countryCode),
-        number: toStr(u?.phone?.number),
+        completed: Boolean(u.phone?.completed),
+        countryCode: toStr(u.phone?.countryCode),
+        number: toStr(u.phone?.number),
       },
     };
 
     return { success: true, data: normalized };
-  } catch (error: any) {
-    console.error("Error fetching user:", error);
-    return { success: false, error: error.message || "Failed to fetch user" };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Failed to fetch user";
+    console.error("Error fetching user:", err);
+    return { success: false, error: message };
   }
 }
 
-// ————— Mutations —————
-export async function updateUserProfile(variables: {
-  bio?: string;
-  country?: string; // keep if your schema still has it, else remove
-  displayName?: string;
-  dob?: string;
-  firstName?: string;
-  gender?: "MALE" | "FEMALE" | "OTHER";
-  hideFromSearchEngines?: boolean;
-  lastName?: string;
-  otp?: string;
-  location?: { latitude?: string | number; longitude?: string | number; locationName?: string };
-  phoneNumber?: { countryCode: string; number: string };
-  profilePicture?: { profilePictureUrl: string; thumbnailUrl: string };
-  socialLinks?: { links: { social: string; link: string; action: string }[] };
-  username?: string;
-}) {
+/* ========== Mutations ========== */
+
+export async function updateUserProfile(variables: UpdateUserMutationVariables) {
   try {
-    // Deep clone and normalize outgoing location to strings
-    const vars = { ...variables } as typeof variables & { location?: any };
+    // Clone and coerce location fields to strings if present
+    const vars: UpdateUserMutationVariables = { ...variables };
     if (variables.location) {
       vars.location = normalizeLocationOut(variables.location);
     }
 
-    const { data } = await apolloClient.mutate({
+    const { data } = await apolloClient.mutate<UpdateUserMutationResponse, UpdateUserMutationVariables>({
       mutation: UPDATE_USER_MUTATION,
       variables: vars,
     });
-    return { success: true, data: (data as any).updateUser };
-  } catch (error: any) {
-    console.error("Update user failed:", error);
-    return { success: false, error: error.message };
+
+    return { success: true, data: data?.updateUser ?? null };
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Update user failed";
+    console.error("Update user failed:", err);
+    return { success: false, error: message };
   }
 }

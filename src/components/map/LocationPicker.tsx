@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, useMapEvents, useMap } from 'react-leaflet';
 import L, { LatLngLiteral } from 'leaflet';
@@ -109,8 +109,10 @@ export default function LocationPickerModal({
           longitude: `${latlng.lng}`,
           address,
         });
-      } catch (e: any) {
-        setErr(e?.message || 'Failed to resolve address');
+      } catch (e: unknown) {
+        setErr( 'Failed to resolve address');
+        console.log(e);
+        
       } finally {
         setLoading(false);
       }
