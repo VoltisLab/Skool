@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/contexts/AuthContext";
 // import { useAuthModal } from "@/lib/AuthModalContext";
 
 interface Slide {
@@ -18,6 +20,8 @@ const slides: Slide[] = [
 ];
 
 export default function Page() {
+  const router = useRouter();
+  const { isAuthenticated } = useAuth();
   const [current, setCurrent] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   // const { openModal } = useAuthModal();
@@ -63,6 +67,11 @@ export default function Page() {
 
   const handleCreateCommunity = () => {
     // openModal("signup");
+    if (!isAuthenticated) {
+      router.push("/login?next=/pricing");
+    } else {
+      router.push("/pricing");
+    }
   };
 
   return (
@@ -159,10 +168,11 @@ export default function Page() {
       </div>
 
       {/* CTA */}
-      <button onClick={handleCreateCommunity}>
-        <button className="mt-8 cursor-pointer bg-black hover:bg-[#2a2a5a] text-white font-bold py-3 px-6 rounded shadow-md transition-colors duration-200">
-          CREATE YOUR COMMUNITY
-        </button>
+      <button
+        onClick={handleCreateCommunity}
+        className="mt-8 cursor-pointer bg-black hover:bg-[#2a2a5a] text-white font-bold py-3 px-6 rounded shadow-md transition-colors duration-200"
+      >
+        CREATE YOUR COMMUNITY
       </button>
     </main>
   );
