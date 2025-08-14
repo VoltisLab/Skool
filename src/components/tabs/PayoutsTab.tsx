@@ -1,10 +1,11 @@
-import { Settings, ChevronDown } from 'lucide-react';
+import { Settings, ChevronDown, CircleHelp } from 'lucide-react';
 import React, { useState } from 'react';
 
 const PayoutsTab: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState('Select country');
+  const [isInfoModalOpen, setIsInfoModalOpen] = useState(false);
 
   const payoutInfo = {
     accountBalance: 0.00,
@@ -39,9 +40,16 @@ const PayoutsTab: React.FC = () => {
 
   const handleContinue = () => {
     if (selectedCountry !== 'Select country') {
-      // Handle continue logic here
       console.log('Selected country:', selectedCountry);
     }
+  };
+
+  const handleInfoClick = () => {
+    setIsInfoModalOpen(true);
+  };
+
+  const handleCloseInfoModal = () => {
+    setIsInfoModalOpen(false);
   };
 
   return (
@@ -56,7 +64,7 @@ const PayoutsTab: React.FC = () => {
         </button>
       </div>
 
-      <div className=" mb-6">
+      <div className="mb-6">
         <div className="flex items-center gap-10">
           <div className='bg-gray-50 border border-gray-300 w-60 text-center rounded-lg p-6'>
             <div className="text-3xl font-bold text-gray-900 mb-1">
@@ -70,7 +78,9 @@ const PayoutsTab: React.FC = () => {
             </div>
             <div className="text-sm text-gray-500 flex items-center gap-1">
               $0 is pending 
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-circle-question-mark-icon lucide-circle-question-mark w-4 h-4"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+              <button onClick={handleInfoClick} className="hover:bg-gray-100 rounded-full p-1">
+                <CircleHelp className="w-4 h-4" />
+              </button>
             </div>
           </div>
         </div>
@@ -80,18 +90,15 @@ const PayoutsTab: React.FC = () => {
         No payouts yet
       </div>
 
-      {/* Modal Overlay */}
+      {/* Settings Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
-            {/* Modal Header */}
             <div className="p-6 border-b border-gray-200">
               <h2 className="text-lg font-semibold text-gray-900">Add payout method</h2>
             </div>
 
-            {/* Modal Content */}
             <div className="p-6">
-              {/* Payouts go to section */}
               <div className="mb-6">
                 <p className="text-sm text-gray-600 mb-3">Payouts go to the group owner</p>
                 <div className="flex items-center gap-3">
@@ -102,7 +109,6 @@ const PayoutsTab: React.FC = () => {
                 </div>
               </div>
 
-              {/* Country Selection */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   What country is your bank account in?
@@ -118,14 +124,11 @@ const PayoutsTab: React.FC = () => {
                     <ChevronDown className={`w-5 h-5 text-gray-400 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
                   </button>
 
-                  {/* Dropdown */}
                   {isDropdownOpen && (
                     <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
-                      {/* Header */}
                       <div className="px-4 py-2 bg-yellow-100 border-b border-gray-200">
                         <span className="text-sm font-medium text-gray-700">Select country</span>
                       </div>
-                      {/* Countries */}
                       {countries.map((country) => (
                         <button
                           key={country}
@@ -141,7 +144,6 @@ const PayoutsTab: React.FC = () => {
               </div>
             </div>
 
-            {/* Modal Footer */}
             <div className="px-6 py-4 border-t border-gray-200 flex justify-end gap-3">
               <button
                 onClick={handleCancel}
@@ -163,6 +165,51 @@ const PayoutsTab: React.FC = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Info Modal for Pending Explanation */}
+      {isInfoModalOpen && (
+        <div className="fixed inset-0 bg-black/60 bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-md mx-4">
+            <div className="p-6 border-b border-gray-200">
+              <h2 className="text-lg font-semibold text-gray-900">Payouts</h2>
+            </div>
+
+            <div className="p-6">
+              <p className="text-gray-700 mb-4">
+                We pay out your available balance every Wednesday.
+              </p>
+              <p className="text-gray-700">
+                <span className="font-medium">Pending</span> is your balance that hasn&apos;t yet settled. 
+                Transactions take 7-14 days to settle.
+              </p>
+            </div>
+
+            <div className="px-6 py-4 border-t border-gray-200 flex justify-end">
+              <button
+                onClick={handleCloseInfoModal}
+                className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal Overlay Click Handlers */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 z-40"
+          onClick={handleCancel}
+        />
+      )}
+      
+      {isInfoModalOpen && (
+        <div 
+          className="fixed inset-0 z-40"
+          onClick={handleCloseInfoModal}
+        />
       )}
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { HelpCircle, MessageCircle, Hammer, MessageSquare, Video, Zap, Target, PlayCircle, Shield } from 'lucide-react';
+import { HelpCircle, MessageCircle, Hammer, MessageSquare, Video, Zap, Target, PlayCircle, Shield, Link, CheckCircle, Webhook } from 'lucide-react';
 
 const PluginsSection = () => {
   const plugins = [
@@ -66,18 +66,50 @@ const PluginsSection = () => {
       status: 'Off',
       description: 'Retain members by showing them a video on the cancel page.',
       isPro: true
+    },
+    {
+      icon: Target,
+      iconBg: 'bg-yellow-500',
+      title: 'Google ads tracking',
+      status: 'Off',
+      description: 'Run Google/YouTube ads to your about page, retarget visitors, and track signups.',
+      isPro: true
+    },
+    {
+      icon: Link,
+      iconBg: 'bg-yellow-400',
+      title: 'Links',
+      status: 'Off',
+      description: 'Share important resources by adding links to your group info box.',
+      isPro: true
+    },
+    {
+      icon: CheckCircle,
+      iconBg: 'bg-green-500',
+      title: 'Instant membership approval',
+      status: 'Off',
+      description: 'Auto-approve membership requests so members get instant access.',
+      isPro: true
+    },
+    {
+      icon: Webhook,
+      iconBg: 'bg-gray-600',
+      title: 'Webhook',
+      status: 'Off',
+      description: 'Invite members to your group with a simple webhook.',
+      isPro: true
     }
   ];
 
   return (
-    <div className="p-6 bg-white">
-      <h2 className="text-2xl font-semibold text-gray-900 mb-6">Plugins</h2>
+    <div className="px-6 bg-white">
+      <h2 className="text-2xl font-semibold text-gray-900 mb-2">Plugins</h2>
       
-      <div className="space-y-4">
+      <div className="space-y-1 overflow-y-scroll">
         {plugins.map((plugin, index) => {
           const IconComponent = plugin.icon;
           return (
-            <div key={index} className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-50 transition-colors">
+            <div key={index} className="flex items-center space-x-4 py-3 rounded-lgtransition-colors">
               <div className={`w-10 h-10 rounded-lg ${plugin.iconBg} flex items-center justify-center`}>
                 <IconComponent className="w-5 h-5 text-white" />
               </div>
@@ -85,10 +117,10 @@ const PluginsSection = () => {
               <div className="flex-1">
                 <div className="flex items-center space-x-2">
                   <h3 className="font-medium text-gray-900">{plugin.title}</h3>
-                  <span className={`px-2 py-1 text-xs rounded ${
+                  <span className={`p-1 py-2 text-xs rounded-full font-bold ${
                     plugin.status === 'On' 
-                      ? 'bg-green-100 text-green-600' 
-                      : 'bg-gray-100 text-gray-600'
+                      ? ' text-green-600' 
+                      : 'text-gray-600'
                   }`}>
                     ({plugin.status})
                   </span>
@@ -97,9 +129,8 @@ const PluginsSection = () => {
               </div>
               
               {plugin.isPro && (
-                <div className="flex items-center space-x-1 text-gray-400">
-                  <span className="text-xs font-medium">Pro</span>
-                  <Shield className="w-3 h-3" />
+                <div className="p-1 rounded-full  text-gray-400">
+                  <span className="text-xs font-medium p-1 rounded-full border border-gray-400">Pro</span>
                 </div>
               )}
             </div>
