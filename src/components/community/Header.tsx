@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useParams, usePathname } from 'next/navigation';
 import DropdownPanel from '../DropdownPanel';
 import LogoutModal from '../auth/LogoutModal';
+import { useAuth } from '@/lib/contexts/AuthContext';
 
 export default function Header() {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -22,6 +23,7 @@ export default function Header() {
   const community = params.community;  const segments = pathname.split("/").filter(Boolean);
   const currentTab = segments[segments.length - 1] ?? "";
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const {user} = useAuth()
 
   const handleLogout = () => {
     setIsModalOpen(false);
@@ -147,10 +149,10 @@ export default function Header() {
             <DropdownPanel isOpen={isProfileOpen} onClose={() => setIsProfileOpen(false)} align="right" type="profile">
               <div className="space-y-2">
                 <div className="p-4 border-b border-b-gray-200 font-semibold text-base truncate">
-                  kawekwuneemmanuel20...
+                  {user?.email}
                 </div>
                 <ul className="text-base px-4 py-2 space-y-4">
-                  <li className="cursor-pointer hover:underline">Profile</li>
+                  <Link href={"/profile"}><li className="cursor-pointer hover:underline">Profile</li></Link>
                   <li className="cursor-pointer hover:underline">Settings</li>
                   <li className="cursor-pointer hover:underline">Affiliates</li>
                 </ul>

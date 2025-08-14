@@ -1,5 +1,5 @@
 import React from 'react';
-import { HelpCircle, MessageCircle, Hammer, MessageSquare, Video, Zap, Target, PlayCircle, Shield, Link, CheckCircle, Webhook } from 'lucide-react';
+import { HelpCircle, MessageCircle, Hammer, MessageSquare, Video, Zap, Target, PlayCircle, Link, CheckCircle, Webhook } from 'lucide-react';
 
 const PluginsSection = () => {
   const plugins = [

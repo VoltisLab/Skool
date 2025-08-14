@@ -27,6 +27,10 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'prelura.s3.eu-west-2.amazonaws.com',
+      },
     ],
   },
 

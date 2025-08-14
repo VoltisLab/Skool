@@ -4,6 +4,7 @@ import { timezones } from '@/lib/data';
 import ChangePasswordModal from '../modals/ChangePasswordModal';
 import UpdateEmailModal from '../modals/UpdateEmailModal';
 import LogoutModal from '../auth/LogoutModal';
+import { useAuth } from '@/lib/contexts/AuthContext';
 
 // Mock timezone data
 
@@ -17,7 +18,7 @@ const Account: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
     const [isEmailOpen, setEmailIsOpen] = useState(false);
     const [isLogout, setIsLogOut] = useState(false)
-
+  const {user} = useAuth()
 
   // Filter timezones based on search term
   const filteredTimezones = timezones.filter(tz =>
@@ -64,7 +65,7 @@ const Account: React.FC = () => {
     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
         <h2 className="text-base font-bold text-gray-900 mb-1">Email</h2>
-        <p className="text-sm text-gray-900 break-all">kawekwuneemmanuel2001@gmail.com</p>
+        <p className="text-sm text-gray-900 break-all">{user?.email}</p>
       </div>
       <button
         onClick={() => setEmailIsOpen(true)}

@@ -56,4 +56,12 @@ export const UPDATE_USER_MUTATION = gql`
     }
   }
 `;
-
+export const UPLOAD_FILE_MUTATION = gql`
+  mutation UploadFile($files: [Upload]!, $filetype: FileTypeEnum!) {
+    upload(files: $files, filetype: $filetype) {
+      baseUrl
+      data
+      success
+    }
+  }
+`;
