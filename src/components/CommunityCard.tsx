@@ -2,15 +2,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 interface Community {
-  id: number;
-  rank: number;
-  name: string;
-  description: string;
-  members: string;
-  price: string;
-  category: string;
-  image: string;
-  avatar: string;
+  id: number | string;            // API may return string IDs
+  rank: number;                   // computed in the list mapper
+  name: string | null | undefined;
+  description: string | null | undefined;
+  members: string | null | undefined;   // e.g. "8k Members" (preformatted)
+  price: string | null | undefined;     // e.g. "Free" | "Paid" | "$xx"
+  category: string | null | undefined;
+  image?: string | null;          // cover (may be null from API)
+  avatar?: string | null;         // not rendered here, but kept for parity
 }
 
 interface CommunityCardProps {
@@ -19,6 +19,14 @@ interface CommunityCardProps {
 }
 
 export default function CommunityCard({ community, onClick }: CommunityCardProps) {
+  // Fallbacks so API nulls don't break rendering (no style changes)
+  const name = community.name ?? '';
+  const description = community.description ?? '';
+  const members = community.members ?? '0 Members';
+  const price = community.price ?? 'Free';
+  const category = community.category ?? 'General';
+  const imageSrc = community.image || '/empty-banner.png'; // keep as string for <Image />
+
   // Compute a pseudo progress based on rank (rank 1 shows a full bar)
   const progressPercent = Math.max(0, Math.min(100, 100 - (community.rank - 1)));
 
@@ -30,11 +38,13 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
       {/* Image + Rank Badge */}
       <div className="relative w-full h-48">
         <Image
-          src={community.image}
-          alt={community.name}
+          src={imageSrc}
+          alt={name}
           fill
           priority
           className="object-fit h-full group-hover:scale-105 transition-transform duration-500"
+          // Optional: prevent Next.js domain errors if the host isn't whitelisted
+          unoptimized={/^https?:\/\//i.test(imageSrc)}
         />
         {/* <span className="absolute top-3 left-3 px-3 py-1 text-xs font-bold rounded-full shadow-lg backdrop-blur-sm bg-black/60 text-white">
           #{community.rank}
@@ -47,26 +57,28 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
         {/* Category & Price */}
         <div className="flex items-center justify-between">
           <span className="text-xs font-bold text-black uppercase tracking-widest bg-[#eceaff] px-3 py-1 rounded-full shadow-sm">
-            {community.category}
+             {category
+    .replace(/_/g, " ")
+    .replace(/\w\S*/g, (w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())}
           </span>
           <span className="text-[10px] px-2 py-0.5 rounded bg-gray-100 text-gray-700 font-semibold">
-            {community.price}
+            {price}
           </span>
         </div>
 
         {/* Name & Description */}
         <h3 className="text-xl font-extrabold text-gray-900 line-clamp-1">
-          {community.name}
+          {name}
         </h3>
         <p className="text-xs text-gray-600 font-medium line-clamp-2 ">
-          {community.description}
+          {description}
         </p>
 
         {/* Members & Progress */}
         <div className="flex items-center justify-between mt-1">
           <span className="text-[11px] text-gray-500 font-medium">Members</span>
           <span className="font-semibold text-black text-xs">
-            {community.members}
+            {members}
           </span>
         </div>
         <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -76,7 +88,7 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
           />
         </div>
 
-        {/* Action Buttons - Edit & Delete */}
+        {/* Action Buttons - Edit & Delete (kept commented) */}
         {/* <div className="flex gap-2 mt-2">
           <Link href="#" className="flex-1">
             <button
