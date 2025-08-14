@@ -49,11 +49,7 @@ export default function Navbar() {
     }
   }
 
-  const handleLogout = () => {
-    logout()
-    setIsDropdownOpen(false)
-  };
-
+  
   return (
     <>
       <header className="bg-white border-b border-gray-200 px-4 sm:px-6 py-2 sticky top-0 z-50">
@@ -118,27 +114,6 @@ export default function Navbar() {
                   </div>
                 </Link>
 
-                {/* User info and logout if authenticated */}
-                {isAuthenticated && user && (
-                  <>
-                    <div className="border-t border-gray-200 my-2"></div>
-                    <div className="px-1 py-1">
-                      <div className="text-xs text-gray-500 mb-1">Signed in as</div>
-                      <div className="text-sm font-medium text-gray-900">{user.email}</div>
-                    </div>
-                    <button 
-                      onClick={handleLogout}
-                      className="w-full text-left flex items-center gap-3 cursor-pointer hover:bg-gray-200 p-1 rounded-lg transition-colors mt-2"
-                    >
-                      <div className="w-6 h-6 bg-red-100 rounded flex items-center justify-center">
-                        <svg className="h-4 w-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                        </svg>
-                      </div>
-                      <span className="text-xs font-medium text-red-600">Sign out</span>
-                    </button>
-                  </>
-                )}
               </div>
             )}
           </div>

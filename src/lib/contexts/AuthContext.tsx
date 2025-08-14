@@ -153,8 +153,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setIsAuthenticated(false)
         }
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.error('Auth initialization error:', error)
+        console.log(error)
         setUser(null)
         setIsAuthenticated(false)
       } finally {
@@ -206,7 +205,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       let message = 'An unexpected error occurred'
       if (err instanceof Error) message = err.message
       else if (typeof err === 'string') message = err
-      // eslint-disable-next-line no-console
       console.error('Login error:', message)
       return { success: false, errors: toAuthErrors(message) }
     }
@@ -229,7 +227,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       }
       return { success: false, errors: toAuthErrors(response?.errors, 'Registration failed') }
     } catch (error: unknown) {
-      // eslint-disable-next-line no-console
       console.error('Registration error:', error)
       return { success: false, errors: toAuthErrors('An unexpected error occurred') }
     }
@@ -252,7 +249,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       // Implement actual refresh mutation here if available
       return false
     } catch (error: unknown) {
-      // eslint-disable-next-line no-console
       console.error('Token refresh error:', error)
       return false
     }

@@ -26,7 +26,9 @@ const AuthPage: React.FC = () => {
 
       if (result.success) {
         setMessage({ success: "Login successful! Redirecting...", error: "" });
-        router.push("/dashboard");
+        const url = new URL(window.location.href);
+        const next = url.searchParams.get("next") || "/dashboard";
+        router.push(next);
       } else {
         console.error("Login failed:", result.errors);
         setMessage({
@@ -41,7 +43,9 @@ const AuthPage: React.FC = () => {
 
   useEffect(() => {
     if (isAuthenticated && !loading) {
-      router.push("/dashboard");
+      const url = new URL(window.location.href);
+      const next = url.searchParams.get("next") || "/dashboard";
+      router.push(next);
     }
   }, [isAuthenticated, loading, router]);
 
