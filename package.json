@@ -13,7 +13,6 @@
     "@stripe/react-stripe-js": "^3.9.0",
     "@stripe/stripe-js": "^7.8.0",
     "@tailwindcss/postcss": "^4.1.11",
-    "@types/apollo-upload-client": "^18.0.0",
     "@types/leaflet": "^1.9.20",
     "apollo-upload-client": "^18.0.1",
     "clsx": "^2.1.1",
@@ -35,6 +34,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@eslint/eslintrc": "^3",
+    "@types/apollo-upload-client": "^18.0.0",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^20",
     "@types/react": "^19",

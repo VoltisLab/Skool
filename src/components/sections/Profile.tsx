@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import ChangeNameModal from '../modals/ChangeNameModal';
 import { fetchUser, updateUserProfile } from '@/lib/contexts/UseUserContext';
 import dynamic from 'next/dynamic';
+import { uploadFile } from '@/lib/contexts/UploadContext'; // upload helper
 
 // Load the modal without SSR because Leaflet needs the browser
 const LocationPickerModal = dynamic(() => import('../map/LocationPicker'), { ssr: false });
@@ -31,6 +32,9 @@ type ProfileState = {
   username: string;
   url: string;
   socials: Socials;
+  // add picture fields so UI can reflect upload immediately
+  profilePictureUrl: string;
+  thumbnailUrl: string;
 };
 
 const SOCIAL_ENUM: Record<keyof Socials, string> = {
@@ -62,7 +66,7 @@ type UpdateUserVars = {
   hideFromSearchEngines?: boolean;
   lastName?: string;
   otp?: string;
-  // ✅ Location expected as strings
+  // Location expected as strings
   location?: {
     latitude?: string;
     longitude?: string;
@@ -72,7 +76,6 @@ type UpdateUserVars = {
   profilePicture?: { profilePictureUrl: string; thumbnailUrl: string };
   socialLinks?: { links: SocialLinkOp[] };
   username?: string;
-  // country?: string; // keep only if your schema still needs this
 };
 
 /** Build GraphQL variables that include ONLY changed fields */
@@ -83,7 +86,7 @@ function diffToVars(prev: ProfileState, next: ProfileState): Partial<UpdateUserV
     vars.bio = next.bio ?? '';
   }
 
-  // ✅ Update LOCATION (as strings)
+  // Update LOCATION (as strings)
   const locationChanged =
     prev.location.locationName !== next.location.locationName ||
     prev.location.latitude !== next.location.latitude ||
@@ -99,9 +102,6 @@ function diffToVars(prev: ProfileState, next: ProfileState): Partial<UpdateUserV
 
   if (prev.firstName !== next.firstName) vars.firstName = next.firstName ?? '';
   if (prev.lastName !== next.lastName) vars.lastName = next.lastName ?? '';
-
-  // Username disabled due to backend constraint noted earlier
-  // if (prev.username !== next.username) vars.username = next.username ?? '';
 
   // Social links: ADD / REMOVE / UPDATE
   const socialLinksOps: SocialLinkOp[] = [];
@@ -134,8 +134,12 @@ function diffToVars(prev: ProfileState, next: ProfileState): Partial<UpdateUserV
 export default function Profile() {
   const [isNameModalOpen, setIsNameModalOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [imgVersion, setImgVersion] = useState(0); // cache-buster for the image
 
-  // ✅ single state for all profile values
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  // single state for all profile values
   const [profile, setProfile] = useState<ProfileState>({
     firstName: '',
     lastName: '',
@@ -155,6 +159,8 @@ export default function Profile() {
       linkedin: '',
       facebook: '',
     },
+    profilePictureUrl: '',
+    thumbnailUrl: '',
   });
 
   // UI-only states
@@ -197,6 +203,8 @@ export default function Profile() {
             linkedin: u.socialLinks.linkedin || '',
             facebook: u.socialLinks.facebook || '',
           },
+          profilePictureUrl: u.profilePictureUrl || '/head2.jpg', // fallback
+          thumbnailUrl: u.thumbnailUrl || u.profilePictureUrl || '/head2.jpg',
         };
 
         setProfile(hydratedProfile);
@@ -206,7 +214,7 @@ export default function Profile() {
     })();
   }, []);
 
-  // 🔁 Debounced auto-save that ONLY sends changed fields
+  // Debounced auto-save that ONLY sends changed fields
   useEffect(() => {
     if (!hydrated.current || !serverSnapRef.current) return;
 
@@ -243,7 +251,66 @@ export default function Profile() {
     setExpandedSections(prev => ({ ...prev, [section]: !prev[section] }));
   };
 
-  /* ======================= UI (unchanged), with proper nested location updates ======================= */
+  /* ================== PROFILE PICTURE UPLOAD ================== */
+
+  const openFilePicker = () => fileInputRef.current?.click();
+
+const onFileSelected: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  console.log("file", file)
+
+  try {
+    setUploading(true);
+
+    // 1) Upload (now normalizes extension and parses API array)
+    const res = await uploadFile(file, "PROFILE_PICTURE");
+   
+    // if (!res.success || !res.url) {
+    //   throw new Error(res.message || "Upload failed");
+    // }
+
+    // const fullUrl = res.url;
+    const fullUrl =  res ?? "";
+
+    // 2) Persist to user profile via mutation
+    const save = await updateUserProfile({
+      profilePicture: { profilePictureUrl: fullUrl, thumbnailUrl: fullUrl },
+    });
+
+    if (!save.success) {
+      throw new Error(save.error || "Failed to update profile picture");
+    }
+
+    // 3) Reflect immediately in UI + cache-bust
+    setProfile(prev => ({
+      ...prev,
+      profilePictureUrl: fullUrl,
+      thumbnailUrl: fullUrl,
+    }));
+    setImgVersion(v => v + 1);
+
+    if (serverSnapRef.current) {
+      serverSnapRef.current = {
+        ...serverSnapRef.current,
+        profilePictureUrl: fullUrl,
+        thumbnailUrl: fullUrl,
+      };
+    }
+  } catch (err) {
+    console.error(err);
+    // optional: toast error message
+  } finally {
+    setUploading(false);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+};
+
+
+  /* ======================= UI ======================= */
+
+  const displayedSrc =
+    (profile.profilePictureUrl ? `${profile.profilePictureUrl}?v=${imgVersion}` : '') || '/head2.jpg';
 
   return (
     <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -253,14 +320,33 @@ export default function Profile() {
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-8">
         <div className="relative w-20 h-20 flex-shrink-0">
           <Image
-            src="/head.jpg"
+            src={displayedSrc}
             alt="Profile"
             fill
             className="rounded-full object-cover"
           />
+          {uploading && (
+            <div className="absolute inset-0 rounded-full bg-black/50 flex items-center justify-center text-white text-xs">
+              Uploading…
+            </div>
+          )}
         </div>
-        <button className="text-blue-600 text-sm font-bold hover:text-blue-700 transition-colors">
-          Change profile photo
+
+        {/* Hidden input for image file */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={onFileSelected}
+        />
+
+        <button
+          onClick={openFilePicker}
+          disabled={uploading}
+          className="text-blue-600 text-sm font-bold hover:text-blue-700 transition-colors disabled:opacity-60"
+        >
+          {uploading ? 'Uploading…' : 'Change profile photo'}
         </button>
       </div>
 
@@ -354,7 +440,7 @@ export default function Profile() {
                 ...prev,
                 location: {
                   ...prev.location,
-                  locationName: e.target.value, // ✅ only update name
+                  locationName: e.target.value, // only update name
                 },
               }))
             }
@@ -527,7 +613,7 @@ export default function Profile() {
       {/* Membership Visibility Section */}
       <div className="mb-4">
         <div
-          className="flex items-center mb-4 gap-2 transition-colors"
+          className="flex items-center mb-4 gap-2 transition-colors cursor-pointer"
           onClick={() => toggleSection('membershipVisibility')}
         >
           <span className="font-medium text-gray-900 text-sm">Membership visibility</span>
@@ -543,7 +629,7 @@ export default function Profile() {
             <p className="text-sm text-gray-600 mb-4">Control what groups show on your profile.</p>
 
             <div className="space-y-4">
-              {/* (unchanged mock content) */}
+              {/* mock content */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-black rounded flex items-center justify-center">

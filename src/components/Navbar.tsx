@@ -20,6 +20,9 @@ export default function Navbar() {
   const { isAuthenticated, user, logout } = useAuth()
   const router = useRouter()
 
+  console.log("user", user);
+  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);
