@@ -12,6 +12,9 @@ import PostCard from "@/components/community/PostCard"
 import CommunityInfo from "@/components/community/CommunityInfo"
 import Leaderboard, { defaultLeaderboardEntries } from "@/components/community/Leaderboard"
 import Pagination from "@/components/community/Pagination"
+import { useModal } from "@/hooks/useModal"
+import { CommunitySettings } from "@/lib/types"
+import CommunityModal from "../modals/CommunitySettingsModal"
 
 // Sample posts data
 const samplePosts = [
@@ -141,6 +144,21 @@ export default function CommunityPage() {
   const [activeTab, setActiveTab] = useState("all")
   const [currentPage, setCurrentPage] = useState(1)
   const [welcomeItems, setWelcomeItems] = useState(defaultWelcomeItems)
+  const { isOpen, openModal, closeModal } = useModal();
+
+  const communityData: CommunitySettings = {
+    name: 'NewCommunity',
+    description: '',
+    url: 'newcommuity-3735',
+    isPrivate: true,
+    supportEmail: 'josephmiracle119@gmail.com',
+  };
+
+  const handleSave = (data: CommunitySettings) => {
+    console.log('Saving community data:', data);
+    // Handle save logic here
+    closeModal();
+  };
   
   // Event handlers
   const handlePostSubmit = (content: string) => {
@@ -169,8 +187,7 @@ export default function CommunityPage() {
   }
 
   const handleInvitePeople = () => {
-    console.log("Invite people clicked")
-    alert("Invite people functionality triggered!")
+    openModal()
   }
 
   const handleViewAllLeaderboards = () => {
@@ -287,6 +304,12 @@ export default function CommunityPage() {
           </div>
         </div>
       </main>
+      <CommunityModal
+        isOpen={isOpen}
+        onClose={closeModal}
+        communityData={communityData}
+        onSave={handleSave}
+      />
     </div>
   )
 } 

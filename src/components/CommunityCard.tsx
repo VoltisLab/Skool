@@ -36,9 +36,9 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
           priority
           className="object-fit h-full group-hover:scale-105 transition-transform duration-500"
         />
-        <span className="absolute top-3 left-3 px-3 py-1 text-xs font-bold rounded-full shadow-lg backdrop-blur-sm bg-black/60 text-white">
+        {/* <span className="absolute top-3 left-3 px-3 py-1 text-xs font-bold rounded-full shadow-lg backdrop-blur-sm bg-black/60 text-white">
           #{community.rank}
-        </span>
+        </span> */}
         <div className="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-[#23253a88] to-transparent pointer-events-none" />
       </div>
 
@@ -77,7 +77,7 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
         </div>
 
         {/* Action Buttons - Edit & Delete */}
-        <div className="flex gap-2 mt-2">
+        {/* <div className="flex gap-2 mt-2">
           <Link href="#" className="flex-1">
             <button
               className="w-full py-2 rounded-xl bg-black text-white font-bold shadow-md hover:bg-black/70 transition-all text-sm"
@@ -92,7 +92,7 @@ export default function CommunityCard({ community, onClick }: CommunityCardProps
           >
             Delete
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
