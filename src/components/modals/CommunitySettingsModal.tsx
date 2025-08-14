@@ -14,12 +14,12 @@ interface CommunityModalProps {
   isOpen: boolean;
   onClose: () => void;
   communityData: CommunitySettings;
-  onSave: (data: CommunitySettings) => void;
+  onSave?: (data: CommunitySettings) => void;
 }
 
 type TabType = 'Dashboard' | 'Invite' | 'General' | 'Payouts' | 'Pricing' | 'Affiliates' | 'Plugins' | 'Tabs' | 'Categories' | 'Rules' | 'Discovery' | 'Metrics' | 'Billing';
 
-const CommunityModal: React.FC<CommunityModalProps> = ({ isOpen, onClose, communityData, onSave }) => {
+const CommunityModal: React.FC<CommunityModalProps> = ({ isOpen, onClose, communityData }) => {
   const [activeTab, setActiveTab] = useState<TabType>('Dashboard');
   const [settings, setSettings] = useState<CommunitySettings>(communityData);
 

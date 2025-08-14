@@ -79,16 +79,13 @@ export default function ProfilePage() {
     },
   });
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const mountedRef = useRef(true);
 
   useEffect(() => {
     mountedRef.current = true;
 
     (async () => {
-      setLoading(true);
-      setError(null);
+      // setError(null);
 
       const res = await fetchUser();
 
@@ -118,10 +115,9 @@ export default function ProfilePage() {
           },
         });
       } else {
-        setError(res.error ?? 'Failed to load user');
+        console.log(res.error ?? 'Failed to load user');
       }
 
-      setLoading(false);
     })();
 
     return () => {

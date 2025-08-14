@@ -66,15 +66,9 @@ export const uploadFile = async (
       console.error("File upload failed");
       return null;
     }
-  } catch (err: any) {
-    if (
-      err.name === "AbortError" ||
-      (err instanceof ApolloError && err.message.includes("signal is aborted"))
-    ) {
-      throw new Error("UPLOAD_CANCELLED");
-    }
-    console.error("Upload error:", err);
-    console.error(err instanceof Error ? err.message : "Unexpected upload error");
-    return null;
+  } catch (err: unknown) {
+    
+  console.log(err)
+  return null
   }
 };

@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 interface Community {
   id: number | string;            // API may return string IDs
