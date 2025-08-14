@@ -108,12 +108,12 @@ export default function PostCard({
         <div className="mb-4">
           {media.type === 'image' && (
             // Wrap image in a relative container and let it fill naturally
-            <div className="relative w-full h-32 rounded-lg overflow-hidden">
+            <div className="relative w-full h-32 rounded-lg overflow-hidden justify-end">
               <Image
                 src={media.url}
                 alt={media.alt}
                 fill
-                className="object-cover"
+                className="object-contain"
               />
             </div>
           )}

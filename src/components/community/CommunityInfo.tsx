@@ -117,12 +117,21 @@ export default function CommunityInfo({
         </div>
 
         {/* Invite Button */}
-        {onInvite && (
+        {/* {onInvite && (
           <button
             onClick={onInvite}
             className="w-full py-2 px-4 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
           >
             Invite Friends
+          </button>
+        )} */}
+
+        {onInvite && (
+          <button
+            onClick={onInvite}
+            className="w-full py-2 px-4 border border-gray-400 text-gray-400 font-medium rounded-lg transition-colors"
+          >
+            Settings
           </button>
         )}
       </div>
