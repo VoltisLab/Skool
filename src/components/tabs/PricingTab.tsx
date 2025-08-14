@@ -1,3 +1,4 @@
+import { Tag } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface PricingTier {
@@ -32,7 +33,7 @@ const PricingTab: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="px-6">
       <div className="mb-6">
         <h1 className="text-xl font-semibold mb-2">Pricing</h1>
         <p className="text-gray-600">
@@ -45,32 +46,34 @@ const PricingTab: React.FC = () => {
 
       <div className="space-y-4">
         {pricingTiers.map((tier) => (
-          <div key={tier.id} className="border border-gray-200 rounded-lg p-4">
+          <div key={tier.id} className=" bg-gray-50  rounded-lg p-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="text-lg">🏷️</div>
+                <div className='font-bold flex items-center gap-3'>
+                  <Tag /> {tier.name}
+                </div>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <span className="font-medium">{tier.name}</span>
-                    <span className="text-sm text-gray-500">{tier.memberCount} member</span>
+                  <div className="flex items-center gap-10">
+                    <span className="text-sm text-blue-600">{tier.memberCount} member</span>
                     {tier.isCurrent && (
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded">
+                      <span className="px-2 py-1 bg-green-700 text-white text-xs font-bold rounded">
                         Current price
                       </span>
                     )}
                   </div>
                 </div>
               </div>
-              <button className="p-2 hover:bg-gray-100 rounded">
-                <div className="text-gray-400">⋯</div>
+              <button className="p-2 hover:bg-gray-100 rounded-lg">
+                <div className="text-gray-400 font-bold ">⋯</div>
               </button>
             </div>
           </div>
         ))}
 
-        <button
+        <div className='flex flex-row items-center gap-5'>
+          <button
           onClick={handleAddPrice}
-          className="w-full border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-gray-400 transition-colors"
+          className=" bg-[#f8d481] font-bold rounded-lg p-2 text-center hover:border-gray-400 transition-colors"
         >
           <div className="flex items-center justify-center gap-2 text-gray-600">
             <span className="text-lg">+</span>
@@ -78,21 +81,24 @@ const PricingTab: React.FC = () => {
           </div>
         </button>
 
-        <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
-          <span className="font-medium">Give members a 7-day free trial</span>
+        <div className="flex items-center justify-between gap-5 ">
           <button
             onClick={handleToggleFreeTrial}
-            className={`w-12 h-6 rounded-full transition-colors ${
-              freeTrialEnabled ? 'bg-blue-600' : 'bg-gray-300'
+            className={`w-12 h-5 items-center rounded-full transition-colors ${
+              freeTrialEnabled ? 'bg-green-600' : 'bg-gray-300'
             }`}
           >
             <div
-              className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${
-                freeTrialEnabled ? 'translate-x-6' : 'translate-x-1'
+              className={`w-5 h-5 rounded-full shadow transform transition-transform ${
+                freeTrialEnabled ? 'translate-x-6 bg-white ' : 'translate-x-1 bg-gray-500'
               }`}
             />
           </button>
+          <p className="font-medium">Give members a 7-day free trial</p>
         </div>
+
+        </div>
+
       </div>
     </div>
   );

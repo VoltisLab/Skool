@@ -40,7 +40,7 @@ const InviteTab: React.FC<InviteTabProps> = ({ communityUrl }) => {
     <div className="p-6">
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">Share your group link</h2>
-        <p className="text-gray-600 mb-4">
+        <p className="text-gray-600 mb-4 text-sm">
           This will take people to your group&apos;s About page where they can purchase or request membership.
         </p>
         
@@ -49,11 +49,11 @@ const InviteTab: React.FC<InviteTabProps> = ({ communityUrl }) => {
             type="text"
             value={shareUrl}
             readOnly
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-blue-600"
+            className="flex-1 font-bold px-4 py-2 border border-gray-300 rounded text-blue-700"
           />
           <button
             onClick={handleCopy}
-            className="px-6 py-2 bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-medium rounded-lg transition-colors flex items-center gap-2"
+            className="px-6 py-2 bg-[#f8d481] hover:bg-yellow-200 text-gray-900 font-medium rounded transition-colors flex items-center gap-2"
           >
             <Copy className="w-4 h-4" />
             {copySuccess ? 'COPIED!' : 'COPY'}
@@ -61,8 +61,8 @@ const InviteTab: React.FC<InviteTabProps> = ({ communityUrl }) => {
         </div>
       </div>
 
-      <div className="mb-8">
-        <p className="text-gray-600 mb-4">
+      <div className="mb-8 mt-10">
+        <p className="text-gray-600 mb-4 text-sm">
           These invite methods will grant instant access without purchasing or requesting membership.
         </p>
         
@@ -72,24 +72,24 @@ const InviteTab: React.FC<InviteTabProps> = ({ communityUrl }) => {
             placeholder="Email address"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
           <button
             onClick={handleSendInvite}
             disabled={!email}
-            className="px-6 py-2 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 text-gray-700 font-medium rounded-lg transition-colors"
+            className="px-6 py-2 bg-gray-200 hover:bg-gray-300 disabled:bg-gray-100 text-gray-800 font-bold rounded transition-colors"
           >
             SEND
           </button>
         </div>
         
         <p className="text-sm text-gray-500 mb-6">
-          This member will have access to <span className="text-blue-600">(0/0 courses)</span>.
+          This member will have access to <span className="text-blue-700">(0/0 courses)</span>.
         </p>
       </div>
 
       <div className="space-y-4">
-        <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+        <div className="flex items-center gap-5">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
               <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
@@ -103,13 +103,13 @@ const InviteTab: React.FC<InviteTabProps> = ({ communityUrl }) => {
           </div>
           <button
             onClick={handleImportCSV}
-            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg transition-colors"
+            className="px-4 py-2 border-gray-300 border hover:bg-gray-100 text-gray-700 font-medium rounded-lg transition-colors"
           >
             IMPORT
           </button>
         </div>
 
-        <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+        <div className="flex items-center gap-5">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
               <div className="text-white font-bold text-lg">⚡</div>
@@ -121,7 +121,7 @@ const InviteTab: React.FC<InviteTabProps> = ({ communityUrl }) => {
           </div>
           <button
             onClick={handleZapierIntegration}
-            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-lg transition-colors"
+            className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-200 text-gray-500 font-medium transition-colors"
           >
             INTEGRATE
           </button>
