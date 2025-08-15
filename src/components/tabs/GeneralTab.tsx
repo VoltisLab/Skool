@@ -192,35 +192,44 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
               </div>
             </div>
 
-            {/* Group Name */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Group name
-              </label>
+            {/* Group Name - Floating Label */}
+            <div className="mb-4 relative">
               <input
                 type="text"
                 value={localSettings.name}
                 onChange={(e) => handleChange('name', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+                className="w-full px-3 py-3 pt-6 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 peer"
                 maxLength={30}
+                placeholder=" "
               />
+              <label className={`absolute left-3 transition-all duration-200 pointer-events-none ${
+                localSettings.name || 'peer-focus:text-xs peer-focus:-top-2 peer-focus:left-2 peer-focus:text-gray-600 peer-focus:bg-white peer-focus:px-2 text-gray-500 top-3'
+              } ${
+                localSettings.name ? 'text-xs -top-2 left-2 text-gray-600 bg-white px-2' : ''
+              }`}>
+                Group name
+              </label>
               <div className="text-right text-xs text-gray-500 mt-1">
                 {localSettings.name.length} / 30
               </div>
             </div>
 
-            {/* Group Description */}
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Group description
-              </label>
+            {/* Group Description - Floating Label */}
+            <div className="mb-6 relative">
               <input
                 type="text"
                 value={localSettings.description}
                 onChange={(e) => handleChange('description', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 resize-none"
-                placeholder=""
+                className="w-full px-3 py-3 pt-6 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 peer"
+                placeholder=" "
               />
+              <label className={`absolute left-3 transition-all duration-200 pointer-events-none ${
+                localSettings.description || 'peer-focus:text-xs peer-focus:-top-2 peer-focus:left-2 peer-focus:text-gray-600 peer-focus:bg-white peer-focus:px-2 text-gray-500 top-3'
+              } ${
+                localSettings.description ? 'text-xs -top-2 left-2 text-gray-600 bg-white px-2' : ''
+              }`}>
+                Group description
+              </label>
               <div className="text-right text-xs text-gray-500 mt-1">
                 {localSettings.description.length} / 150
               </div>
@@ -299,9 +308,9 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
             </div>
 
             {/* Support Email */}
-            <div className="text-sm text-gray-700">
-              <span className="font-medium">Support email: </span>
-              <span className="text-blue-600">{localSettings.supportEmail}</span>
+            <div className="text-sm text-gray-900">
+              <span className="font-bold">Support email: </span>
+              <span className="font-bold">{localSettings.supportEmail}</span>
               <button
                 onClick={() => {
                   setTempSupportEmail(localSettings.supportEmail);
@@ -352,8 +361,6 @@ const GeneralTab: React.FC<GeneralTabProps> = ({
           </div>
         </div>
       )}
-
-
 
       {/* Upgrade Modal */}
       {showUpgradeModal && (
