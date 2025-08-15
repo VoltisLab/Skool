@@ -9,6 +9,9 @@ import PricingTab from '../tabs/PricingTab';
 import AffiliatesSection from '../tabs/AffiliatesTab';
 import PluginsSection from '../tabs/PluginsTab';
 import TabsSection from '../tabs/TabsTab';
+import CategoriesSection from '../tabs/CategoriesTab';
+import RulesSection from '../tabs/RulesTab';
+import DiscoverySection from '../tabs/DiscoveryTab';
 
 interface CommunityModalProps {
   isOpen: boolean;
@@ -49,7 +52,11 @@ const CommunityModal: React.FC<CommunityModalProps> = ({ isOpen, onClose, commun
       case 'Tabs':
         return <TabsSection />;
       case 'Categories':
-        return <TabsSection />;
+        return <CategoriesSection />;
+      case 'Rules':
+        return <RulesSection />;
+      case 'Discovery':
+        return <DiscoverySection />;
       default:
         return (
           <div className="p-6 text-gray-500">

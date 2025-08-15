@@ -25,7 +25,7 @@ const DiscoverySection = () => {
   ];
 
   return (
-    <div className="p-6 bg-white">
+    <div className="px-6 bg-white">
       <h2 className="text-2xl font-semibold text-gray-900 mb-2">Discovery</h2>
       <p className="text-gray-600 mb-6">Get discovered by millions of active users.</p>
       
